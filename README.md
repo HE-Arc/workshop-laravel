@@ -102,9 +102,14 @@ MYSQL_PASSWORD=secret
 NGINX_HOST_HTTP_PORT=8000
 ```
 
-Démarrez les containers Docker utile au projet (cela peut prendre quelques minutes la première fois, c'est normal) :
+Démarrez les containers Docker utile au projet (cela peut prendre quelques minutes la première fois, c'est normal).
 ```bash
 docker-compose up nginx mysql phpmyadmin redis workspace
+```
+
+ou alors avec le paramètre `-d` pour ne pas bloqué la console.
+```bash
+docker-compose up -d nginx mysql phpmyadmin redis workspace
 ```
 
 Copiez le fichier `.env.example` à la racine du projet et renommez le `.env`.
@@ -112,6 +117,7 @@ Copiez le fichier `.env.example` à la racine du projet et renommez le `.env`.
 cd ..
 cp .env.example .env
 ```
+Le contenu de ce fichier n'est pas à modifier, car il déjà adapté à la configuration du projet.
 
 Essayez d'accéder à l'url : http://localhost:8000
 
