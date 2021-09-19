@@ -1,64 +1,121 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Introduction
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Workshop Laravel donné aux étudiants de 3ème année à la HE-Arc.
 
-## About Laravel
+L'objectif de ce workshop est de fournir un point de départ aux étudiants afin de leur permettre de créer leur projet de semestre.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Les prochaines étapes vous permetteront de mettre en place votre environement de dévelopement et de suivre le workshop dans son intégralité.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+# Prérequis
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Commencez par télécharger et installer les éléments suivants en fonction de votre système.
 
-## Learning Laravel
+Certaines étapes sont optionnelles, cela veut donc dire que vous pourrez suivre le workshop avec ou sans.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Windows
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Docker Desktop
+https://docs.docker.com/get-docker/
 
-## Laravel Sponsors
+### WSL2 (optionnel)
+- Installer WSL2 : https://docs.microsoft.com/en-us/windows/wsl/install-win10
+- Lié Docker Desktop à WSL2 : https://docs.docker.com/desktop/windows/wsl/
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+**Problème avec VMWare ou autre**  
+WSL2 n'est pas compatible avec d'autres outils de virtualisation comme VMWare ou autre.  
+Pour utiliser cet outil il faut avoir activé Hyper-V sur Windows, voici comment faire si jamais cela est nécessaire pour vous :
+```
+Disable Hyper-V - Hyper-V has to be uninstalled to use VMWare
+- Execute : bcdedit /set hypervisorlaunchtype off
 
-### Premium Partners
+Enable Hyper-V - Hyper-V has to be installed to use Docker
+- Execute : bcdedit /set hypervisorlaunchtype auto
+```
+Source : https://www.ivobeerens.nl/2018/12/13/vmware-workstation-device-credential-guard-are-not-compatible/
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
+### PHP
+Installez la version **7.4** !
+- WSL2 : Pour les personnes ayant installées WSL2, ouvrez un bash dans votre distribution Linux et suivez les étapes dans le chapitre "Linux --> PHP" de ce README
+- PAS WSL2 : Pour les personnes n'ayant PAS installées WSL2, installez XAMPP qui contient PHP.  
+  - Choisissez la version `7.4.23 / PHP 7.4.23` : https://www.apachefriends.org/download.html
 
-## Contributing
+### Composer
+https://getcomposer.org/download/
+- WSL2 : Pour les personnes ayant installées WSL2, suivez la partie "Command-line installation" sur le site
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Visual Studio Code (recommandé) ou un autre IDE
+- VSCode : https://code.visualstudio.com/
+- Remote Development (Obligatoire uniquement pour les personnes ayant installées WSL2) : https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack
 
-## Code of Conduct
+## Linux
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Docker
+- Docker : https://docs.docker.com/get-docker/
+- Docker Compose : https://docs.docker.com/compose/install/
 
-## Security Vulnerabilities
+### PHP
+Installer la version **7.4** !  
+Voici les étapes à suivre :  
+```bash
+sudo add-apt-repository ppa:ondrej/php
+sudo apt-get update
+sudo apt-get install php7.4
+sudo apt-get install php7.4 php7.4-cli php7.4-common php7.4-json php7.4-opcache php7.4-mysql php7.4-mbstring php7.4-mcrypt php7.4-zip php7.4-fpm php7.4-xml
+```
+Source : https://www.techiediaries.com/install-laravel-8-php-7-3-composer/
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Composer
+https://getcomposer.org/download/
 
-## License
+### Visual Studio Code (recommandé) ou un autre IDE
+- VSCode : https://code.visualstudio.com/
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# Récupérer le projet
+
+Ce repository contient des submodules veuillez utiliser la commande suivante :  
+```bash
+git clone --recursive [URL to Git repo]
+```
+
+Si vous avez oublié d'utiliser `--recursive`, executez cette commande après avoir cloné le projet :  
+```bash
+git submodule update --init laradock/
+```
+
+# Configurer le projet
+
+Copiez le fichier `.env.example` situé dans le dossier `laradock` et renommez le `.env`.
+Aller dans le dossier `laradock` et exécutez copier 
+```bash
+cd laradock
+cp .env.example .env
+```
+
+Ouvrez le fichier `.env` fraichement créé et modifié les éléments suivants :
+```bash
+COMPOSE_PROJECT_NAME=workshop-laravel
+...
+MYSQL_DATABASE=workshop
+MYSQL_USER=homestead
+MYSQL_PASSWORD=secret
+...
+NGINX_HOST_HTTP_PORT=8000
+```
+
+Démarrez les containers Docker utile au projet (cela peut prendre quelques minutes la première fois, c'est normal) :
+```bash
+docker-compose up nginx mysql phpmyadmin redis workspace
+```
+
+Copiez le fichier `.env.example` à la racine du projet et renommez le `.env`.
+```bash
+cd ..
+cp .env.example .env
+```
+
+Essayez d'accéder à l'url : http://localhost:8000
+
+Si vous avez un résultat c'est que vous êtes normalement prêt à suivre le workshop :)
+
+Si non, c'est terrible ! Commencez par faire 3 tours sur vous même ou un peu plus, c'est important.  
+Assurez-vous de n'avoir rien oublié, regardez également avec vos camarades qui ont réussi.
