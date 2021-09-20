@@ -2,70 +2,36 @@
 
 Workshop Laravel donné aux étudiants de 3ème année à la HE-Arc.
 
-L'objectif de ce workshop est de fournir un point de départ aux étudiants afin de leur permettre de créer leur projet de semestre.
+L'objectif de ce workshop est de transmettre aux étudiants les bases et les bonnes pratique de la création d'un projet web avec le Framework Laravel. Ce workshop à également comme but de fournir un point de départ aux étudiants afin de leur permettre de créer leur projet de semestre.
 
-Les prochaines étapes vous permetteront de mettre en place votre environement de dévelopement et de suivre le workshop dans son intégralité.
+Les prochaines étapes permettent de mettre en place l'environement de dévelopement et de suivre le workshop dans son intégralité.
 
 # Prérequis
 
 Commencez par télécharger et installer les éléments suivants en fonction de votre système.
-
-Certaines étapes sont optionnelles, cela veut donc dire que vous pourrez suivre le workshop avec ou sans.
 
 ## Windows
 
 ### Docker Desktop
 https://docs.docker.com/get-docker/
 
-### WSL2 (optionnel)
-- Installer WSL2 : https://docs.microsoft.com/en-us/windows/wsl/install-win10
-- Lié Docker Desktop à WSL2 : https://docs.docker.com/desktop/windows/wsl/
+**IMPORTANT**
+- Il est important de lire et compléter la section **"System requirements"**, il est également fortement recommandé de lire et suivre tous les autres chapitres de cette page afin de s'assurer de l'installer correctement sur votre système.
+- Il est possible de choisir entre "WSL 2 Backend" ou "Hyper-V backend", les 2 options sont viables pour pouvoir suivre le workshop.
 
-**Problème avec VMWare ou autre**  
-WSL2 n'est pas compatible avec d'autres outils de virtualisation comme VMWare ou autre.  
-Pour utiliser cet outil il faut avoir activé Hyper-V sur Windows, voici comment faire si jamais cela est nécessaire pour vous :
-```
-Disable Hyper-V - Hyper-V has to be uninstalled to use VMWare
-- Execute : bcdedit /set hypervisorlaunchtype off
-
-Enable Hyper-V - Hyper-V has to be installed to use Docker
-- Execute : bcdedit /set hypervisorlaunchtype auto
-```
-Source : https://www.ivobeerens.nl/2018/12/13/vmware-workstation-device-credential-guard-are-not-compatible/
-
-### PHP
-Installez la version **7.4** !
-- WSL2 : Pour les personnes ayant installées WSL2, ouvrez un bash dans votre distribution Linux et suivez les étapes dans le chapitre "Linux --> PHP" de ce README
-- PAS WSL2 : Pour les personnes n'ayant PAS installées WSL2, installez XAMPP qui contient PHP.  
-  - Choisissez la version `7.4.23 / PHP 7.4.23` : https://www.apachefriends.org/download.html
-
-### Composer
-https://getcomposer.org/download/
-- WSL2 : Pour les personnes ayant installées WSL2, suivez la partie "Command-line installation" sur le site
+> WSL 2 = Windows Subsystem for Linux  
+> Cela vous permet d'avoir une distribution Linux sur votre machine.  
+> Documentez-vous un peu sur WSL 2 pour en savoir plus.  
 
 ### Visual Studio Code (recommandé) ou un autre IDE
 - VSCode : https://code.visualstudio.com/
-- Remote Development (Obligatoire uniquement pour les personnes ayant installées WSL2) : https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack
+- WSL 2 : Si vous avez installer WSL 2, installez l'extention VSCode "Remote Development" téléchargeable ici ou directement sur VSCode : https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack
 
 ## Linux
 
 ### Docker
 - Docker : https://docs.docker.com/get-docker/
 - Docker Compose : https://docs.docker.com/compose/install/
-
-### PHP
-Installer la version **7.4** !  
-Voici les étapes à suivre :  
-```bash
-sudo add-apt-repository ppa:ondrej/php
-sudo apt-get update
-sudo apt-get install php7.4
-sudo apt-get install php7.4 php7.4-cli php7.4-common php7.4-json php7.4-opcache php7.4-mysql php7.4-mbstring php7.4-mcrypt php7.4-zip php7.4-fpm php7.4-xml
-```
-Source : https://www.techiediaries.com/install-laravel-8-php-7-3-composer/
-
-### Composer
-https://getcomposer.org/download/
 
 ### Visual Studio Code (recommandé) ou un autre IDE
 - VSCode : https://code.visualstudio.com/
@@ -77,17 +43,16 @@ Ce repository contient des submodules veuillez utiliser la commande suivante :
 git clone --recursive [URL to Git repo]
 ```
 
-Si vous avez oublié d'utiliser `--recursive`, executez cette commande après avoir cloné le projet :  
+Si vous avez oublié d'utiliser `--recursive` dans la commande précédente, executez cette commande après avoir cloné le projet :  
 ```bash
 git submodule update --init laradock/
 ```
 
 # Configurer le projet
 
-Copiez le fichier `.env.example` situé dans le dossier `laradock` et renommez le `.env`.
-Aller dans le dossier `laradock` et exécutez copier 
+Créez une copie du fichier `.env.example` situé dans le dossier `laradock` et renommez le `.env`.  
 ```bash
-cd laradock
+# Execute in laradock
 cp .env.example .env
 ```
 
@@ -105,27 +70,44 @@ NGINX_HOST_HTTP_PORT=8000
 
 Démarrez les containers Docker utile au projet (cela peut prendre quelques minutes la première fois, c'est normal).
 ```bash
+# Execute in laradock
 docker-compose up nginx mysql phpmyadmin redis workspace
 ```
 
 ou alors avec le paramètre `-d` pour ne pas bloqué la console.
 ```bash
+# Execute in laradock
 docker-compose up -d nginx mysql phpmyadmin redis workspace
 ```
 
 Copiez le fichier `.env.example` à la racine du projet et renommez le `.env`.
 ```bash
-cd ..
+# Execute in project root
 cp .env.example .env
 ```
 Le contenu de ce fichier n'est pas à modifier, car il déjà adapté à la configuration du projet.
+> Si vous avez déjà utilisé "Laradock", adaptez les variables `DB_USERNAME` et `DB_PASSWORD` dans le fichier `.env` situé à la racine du projet. Adaptez également  les variables `MYSQL_USER` et `MYSQL_PASSWORD` dans le fichier `.env` situé dans le dossier `laradock`. Cela vous permettra de vous connecter à votre système de base de données existant.
+
+Connectez vous au container docker `workspace`, installez les dépendances et mettez le projet Laravel en place.
+```bash
+# Execute in laradock
+docker-compose exec workspace bash
+```
+
+```bash
+# Execute in workspace bash
+composer install
+php artisan key:generate
+php artisan migrate
+php artisan db:seed
+```
 
 Essayez d'accéder à l'url : http://localhost:8000
 
-Vous devriez avoir un résultat, sinon regardez dans les logs des différents containers Docker que vous avez exécuté pour comprendre se qui n'a pas fonctionné.
+Vous devriez avoir une page avec marqué "You are READY for the workshop ;)", sinon regardez dans les logs des différents containers Docker que vous avez exécuté pour comprendre se qui n'a pas fonctionné.
 > Astuce : si vous avez démarrés vos containers avec le paramètre `-d`, vous pouvez ouvrir Docker Desktop et cliquer sur les containers pour voir les logs de ce dernier. Ou alors ouvrir un bash dans le dossier `laradock` et exécuter `docker-compose logs <nom_du_service>` (<nom_du_service> peut dans notre cas être l'un des éléments suivants : nginx mysql phpmyadmin redis workspace).
 
-Si vous avez un résultat c'est que vous êtes normalement prêt à suivre le workshop :)
+Si vous avez le résultat demandé, c'est que vous êtes normalement prêt à suivre le workshop :)
 
 Si non, c'est terrible ! Commencez par faire 3 tours sur vous même ou un peu plus.  
-Ensuite ssurez-vous de n'avoir rien oublié, regardez également avec vos camarades.
+Ensuite assurez-vous de n'avoir oublié aucune des étapes et regardez également avec vos camarades qui pourraient vous aider.
