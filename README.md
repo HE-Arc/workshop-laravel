@@ -10,6 +10,18 @@ Les prochaines étapes permettent de mettre en place l'environement de dévelope
 
 Commencez par télécharger et installer les éléments suivants en fonction de votre système.
 
+Vous pouvez choisir d'**utiliser d'autres outils** que ceux indiqués en dessous, mais **le support ne vous sera pas garantie si vous rencontrez des problèmes**.  
+Garder en tête que le workshop sera réalisé pour les personnes possédant les prérequis recommandés en dessous.  
+Si vous souhaitez utiliser d'autres outils, voici ce qu'il vous faut au minimum :
+- Un server web type Apache, Nginx,...
+- Un système de base de données type MySQL, Postgres,...
+- PHP version >= 7.4
+- Composer version compatible avec la version de PHP installé
+- Un IDE type VSCode (recommandé) ou autre
+- Suivez les prochains chapitres afin de vous assurez de pouvoir suivre le workshop
+
+> XAMPP propose un serveur web et un système de base de données tout en un si jamais vous souhaitez utiliser d'autre outils.
+
 ## Windows
 
 ### Docker Desktop
@@ -108,6 +120,8 @@ php artisan key:generate
 php artisan migrate
 php artisan db:seed
 ```
+
+# Tester que tout fonctionne
 
 Essayez d'accéder à l'url : http://localhost:8000
 
