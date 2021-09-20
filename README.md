@@ -2,7 +2,7 @@
 
 Workshop Laravel donné aux étudiants de 3ème année à la HE-Arc dans le cadre du cours de dévelopement web.
 
-L'objectif de ce workshop est de transmettre aux étudiants les bases et les bonnes pratique de la création d'un projet web avec le Framework Laravel. Ce workshop à également comme but de fournir un point de départ aux étudiants afin de leur permettre de créer leur projet de semestre.
+L'objectif de ce workshop est de transmettre aux étudiants les bases et les bonnes pratique de la création d'un projet web avec le Framework Laravel. Ce workshop a également pour but de fournir un point de départ aux étudiants afin de leur permettre de créer leur projet de semestre.
 
 Les prochaines étapes permettent de mettre en place l'environement de dévelopement et de suivre le workshop dans son intégralité.
 
@@ -10,17 +10,19 @@ Les prochaines étapes permettent de mettre en place l'environement de dévelope
 
 Commencez par télécharger et installer les éléments suivants en fonction de votre système.
 
-Vous pouvez choisir d'**utiliser d'autres outils** que ceux indiqués en dessous, mais **le support ne vous sera pas garantie si vous rencontrez des problèmes**.  
+---
+Vous pouvez choisir d'**utiliser d'autres outils** que ceux indiqués en dessous, mais **le support ne vous sera pas garanti si vous rencontrez des problèmes**.  
 Garder en tête que le workshop sera réalisé pour les personnes possédant les prérequis recommandés en dessous.  
 Si vous souhaitez utiliser d'autres outils, voici ce qu'il vous faut au minimum :
 - Un server web type Apache, Nginx,...
 - Un système de base de données type MySQL, Postgres,...
 - PHP version >= 7.4
-- Composer version compatible avec la version de PHP installé
+- Composer version compatible avec la version de PHP installée
 - Un IDE type VSCode (recommandé) ou autre
-- Suivez les prochains chapitres afin de vous assurez de pouvoir suivre le workshop
+- Suivez les prochains chapitres afin de vous assurer de pouvoir suivre le workshop
 
 > XAMPP propose un serveur web et un système de base de données tout en un si jamais vous souhaitez utiliser d'autre outils.
+---
 
 ## Windows
 
@@ -35,8 +37,8 @@ https://docs.docker.com/get-docker/
 > Cela vous permet d'avoir une distribution Linux sur votre machine.  
 > Documentez-vous un peu sur WSL 2 pour en savoir plus.  
 
-Si vous n'avez pas installé WSL 2 et que Docker Desktop vous affiche une erreur ou il est marqué que WSL doit être activé ou quelque chose dans le genre.
-Allez voir dans `C:\Users\<username>\AppData\Roaming\Docker\settings.json` et modifiez `wslEngineEnabled` à `false`.
+Si vous n'avez pas installé WSL 2 et que Docker Desktop vous affiche une erreur où il est marqué que WSL doit être activé ou quelque chose dans le genre,
+allez voir dans `C:\Users\<username>\AppData\Roaming\Docker\settings.json` et modifiez `wslEngineEnabled` à `false`.
 Redémarrez Docker Desktop et voyez si le problème à disparu --> Clique droit sur l'icone Docker Desktop en bas à droite de Windows, puis "Restart Docker..."
 Source : https://github.com/docker/for-win/issues/6122
 
@@ -55,7 +57,7 @@ Source : https://github.com/docker/for-win/issues/6122
 
 # Récupérer le projet
 
-Ce projet contient des submodules veuillez utiliser la commande suivante pour cloner le projet et les submodules git :  
+Ce projet contient des submodules, veuillez utiliser la commande suivante pour cloner le projet et les submodules git :  
 ```bash
 git clone --recursive [URL to Git repo]
 ```
@@ -67,7 +69,7 @@ git submodule update --init laradock/
 
 # Configurer le projet
 
-Créez une copie du fichier `.env.example` situé dans le dossier `laradock` et renommez le `.env`.  
+Créez une copie du fichier `.env.example` situé dans le dossier `laradock` et renommez-le `.env`.  
 ```bash
 # Execute in laradock
 cp .env.example .env
@@ -85,21 +87,21 @@ MYSQL_PASSWORD=secret
 NGINX_HOST_HTTP_PORT=8000
 ```
 
-Démarrez les containers Docker utile au projet (cela peut prendre quelques minutes la première fois, c'est normal).
+Démarrez les containers Docker utiles au projet (cela peut prendre quelques minutes la première fois, c'est normal).
 ```bash
 # Execute in laradock
 docker-compose up nginx mysql phpmyadmin redis workspace
 ```
 
-ou alors avec le paramètre `-d` pour ne pas bloqué la console.
+ou alors avec le paramètre `-d` pour ne pas bloquer la console.
 ```bash
 # Execute in laradock
 docker-compose up -d nginx mysql phpmyadmin redis workspace
 ```
 
-> Si Windwos vous demande si il peut partager l'accès à Docker pour un répertoire ou un fichier, acceptez la requête.
+> Si Windwos vous demande s'il peut partager l'accès à Docker pour un répertoire ou un fichier, acceptez la requête.
 
-Copiez le fichier `.env.example` à la racine du projet et renommez le `.env`.
+Copiez le fichier `.env.example` à la racine du projet et renommez-le `.env`.
 ```bash
 # Execute in project root
 cp .env.example .env
@@ -107,7 +109,7 @@ cp .env.example .env
 Le contenu de ce fichier n'est pas à modifier, car il est déjà adapté à la configuration du projet.
 > Si vous avez déjà utilisé "Laradock", adaptez les variables `DB_USERNAME` et `DB_PASSWORD` dans le fichier `.env` situé à la racine du projet. Et adaptez également les variables `MYSQL_USER` et `MYSQL_PASSWORD` dans le fichier `.env` situé dans le dossier `laradock`. Cela vous permettra de vous connecter à votre système de base de données existant.
 
-Connectez vous au container docker `workspace`, installez les dépendances et mettez le projet Laravel en place.
+Connectez-vous au container docker `workspace`, installez les dépendances et mettez le projet Laravel en place.
 ```bash
 # Execute in laradock
 docker-compose exec workspace bash
@@ -125,10 +127,10 @@ php artisan db:seed
 
 Essayez d'accéder à l'url : http://localhost:8000
 
-Vous devriez avoir une page avec marqué "You are READY for the workshop ;)", sinon regardez dans les logs des différents containers Docker que vous avez exécuté pour comprendre se qui n'a pas fonctionné.
-> Astuce : si vous avez démarrés vos containers avec le paramètre `-d`, vous pouvez ouvrir Docker Desktop et cliquer sur les containers pour voir leurs logs. Ou alors ouvrir un bash dans le dossier `laradock` et exécuter `docker-compose logs <nom_du_service>` (<nom_du_service> peut dans notre cas être l'un des éléments suivants : nginx mysql phpmyadmin redis workspace).
+Vous devriez avoir une page avec marqué "You are READY for the workshop ;)", sinon regardez dans les logs des différents containers Docker que vous avez exécuté pour comprendre ce qui n'a pas fonctionné.
+> Astuce : si vous avez démarré vos containers avec le paramètre `-d`, vous pouvez ouvrir Docker Desktop et cliquer sur les containers pour voir leurs logs ou alors ouvrir un bash dans le dossier `laradock` et exécuter `docker-compose logs <nom_du_service>` (<nom_du_service> peut dans notre cas être l'un des éléments suivants : nginx mysql phpmyadmin redis workspace).
 
 Si vous avez le résultat demandé, c'est que vous êtes normalement prêt à suivre le workshop :)
 
-Sinon, c'est terrible ! Commencez par faire 3 tours sur vous même ou un peu plus.  
-Ensuite assurez-vous de n'avoir oublié aucune des étapes et regardez également avec vos camarades qui pourraient également vous aider.
+Sinon, c'est terrible ! Commencez par faire 3 tours sur vous même ou même un peu plus.  
+Ensuite, assurez-vous de n'avoir oublié aucune des étapes et regardez également avec vos camarades qui pourraient également vous aider.
