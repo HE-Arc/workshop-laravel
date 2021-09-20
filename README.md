@@ -23,6 +23,11 @@ https://docs.docker.com/get-docker/
 > Cela vous permet d'avoir une distribution Linux sur votre machine.  
 > Documentez-vous un peu sur WSL 2 pour en savoir plus.  
 
+Si vous n'avez pas installer WSL 2 et que Docker Desktop vous affiche une erreur ou il est marqué que WSL doit être activé ou quelque chose dans le genre.
+Allez voir dans `C:\Users\<username>\AppData\Roaming\Docker\settings.json` et modifiez `wslEngineEnabled` à `false`.
+Redémarrez Docker Desktop et voyez si le problème à disparu --> Clique droit sur l'icone Docker Desktop en bas à droite, puis "Restart Docker..."
+Source : https://github.com/docker/for-win/issues/6122
+
 ### Visual Studio Code (recommandé) ou un autre IDE
 - VSCode : https://code.visualstudio.com/
 - WSL 2 : Si vous avez installer WSL 2, installez l'extention VSCode "Remote Development" téléchargeable ici ou directement sur VSCode : https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack
