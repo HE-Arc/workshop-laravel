@@ -1,6 +1,6 @@
 # Introduction
 
-Workshop Laravel donné aux étudiants de 3ème année à la HE-Arc.
+Workshop Laravel donné aux étudiants de 3ème année à la HE-Arc dans le cadre du cours de dévelopement web.
 
 L'objectif de ce workshop est de transmettre aux étudiants les bases et les bonnes pratique de la création d'un projet web avec le Framework Laravel. Ce workshop à également comme but de fournir un point de départ aux étudiants afin de leur permettre de créer leur projet de semestre.
 
@@ -16,21 +16,21 @@ Commencez par télécharger et installer les éléments suivants en fonction de 
 https://docs.docker.com/get-docker/
 
 **IMPORTANT**
-- Il est important de lire et compléter la section **"System requirements"**, il est également fortement recommandé de lire et suivre tous les autres chapitres de cette page afin de s'assurer de l'installer correctement sur votre système.
+- Il est important de lire et compléter la section **"System requirements"**, il est également fortement recommandé de lire et suivre tous les autres chapitres de cette page afin de s'assurer d'installer correctement Docker Desktop sur votre système.
 - Il est possible de choisir entre "WSL 2 Backend" ou "Hyper-V backend", les 2 options sont viables pour pouvoir suivre le workshop.
 
 > WSL 2 = Windows Subsystem for Linux  
 > Cela vous permet d'avoir une distribution Linux sur votre machine.  
 > Documentez-vous un peu sur WSL 2 pour en savoir plus.  
 
-Si vous n'avez pas installer WSL 2 et que Docker Desktop vous affiche une erreur ou il est marqué que WSL doit être activé ou quelque chose dans le genre.
+Si vous n'avez pas installé WSL 2 et que Docker Desktop vous affiche une erreur ou il est marqué que WSL doit être activé ou quelque chose dans le genre.
 Allez voir dans `C:\Users\<username>\AppData\Roaming\Docker\settings.json` et modifiez `wslEngineEnabled` à `false`.
-Redémarrez Docker Desktop et voyez si le problème à disparu --> Clique droit sur l'icone Docker Desktop en bas à droite, puis "Restart Docker..."
+Redémarrez Docker Desktop et voyez si le problème à disparu --> Clique droit sur l'icone Docker Desktop en bas à droite de Windows, puis "Restart Docker..."
 Source : https://github.com/docker/for-win/issues/6122
 
 ### Visual Studio Code (recommandé) ou un autre IDE
 - VSCode : https://code.visualstudio.com/
-- WSL 2 : Si vous avez installer WSL 2, installez l'extention VSCode "Remote Development" téléchargeable ici ou directement sur VSCode : https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack
+- WSL 2 : Si vous avez installé WSL 2, installez l'extention VSCode "Remote Development" téléchargeable ici ou directement sur VSCode : https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack
 
 ## Linux
 
@@ -43,7 +43,7 @@ Source : https://github.com/docker/for-win/issues/6122
 
 # Récupérer le projet
 
-Ce repository contient des submodules veuillez utiliser la commande suivante :  
+Ce projet contient des submodules veuillez utiliser la commande suivante pour cloner le projet et les submodules git :  
 ```bash
 git clone --recursive [URL to Git repo]
 ```
@@ -61,7 +61,7 @@ Créez une copie du fichier `.env.example` situé dans le dossier `laradock` et 
 cp .env.example .env
 ```
 
-Ouvrez le fichier `.env` fraichement créé et modifié les éléments suivants :
+Ouvrez le fichier `.env` fraichement créé et modifiez les éléments suivants :
 ```bash
 COMPOSE_PROJECT_NAME=workshop-laravel
 PHP_VERSION=7.4
@@ -90,8 +90,8 @@ Copiez le fichier `.env.example` à la racine du projet et renommez le `.env`.
 # Execute in project root
 cp .env.example .env
 ```
-Le contenu de ce fichier n'est pas à modifier, car il déjà adapté à la configuration du projet.
-> Si vous avez déjà utilisé "Laradock", adaptez les variables `DB_USERNAME` et `DB_PASSWORD` dans le fichier `.env` situé à la racine du projet. Adaptez également  les variables `MYSQL_USER` et `MYSQL_PASSWORD` dans le fichier `.env` situé dans le dossier `laradock`. Cela vous permettra de vous connecter à votre système de base de données existant.
+Le contenu de ce fichier n'est pas à modifier, car il est déjà adapté à la configuration du projet.
+> Si vous avez déjà utilisé "Laradock", adaptez les variables `DB_USERNAME` et `DB_PASSWORD` dans le fichier `.env` situé à la racine du projet. Et adaptez également les variables `MYSQL_USER` et `MYSQL_PASSWORD` dans le fichier `.env` situé dans le dossier `laradock`. Cela vous permettra de vous connecter à votre système de base de données existant.
 
 Connectez vous au container docker `workspace`, installez les dépendances et mettez le projet Laravel en place.
 ```bash
@@ -110,7 +110,7 @@ php artisan db:seed
 Essayez d'accéder à l'url : http://localhost:8000
 
 Vous devriez avoir une page avec marqué "You are READY for the workshop ;)", sinon regardez dans les logs des différents containers Docker que vous avez exécuté pour comprendre se qui n'a pas fonctionné.
-> Astuce : si vous avez démarrés vos containers avec le paramètre `-d`, vous pouvez ouvrir Docker Desktop et cliquer sur les containers pour voir les logs de ce dernier. Ou alors ouvrir un bash dans le dossier `laradock` et exécuter `docker-compose logs <nom_du_service>` (<nom_du_service> peut dans notre cas être l'un des éléments suivants : nginx mysql phpmyadmin redis workspace).
+> Astuce : si vous avez démarrés vos containers avec le paramètre `-d`, vous pouvez ouvrir Docker Desktop et cliquer sur les containers pour voir leurs logs. Ou alors ouvrir un bash dans le dossier `laradock` et exécuter `docker-compose logs <nom_du_service>` (<nom_du_service> peut dans notre cas être l'un des éléments suivants : nginx mysql phpmyadmin redis workspace).
 
 Si vous avez le résultat demandé, c'est que vous êtes normalement prêt à suivre le workshop :)
 
