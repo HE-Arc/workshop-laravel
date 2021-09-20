@@ -94,6 +94,7 @@ cp .env.example .env
 Ouvrez le fichier `.env` fraichement créé et modifié les éléments suivants :
 ```bash
 COMPOSE_PROJECT_NAME=workshop-laravel
+PHP_VERSION=7.4
 ...
 MYSQL_DATABASE=workshop
 MYSQL_USER=homestead
@@ -121,7 +122,10 @@ Le contenu de ce fichier n'est pas à modifier, car il déjà adapté à la conf
 
 Essayez d'accéder à l'url : http://localhost:8000
 
+Vous devriez avoir un résultat, sinon regardez dans les logs des différents containers Docker que vous avez exécuté pour comprendre se qui n'a pas fonctionné.
+> Astuce : si vous avez démarrés vos containers avec le paramètre `-d`, vous pouvez ouvrir Docker Desktop et cliquer sur les containers pour voir les logs de ce dernier. Ou alors ouvrir un bash dans le dossier `laradock` et exécuter `docker-compose logs <nom_du_service>` (<nom_du_service> peut dans notre cas être l'un des éléments suivants : nginx mysql phpmyadmin redis workspace).
+
 Si vous avez un résultat c'est que vous êtes normalement prêt à suivre le workshop :)
 
-Si non, c'est terrible ! Commencez par faire 3 tours sur vous même ou un peu plus, c'est important.  
-Assurez-vous de n'avoir rien oublié, regardez également avec vos camarades qui ont réussi.
+Si non, c'est terrible ! Commencez par faire 3 tours sur vous même ou un peu plus.  
+Ensuite ssurez-vous de n'avoir rien oublié, regardez également avec vos camarades.
