@@ -99,6 +99,12 @@ ou alors avec le paramètre `-d` pour ne pas bloquer la console.
 docker-compose up -d nginx mysql phpmyadmin redis workspace
 ```
 
+Si jamais vous souhaitez stopper les containers Docker du workshop vous pouvez le faire avec la commande suivante.
+```bash
+# Execute in laradock
+docker-compose stop
+```
+
 > Si Windwos vous demande s'il peut partager l'accès à Docker pour un répertoire ou un fichier, acceptez la requête.
 
 Copiez le fichier `.env.example` à la racine du projet et renommez-le `.env`.
