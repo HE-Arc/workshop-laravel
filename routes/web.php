@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,4 +15,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [WelcomeController::class, 'index'])->name('wecome');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::resource("books",BookController::class);
