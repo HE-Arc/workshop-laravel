@@ -14,8 +14,9 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::all();
-        return view("books.index",["books" => $books]);
+        $books = Book::latest()->paginate(5);
+        return view("books.index", compact("books"))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -36,6 +37,11 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required|min:5|max:25',
+            'pages' => 'required|integer|gt:0|lt:1000',
+            'quantity' => 'required|integer|gte:0|lt:100'
+        ]);
         Book::create($request->all());
         return redirect()->route("books.index")
             ->with("success","Book created successfully");
@@ -91,5 +97,12 @@ class BookController extends Controller
         $book->delete();
         return redirect()->route('books.index')
                     ->with('success','Book deleted successfully');
+    }
+
+    public function order()
+    {
+        $books = Book::latest()->where('quantity', '<=', 0)->paginate(5);
+        return view('books.order', compact('books'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 }
