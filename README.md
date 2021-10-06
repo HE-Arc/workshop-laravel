@@ -140,3 +140,83 @@ Si vous avez le résultat demandé, c'est que vous êtes normalement prêt à su
 
 Sinon, c'est terrible ! Commencez par faire 3 tours sur vous même ou même un peu plus.  
 Ensuite, assurez-vous de n'avoir oublié aucune des étapes et regardez également avec vos camarades qui pourraient également vous aider.
+
+# Comment initialiser un nouveau projet
+
+Avec ce chapitre vous pourrez créez et initialisez un nouveau projet Laravel avec Laradock (comme dans le workshop).  
+L'objectif est d'avoir un projet qui vous permette d'utiliser la puissance de Docker en ayant un environement de dev commun.
+
+Sources utiles pour obtenir d'avantage de détails.
+- Laravel : https://laravel.com/docs/8.x/installation
+- Laradock : https://laradock.io/getting-started/
+
+Voici les étapes :
+1. Créer un projet Github
+2. Cloner le projet
+3. Ouvrir un bash et ajouter le submodule Laradock au projet
+```sh
+git submodule add https://github.com/Laradock/laradock.git
+```
+4. Push les 2 fichiers créés : .gitmodules et laradock (le contenu de laradock ne doit PAS être poussé, seul un fichier nommé laradock doit être poussé)
+> Vos co-équipiés peuvent pull à partir d'ici et faire les mêmes étapes de leur côté. ATTENTION néanmoins, vos co-équipiés devront récupérer Laradock (voir le chapitre de ce README nommé "Récupérer le projet").
+5. Créer une copie du fichier `.env.example` situé dans le dossier laradock et le renommer `.env`
+6. Ouvrir le fichier `.env` fraichement créé et modifier les éléments suivants (**attention certaines valeures sont à remplacées**, lisez les commentaires suivants pour comprendre) :
+> Vous pouvez mettre se que vous voulez pour les valeurs "COMPOSE_PROJECT_NAME" et "MYSQL_DATABASE", mais ne mettez surtout PAS les même valeur que pour celle déjà durant le workshop. Essayez de rester cohérent dans une même équipe.
+
+> Un .env ne doit JAMAIS être poussée sur git.
+
+> Je vous conseille de rester avec PHP 7.4 (C'est se que vous aurez sur le serveur de déploiement)
+
+> Le user et le password de MYSQL dépendent de votre config perso, mais en principe vous devrez mettre "homestead" et "secret" comme votre MySQL à été créé avec ce workshop. Sinon à vous de voir.
+
+> Je vous conseille d'utiliser Nginx sur le port 8000, car le port 80 proposé de base est très souvent déjà utilisé par Windows (attention, le port doit être libre, mais généralement ce port est toujours libre, à moins que vous ayez un autre projet qui tourne actuellement, au quel cas il faudra l'arrêter ou changer de port)
+```sh
+COMPOSE_PROJECT_NAME=my-project-name
+PHP_VERSION=7.4
+...
+MYSQL_DATABASE=myprojectdbname
+MYSQL_USER=homestead
+MYSQL_PASSWORD=secret
+...
+NGINX_HOST_HTTP_PORT=8000
+```
+7. Démarrer les services dont vous avez besoins, dans la plus part des cas les services suivants sont suffisant pour commencer en tout cas. Vous pourrez toujours ajouter des services par la suite.
+> Cela peut prendre quelques minutes la première fois, c'est normal
+```sh
+# Execute in laradock
+docker-compose up -d nginx mysql phpmyadmin redis workspace
+```
+8. Vérifier que les containers soient démarrés
+9. Connectez-vous au container docker workspace
+```sh
+# Execute in laradock
+docker-compose exec workspace bash
+```
+10. Créer votre projet Laravel
+```sh
+# Execute in workspace
+composer create-project laravel/laravel my-project-name
+```
+11. Déplacer tout le contenu du dossier de projet Laravel qui vient d'être créé à la racine (optionnel, mais je recommande, car cela simplifie les commandes pour la suite)
+12. Supprimer le dossier vide du projet Laravel
+13. Modifier le `.env` pour correspondre à votre configuration, si toutes les étapes ont étées suivies voici se qu'il faudra modifier.
+```sh
+DB_HOST=mysql
+DB_DATABASE=myprojectdbname
+DB_USERNAME=homestead
+DB_PASSWORD=secret
+...
+REDIS_HOST=redis
+```
+14. Créer la base de données pour votre projet
+> Avec phpmyadmin (accessible depuis http://localhost:8081 normalement) vous pouvez le faire en suivant ce tuto : http://webvaultwiki.com.au/Create-Mysql-Database-User-Phpmyadmin.ashx (Attention il y a des différences avec le tuto, lisez la suite avant de suivre le tuto)  
+> Attention il y 2 différences par rapport au tuto. Ne créez pas de nouvel utilisateur, attribuez la nouvelle BDD à "homestead" ou à l'utilisateur que vous souhaitez utiliser. Et donner tous les droits à cet utilisateurs sur la nouvelle BDD, pas simplement une partie comme indiquer dans le tuto.  
+> Ces étapes devront être réalisées avec l'utilisateur root (mot de passe : root)
+15. Installer les dépendances de base pour votre projet Laravel et démarrer les commandes de configurations de base.
+```sh
+# Execute in workspace
+composer install
+php artisan key:generate
+php artisan migrate
+```
+16. Tester que tout fonctionne en accédant à http://localhost:8000, vous devriez avoir un page Laravel.
