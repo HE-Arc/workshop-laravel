@@ -98,13 +98,17 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        dd($book);
-        /*
-        Book::findOrFail($id)->update($request->all());
+        $request->validate([
+           'title' => 'required|min:5|max:25',
+           'pages' => 'required|integer|gt:0|lt:1000',
+           'quantity' => 'required|integer|gte:0|lt:100',
+           'author_id' => 'nullable|integer|exists:authors,id'
+        ]);
+        
+        $book->update($request->all());
 
         return redirect()->route('books.index')
             ->with('success','Book updated successfully');
-            */
     }
 
     /**
