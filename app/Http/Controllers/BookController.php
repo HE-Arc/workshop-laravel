@@ -17,16 +17,17 @@ class BookController extends Controller
     {
         $books = Book::with('author')->latest()->paginate(5);
 
-        return view('books.index', compact('books'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        return inertia('Books/Index', compact('books'));
+        /*return view('books.index', compact('books'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);*/
     }
 
     public function order()
     {
-        $books = Book::latest()->where('quantity', '<=', 0)->paginate(5);
+        $books = Book::with('author')->latest()->where('quantity', '<=', 0)->paginate(5);
 
-        return view('books.order', compact('books'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        return inertia('Books/Order', compact('books'));
+            //->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -37,7 +38,7 @@ class BookController extends Controller
     public function create()
     {
         $authors = Author::all();
-        return view('books.create', compact('authors'));
+        return inertia('Books/Create', compact('authors'));
     }
 
     /**
@@ -74,7 +75,8 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        return view('books.show', compact('book'));
+        $book = Book::with('author')->where('id', $book->id)->firstOrFail();
+        return inertia('Books/Show', compact('book'));
     }
 
     /**
@@ -85,8 +87,9 @@ class BookController extends Controller
      */
     public function edit($id)
     {
+        $authors = Author::all();
         $book = Book::where('id', $id)->firstOrFail();
-        return view('books.edit', ['book' => $book]);
+        return inertia('Books/Edit', ['book' => $book, 'authors' => $authors]);
     }
 
     /**
@@ -104,7 +107,7 @@ class BookController extends Controller
            'quantity' => 'required|integer|gte:0|lt:100',
            'author_id' => 'nullable|integer|exists:authors,id'
         ]);
-        
+
         $book->update($request->all());
 
         return redirect()->route('books.index')
