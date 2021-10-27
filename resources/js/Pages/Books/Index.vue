@@ -8,17 +8,57 @@
       </h2>
     </template>
     <!-- Page content here -->
+
+    <h1>Livres</h1>
+
+    <Link href="route('books.create')" class="btn btn-primary mb-2">Ajouter un livre</Link>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Titre</th>
+                <th scope="col">Pages</th>
+                <th scope="col">Quantité</th>
+                <th scope="col">Author</th>
+                <th scope="col">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="book in books.data" :key="book.id">
+                <td>{{book.title}}</td>
+                <td>{{book.pages}}</td>
+                <td>{{book.quantity}}</td>
+                <td>{{book.author.name ?? "Auteur manquant..."}}</td>
+                <td>
+                    <Link class="btn btn-info" href="route('books.show',book.id)"><i class="bi bi-arrow-right-circle"></i></Link>
+                    <Link class="btn btn-primary" href="route('books.edit',book.id)"><i class="bi bi-pencil"></i></Link>
+                    <button @click="destroy(book.id)" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
   </breeze-authenticated-layout>
 </template>
 
 <script>
 import BreezeAuthenticatedLayout from '@/Layouts/Authenticated.vue'
-import { Head } from '@inertiajs/inertia-vue3'
+import { Head, Link } from '@inertiajs/inertia-vue3'
+import { Inertia } from '@inertiajs/inertia'
 
 export default {
   components: {
     BreezeAuthenticatedLayout,
     Head,
+    Link,
   },
+  props: [
+      "books"
+  ],
+  methods: {
+      destroy(id) {
+          Inertia.delete(route('books.destroy', id));
+      }
+  }
 }
 </script>

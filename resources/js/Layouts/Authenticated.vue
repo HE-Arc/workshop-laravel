@@ -18,6 +18,10 @@
             <breeze-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
               Dashboard
             </breeze-nav-link>
+
+            <breeze-nav-link :href="route('books.index')" :active="route().current('books.*')">
+              Books
+            </breeze-nav-link>
           </ul>
 
           <!-- Right Side Of Navbar -->
