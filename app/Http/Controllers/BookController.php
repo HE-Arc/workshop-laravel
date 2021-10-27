@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Author;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class BookController extends Controller
 {
@@ -17,8 +18,9 @@ class BookController extends Controller
     {
         $books = Book::with('author')->latest()->paginate(5);
 
-        return view('books.index', compact('books'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+        return inertia('Books/Index', compact('books'));
+        // return view('books.index', compact('books'))
+        //     ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     public function order()
@@ -104,7 +106,7 @@ class BookController extends Controller
            'quantity' => 'required|integer|gte:0|lt:100',
            'author_id' => 'nullable|integer|exists:authors,id'
         ]);
-        
+
         $book->update($request->all());
 
         return redirect()->route('books.index')
