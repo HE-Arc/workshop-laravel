@@ -6,6 +6,23 @@ L'objectif de ce workshop est de transmettre aux étudiants les bases et les bon
 
 Les prochaines étapes permettent de mettre en place l'environnement de développement et de suivre le workshop dans son intégralité.
 
+# Explication des branches
+
+Branches générales
+
+-   main : la branche contenant la version du README le plus à jour
+-   p1-start : la branche contenant le code de départ du workshop Laravel
+-   p1-end : la branche contenant le code solution du workshop Laravel
+-   p2-start : la branche contenant le code de départ du workshop VueJS
+-   p2-end : la branche contenant le code solution du workshop VueJS
+
+Branches par années
+
+-   xxxx-p1-start : la branche contenant le code de départ du workshop Laravel, réalisé avec les étudiants de l'année xxxx
+-   xxxx-p1-end : la branche contenant le code solution du workshop Laravel, réalisé avec les étudiants de l'année xxxx
+-   xxxx-p2-start : la branche contenant le code de départ du workshop VueJS, réalisé avec les étudiants de l'année xxxx
+-   xxxx-p2-end : la branche contenant le code solution du workshop VueJS, réalisé avec les étudiants de l'année xxxx
+
 # Prérequis
 
 Commencez par télécharger et installer les éléments suivants en fonction de votre système.
