@@ -356,3 +356,18 @@ Source pour laravel/breeze : https://laravel.com/docs/8.x/starter-kits
 Source du package : https://github.com/nascent-africa/jetstrap
 
 Documentation Inertia : https://inertiajs.com/
+
+# Problèmes et solutions connues
+
+-   `npm run dev` provoque des erreurs dans la console (permission denied)
+
+> Problème lors de l'utilisation avec Laradock
+
+```bash
+cd /home/laradock
+rm -rf .npm
+cd /var/www
+rm package-lock.json
+npm install
+npm run dev
+```
