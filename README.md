@@ -426,7 +426,7 @@ Ensuite, se rendre dans le dossier où sont contenues les sauvegardes des donné
 Dans ce dossier, vous pouvez supprimer le dossier **data**.
 > Il est possible que la suppression ne puisse pas se faire. Dans ce cas-là, contrôlé que bien tous les conteneurs sont arrêtés.
 
-**ATTENTION** : Faites bien attention avec cette étape. Car si vous utilisez Docker pour un autre projet, cela va aussi supprimer les données de votre autre projet. Dans ce cas, essayer d'aller dans le dossier - "C:\Users\nom d'utilisateur\\.laradock\data\mysql" - et supprimer seulement le dossier "mysql" et "la base de données du nouveau projet". 
+**ATTENTION** : Car si vous utilisez Docker pour un autre projet, cela va aussi supprimer les données de votre autre projet. Dans ce cas, essayer d'aller dans le dossier - "C:\Users\nom d'utilisateur\\.laradock\data\mysql" - et supprimer seulement le dossier "mysql" et "la base de données du nouveau projet". 
 
 Normalement, vous pouvez reprendre l'installation depuis l'étape 7 du chapitre "Comment initialiser un nouveau projet avec Laravel et Laradock".
 Avec cette commande, Docker va charger tous les conteneurs et créer le dossier "data" avec les bases de données par défaut.
