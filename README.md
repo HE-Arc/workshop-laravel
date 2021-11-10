@@ -408,7 +408,8 @@ Voici, l'un des messages d'erreur qui est affiché dans les logs quand on clic s
 
 "Different lower_case_table_names settings for server ('0') and data dictionary ('2')"
 
-Le problème peut survenir quand on a encore des bases de données qui ont été créer durant le workshop ou pendant une tentative de créer un nouveau projet qui entre en conflit avec "docker-compose" qui veut créer deux base de données, "mysql" et "la base de donnée du nouveua projet".
+Le problème peut survenir quand on a encore des bases de données qui ont été créer durant le workshop ou pendant une tentative de créer un nouveau projet qui entre en conflit avec "docker-compose" qui veut créer deux base de données, "mysql" et "la base de donnée du nouveau projet".
+Il est possible aussi que durant le passage de Docker Desktop entre WSL2 et Hyper-V produisse un comportement non-voulu.
 
 ### Solution
 
@@ -419,10 +420,11 @@ docker-compose stop
 ```
 
 Ensuite ce rendre dans le dossier ou est contenu les sauvegardes des données des conteneurs.
-> C:\Users\nom d'utilisateur\.laradock
+> C:\Users\nom d'utilisateur\\.laradock
 
 Dans ce dossier, vous pouvez supprimer le dossier **data**.
 > Il est possible que la suppresion ne puisse pas ce faire. Dans ce cas là, contrôlé que bien tous les conteners sont arrêtés.
+**ATTENTION** : Faites bien attention avec cette étapes. Car si vous utiliez Docker pour un autre projet, cela va aussi supprimer les données de voutreutre projet. Dans ce cas, essayer d'aller dans le dossier - "C:\Users\nom d'utilisateur\\.laradock\data\mysql" - et supprimer seulement le dossier "mysql" et "la base de donnée du nouveau projet". 
 
 Normalement, vous pouvez reprendre l'installation depui l'étape 7 du chapitre "Comment initialiser un nouveau projet avec Laravel et Laradock".
 Avec cette comande, docker va charger tous les containers et créer le dossier "data" avec les bases de données par defaut.
