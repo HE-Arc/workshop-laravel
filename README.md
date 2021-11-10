@@ -384,6 +384,8 @@ Documentation Inertia : https://inertiajs.com/
 
 # Problèmes et solutions connues
 
+## npm run dev
+
 -   `npm run dev` provoque des erreurs dans la console (permission denied)
 
 > Problème lors de l'utilisation avec Laradock
@@ -395,4 +397,36 @@ cd /var/www
 rm package-lock.json
 npm install
 npm run dev
+```
+
+## Docker - mysql_1 crash
+
+### Problème
+
+Après le démmarage des containers et quelques secondes plus tard le container **mysql_1** peut s'éteindre.
+Voici, l'un des messages d'erreur qui est affiché dans les logs quand on clic sur le container en question.
+
+"Different lower_case_table_names settings for server ('0') and data dictionary ('2')"
+
+Le problème peut survenir quand on a encore des bases de données qui ont été créer durant le workshop ou pendant une tentative de créer un nouveau projet qui entre en conflit avec "docker-compose" qui veut créer deux base de données, "mysql" et "la base de donnée du nouveua projet".
+
+### Solution
+
+Avant de commencer, il est nécessaire d'éteindre tous les conteneneur du projet.
+```sh
+# Execute in laradock
+docker-compose stop
+```
+
+Ensuite ce rendre dans le dossier ou est contenu les sauvegardes des données des conteneurs.
+> C:\Users\nom d'utilisateur\.laradock
+
+Dans ce dossier, vous pouvez supprimer le dossier **data**.
+> Il est possible que la suppresion ne puisse pas ce faire. Dans ce cas là, contrôlé que bien tous les conteners sont arrêtés.
+
+Normalement, vous pouvez reprendre l'installation depui l'étape 7 du chapitre "Comment initialiser un nouveau projet avec Laravel et Laradock".
+Avec cette comande, docker va charger tous les containers et créer le dossier "data" avec les bases de données par defaut.
+```sh
+# Execute in laradock
+docker-compose up -d nginx mysql phpmyadmin redis workspace
 ```
