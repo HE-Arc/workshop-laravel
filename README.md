@@ -211,7 +211,7 @@ Voici les étapes :
 git submodule add https://github.com/Laradock/laradock.git
 ```
 
-4. Push les 2 fichiers créés : .gitmodules et laradock (le contenu de laradock ne doit PAS être poussé, seul un fichier nommé laradock doit être poussé)
+4. **(INIT-ONLY)** Push les 2 fichiers créés : .gitmodules et laradock (le contenu de laradock ne doit PAS être poussé, seul un fichier nommé laradock doit être poussé)
 5. Créer une copie du fichier `.env.example` situé dans le dossier laradock et le renommer `.env`
 6. Ouvrir le fichier `.env` fraichement créé et modifier les éléments suivants (**attention certaines valeurs sont à remplacées**, lisez les commentaires suivants pour comprendre) :
 
