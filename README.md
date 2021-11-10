@@ -404,15 +404,16 @@ npm run dev
 ### Problème
 
 Après le démarrage des conteneurs et quelques secondes plus tard le conteneur **mysql_1** peut s'éteindre.
-Voici, l'un des messages d'erreur qui est affichée dans les logs quand on clique sur le conteneur en question.
+Voici, l'un des messages d'erreur qui est affichée dans les logs du conteneur.
+> Avec Docker Desktop, il est possible d'afficher les logs d'un conteneur en cliquant dessus
 
 "Different lower_case_table_names settings for server ('0') and data dictionary ('2')"
 
-Le problème peut survenir quand on a encore des bases de données qui ont été créées durant le workshop ou pendant une tentative de création d'un nouveau projet qui entre en conflit avec "docker-compose" qui veut créer deux bases de données, "mysql" et "la base de données du nouveau projet".
-
-Il est possible aussi que durant le passage de Docker Desktop entre WSL2 et Hyper-V produit un comportement non voulu.
+La source du problème exact n'est pas connu, mais il est possible que cela survienne lorsqu'il y a déjà une ou plusieurs base de données créées par d'autres projets qui utilisent Laradock (comme le workshop par exemple). Cela pourrait aussi survenir lors d'un changement de WSL2 à Hyper-V.
 
 ### Solution
+
+**ATTENTION**: Les actions proposées dans la solution suivante vont **supprimer** les bases de données utilisées dans tous les projets Laradock et que cette action est **irréversible**.
 
 Avant de commencer, il est nécessaire d'éteindre tous les conteneurs du projet.
 ```sh
@@ -420,17 +421,11 @@ Avant de commencer, il est nécessaire d'éteindre tous les conteneurs du projet
 docker-compose stop
 ```
 
-Ensuite, se rendre dans le dossier où sont contenues les sauvegardes des données des conteneurs.
-> C:\Users\nom d'utilisateur\\.laradock
+Supprimer dans Docker Desktop, tous les conteneurs.
+> Dans l'onglet Doker Desktop -> Containers/Apps, et appuyer sur le bouton "delete"
 
-Dans ce dossier, vous pouvez supprimer le dossier **data**.
+Ensuite, se rendre dans le dossier où sont contenues les sauvegardes des bases de données du conteneur msyql
+> C:\Users\nom d'utilisateur\\.laradock\data
+
+Dans ce dossier, vous pouvez supprimer le dossier **mysql**.
 > Il est possible que la suppression ne puisse pas se faire. Dans ce cas-là, contrôlé que bien tous les conteneurs sont arrêtés.
-
-**ATTENTION** : Car si vous utilisez Docker pour un autre projet, cela va aussi supprimer les données de votre autre projet. Dans ce cas, essayer d'aller dans le dossier - "C:\Users\nom d'utilisateur\\.laradock\data\mysql" - et supprimer seulement le dossier "mysql" et "la base de données du nouveau projet". 
-
-Normalement, vous pouvez reprendre l'installation depuis l'étape 7 du chapitre "Comment initialiser un nouveau projet avec Laravel et Laradock".
-Avec cette commande, Docker va charger tous les conteneurs et créer le dossier "data" avec les bases de données par défaut.
-```sh
-# Execute in laradock
-docker-compose up -d nginx mysql phpmyadmin redis workspace
-```
