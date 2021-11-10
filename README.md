@@ -350,17 +350,13 @@ php artisan jetstrap:swap breeze-inertia
 
 6. **(INIT-ONLY)** Il reste encore à supprimer tailwindcss et ses éventuels plugins du projet. Pour se faire direction package.json et supprimer tous les packages contenant tailwindcss dans leur nom.
 
-7. **(INIT-ONLY)** Push les nouveaux fichiers
-
-> Vérifiez que votre `.gitignore` est à jour afin de push uniquement les fichiers utiles à votre projet.
-
-8. Installer les nouvelles dépendances npm avec
+7. Installer les nouvelles dépendances npm avec
 
 ```sh
 npm install
 ```
 
-9. Et exécuter (il est possible qu’il faille exécuter cette commande une 2ème fois)
+8. Et exécuter (il est possible qu’il faille exécuter cette commande une 2ème fois)
 
 ```sh
 npm run dev
@@ -368,7 +364,11 @@ npm run dev
 
 **ATTENTION** Il est possible qu'il faille exécuter cette commande une 2ème fois. Si vous avez une page blanche ou le mauvais contenu sur votre page, essayez d'exécuter la commande une 2ème fois et de faire `ctrl + f5` pour rafraîchir le cache du navigateur.
 
-10. Tester que tout fonctionne en accédant à http://localhost:8000, vous devriez avoir un page Laravel avec un bouton login et register en haut à gauche. Vous pouvez tester de vous créer un compte pour vérifier que tout fonctionne correctement, si c'est le cas, vous devriez être prêt :)
+9. **(INIT-ONLY)** Push les nouveaux fichiers
+
+> Vérifiez que votre `.gitignore` est à jour afin de push uniquement les fichiers utiles à votre projet.
+
+10. Tester que tout fonctionne en accédant à http://localhost:8000, vous devriez avoir une page Laravel avec un bouton login et register en haut à gauche. Vous pouvez tester de vous créer un compte pour vérifier que tout fonctionne correctement, si c'est le cas, vous devriez être prêt :)
 
 **IMPORTANT** une fois toutes ces étapes réalisées chez une personne, les co-équipiers peuvent réaliser toutes les étapes de leur côté. Attention néanmoins, vos co-équipiers auront quelques différences dans les étapes à effectuées, ce référer au point (0.) pour comprendre ce qu'ils doivent effectués.
 
