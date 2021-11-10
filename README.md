@@ -356,13 +356,18 @@ php artisan jetstrap:swap breeze-inertia
 npm install
 ```
 
-8. Et exécuter (il est possible qu’il faille exécuter cette commande une 2ème fois)
+8. Et exécuter
 
 ```sh
 npm run dev
 ```
 
-**ATTENTION** Il est possible qu'il faille exécuter cette commande une 2ème fois. Si vous avez une page blanche ou le mauvais contenu sur votre page, essayez d'exécuter la commande une 2ème fois et de faire `ctrl + f5` pour rafraîchir le cache du navigateur.
+Vous devriez avoir un message qui ressemble à cela :
+
+Laravel Mix v6.0.39  
+✔ Compiled Successfully in 10186ms
+
+> **ATTENTION** Il est possible qu'il faille exécuter cette commande une 2ème fois. Si vous n'avez pas le message indiqué au dessus, une page blanche ou le mauvais contenu sur votre page, essayez d'exécuter la commande une 2ème fois et de faire `ctrl + f5` pour rafraîchir le cache du navigateur.
 
 9. **(INIT-ONLY)** Push les nouveaux fichiers
 
