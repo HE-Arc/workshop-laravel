@@ -389,6 +389,8 @@ Documentation Inertia : https://inertiajs.com/
 
 # Problèmes et solutions connues
 
+## npm run dev
+
 -   `npm run dev` provoque des erreurs dans la console (permission denied)
 
 > Problème lors de l'utilisation avec Laradock
@@ -401,3 +403,36 @@ rm package-lock.json
 npm install
 npm run dev
 ```
+
+## Docker - mysql_1 crash
+
+### Problème
+
+Après le démarrage des conteneurs et quelques secondes plus tard le conteneur **mysql_1** peut s'éteindre.
+Voici, l'un des messages d'erreur qui est affichée dans les logs du conteneur.
+> Avec Docker Desktop, il est possible d'afficher les logs d'un conteneur en cliquant dessus
+
+"Different lower_case_table_names settings for server ('0') and data dictionary ('2')"
+
+La source du problème exact n'est pas connu, mais il est possible que cela survienne lorsqu'il y a déjà une ou plusieurs base de données créées par d'autres projets qui utilisent Laradock (comme le workshop par exemple). Cela pourrait aussi survenir lors d'un changement de WSL2 à Hyper-V.
+
+### Solution
+
+**ATTENTION**: Les actions proposées dans la solution suivante vont **supprimer** les bases de données utilisées dans tous les projets utilisant Laradock. Cette action est **irréversible**.
+
+Avant de commencer, il est nécessaire d'éteindre tous les conteneurs du projet.
+```sh
+# Execute in laradock
+docker-compose stop
+```
+
+Puis, supprimer dans Docker Desktop, tous les conteneurs MySQL de tous les projets utilisant Laradock
+> Dans l'onglet Doker Desktop -> Containers/Apps, et appuyer sur le bouton "delete"
+
+Ensuite, se rendre dans le dossier où sont contenues les sauvegardes des bases de données du conteneur msyql
+> `C:\Users\nom d'utilisateur\.laradock\data`
+
+Dans ce dossier, vous pouvez supprimer le dossier **mysql**.
+> Il est possible que la suppression ne puisse pas se faire. Dans ce cas-là, contrôlé que bien tous les conteneurs sont arrêtés.
+
+Vous pouvez reprendre depuis l'étape 7 du chapitre "Comment initialiser un nouveau projet avec Laravel et Laradock" et voir si cela à résolu votre problème.
