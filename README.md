@@ -413,7 +413,7 @@ La source du problème exact n'est pas connu, mais il est possible que cela surv
 
 ### Solution
 
-**ATTENTION**: Les actions proposées dans la solution suivante vont **supprimer** les bases de données utilisées dans tous les projets Laradock et que cette action est **irréversible**.
+**ATTENTION**: Les actions proposées dans la solution suivante vont **supprimer** les bases de données utilisées dans tous les projets utilisant Laradock. Cette action est **irréversible**.
 
 Avant de commencer, il est nécessaire d'éteindre tous les conteneurs du projet.
 ```sh
@@ -421,11 +421,13 @@ Avant de commencer, il est nécessaire d'éteindre tous les conteneurs du projet
 docker-compose stop
 ```
 
-Supprimer dans Docker Desktop, tous les conteneurs.
+Puis, supprimer dans Docker Desktop, tous les conteneurs MySQL de tous les projets utilisant Laradock
 > Dans l'onglet Doker Desktop -> Containers/Apps, et appuyer sur le bouton "delete"
 
 Ensuite, se rendre dans le dossier où sont contenues les sauvegardes des bases de données du conteneur msyql
-> C:\Users\nom d'utilisateur\\.laradock\data
+> `C:\Users\nom d'utilisateur\.laradock\data`
 
 Dans ce dossier, vous pouvez supprimer le dossier **mysql**.
 > Il est possible que la suppression ne puisse pas se faire. Dans ce cas-là, contrôlé que bien tous les conteneurs sont arrêtés.
+
+Vous pouvez reprendre depuis l'étape 7 du chapitre "Comment initialiser un nouveau projet avec Laravel et Laradock" et voir si cela à résolu votre problème.
