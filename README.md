@@ -18,6 +18,7 @@ Branches générales
 
 Branches par années
 
+-   xxxx-main : la branche contenant la version du README le plus à jour, réalisé pour les étudiants de l'année xxxx
 -   xxxx-p1-start : la branche contenant le code de départ du workshop Laravel, réalisé avec les étudiants de l'année xxxx
 -   xxxx-p1-end : la branche contenant le code solution du workshop Laravel, réalisé avec les étudiants de l'année xxxx
 -   xxxx-p2-start : la branche contenant le code de départ du workshop VueJS, réalisé avec les étudiants de l'année xxxx
@@ -136,7 +137,7 @@ Si jamais vous souhaitez stopper les containers Docker du workshop vous pouvez l
 docker-compose stop
 ```
 
-> Si Windwos vous demande s'il peut partager l'accès à Docker pour un répertoire ou un fichier, acceptez la requête.
+> Si Windows vous demande s'il peut partager l'accès à Docker pour un répertoire ou un fichier, acceptez la requête.
 
 Copiez le fichier `.env.example` à la racine du projet et renommez-le `.env`.
 
