@@ -43,7 +43,8 @@ Si vous souhaitez utiliser d'autres outils, voici ce qu'il vous faut au minimum 
 -   Un IDE : VS Code (recommandé) ou autre
 -   Suivez les prochains chapitres afin de vous assurer de pouvoir suivre le workshop
 
-Si Docker vous intéresse, vous pouvez ajouter utiliser Laradock. C'est un très bon outil vous fournissant des conteneurs Docker de base pour travailler avec Laravel et Docker (En pratique il y a de forte chance pour que vous soyez amener à utiliser Docker à l'avenir. Mais le workshop se concentre sur Laravel, nous n'allons donc pas aborder Docker.)
+Si Docker vous intéresse, vous pouvez utiliser Laradock. C'est un très bon outil vous fournissant des conteneurs Docker de base pour travailler avec Laravel et Docker.
+> En pratique il y a de forte chance pour que vous soyez amené à utiliser Docker à l'avenir. Mais le workshop se concentre sur Laravel, nous n'allons donc pas aborder Docker.
 
 # Récupérer le projet
 
@@ -77,11 +78,10 @@ php artisan migrate
 php artisan db:seed
 ```
 
-Si la commande `php artisan migrate` échoue avec une erreur similaire à :  
-`SQLSTATE[HY000] [1049] Unknown database 'laravel' (SQL: select * from information_schema.tables where table_schema = laravel and table_name = migrations and 
-table_type = 'BASE TABLE')`
-
-Cela veut probablement dire que votre base de données n'a pas été correctement créée.
+> Si la commande `php artisan migrate` échoue avec une erreur similaire à :  
+> `SQLSTATE[HY000] [1049] Unknown database 'laravel' (SQL: select * from information_schema.tables where table_schema = laravel and table_name = migrations and 
+table_type = 'BASE TABLE')`  
+> Cela veut probablement dire que votre base de données n'a pas été correctement créée.
 
 Démarrez le serveur de développement fourni par PHP.
 
