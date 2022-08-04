@@ -1,9 +1,13 @@
-# Introduction
+# Configuration du workshop
 
-Workshop Laravel donné aux étudiants de 3ème année à la HE-Arc dans le cadre du cours de dévelopement web.
+La documentation de configuration du workshop se trouve dans le README sur la branche `main`.
 
-L'objectif de ce workshop est de transmettre aux étudiants les bases et les bonnes pratique de la création d'un projet web avec le Framework Laravel. Ce workshop a également pour but de fournir un point de départ aux étudiants afin de leur permettre de créer leur projet de semestre.
+Ce README sera utile durant la réalisation du workshop.
 
-Les prochaines étapes permettent de mettre en place l'environement de dévelopement et de suivre le workshop dans son intégralité.
+# Réponses
 
-Les prochaines étapes se trouvent dans le README sur les branches `main`, pour facilité la lecture du README il suffit d'ouvrir le projet en sélectionnant la bonne branche sur GitHub directement.
+**Lire les réponses uniquement en cas de besoins, essayez d'abords par vous-même, vous apprendrez mieux ;)**
+
+TODO-0-0
+
+Si VSCode est utilisé (IDE recommendé) : installer l'extension depuis VSCode nommé "Laravel Extension Pack"
