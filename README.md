@@ -66,7 +66,8 @@ cp .env.example .env
 > Notamment les paramètres `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` et/ou d'autres dépendant de votre configuration locale.
 
 Créez une nouvelle base de données manuellement.
-1. Ouvrez le panneau de contrôle XAMPP et appuyez sur le bouton admin sur la ligne `MySQL`, cela ouvre PhpMyAdmin sur un navigateur
+1. Ouvrez le panneau de contrôle XAMPP et démarrez `MySQL` en appuyant sur le bouton `Start`.
+2. Toujours sur le panneau de contrôle XAMPP, appuyez sur le bouton `Admin` sur la ligne `MySQL`, cela ouvre PhpMyAdmin sur un navigateur
 2. Cliquez sur "nouvelle base de données"
 3. Nommez-la `workshop-laravel`, assurez-vous également que `utf8mb4_general_ci` soit sélectionné, et appuyez sur "créer". 
 
