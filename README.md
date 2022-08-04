@@ -61,7 +61,9 @@ Copiez le fichier `.env.example` à la racine du projet et renommez-le `.env`.
 cp .env.example .env
 ```
 
-> Le contenu de ce fichier n'est pas à modifier, car il est déjà adapté à la configuration du projet.
+> Le contenu de ce fichier n'est pas à modifier, car il est déjà adapté à la configuration du projet.  
+> Si vous aviez déjà une base de données installée, il faudra peut être adapté ce fichier quand même.  
+> Notamment les paramètres `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` et/ou d'autres dépendant de votre configuration locale.
 
 Créez une nouvelle base de données manuellement.
 1. Ouvrez le panneau de contrôle XAMPP et appuyez sur le bouton admin sur la ligne `MySQL`, cela ouvre PhpMyAdmin sur un navigateur
