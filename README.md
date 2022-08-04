@@ -97,7 +97,9 @@ Démarrez le serveur de développement fourni par PHP.
 php artisan serve
 ```
 
-> Si vous souhaitez utiliser Apache fourni par XAMPP à la place du server fourni par PHP vous pouvez suivre ce tutoriel : https://wecode101.com/xampp-development-environment-for-laravel-8
+> Si vous souhaitez utiliser Apache fourni par XAMPP à la place du serveur fourni par PHP vous pouvez suivre ce tutoriel :  
+> Seules certaines étapes seront nécessaires, car nous avons déjà fait la plupart des choses.
+> https://wecode101.com/xampp-development-environment-for-laravel-8
 
 # Tester que tout fonctionne
 
