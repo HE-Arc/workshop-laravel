@@ -1,3 +1,13 @@
+<!-- TODO-1-3 Créer une vue blade "home.blade.php", la renvoyer dans le contrôleur et tester d'accéder à "/" -->
+
+<!-- TODO-2-0 Ajouter le contenu de la nouvelle vue "home" https://codepen.io/spicypaper/pen/wvemNKj -->
+
+<!-- TODO-4-3 Créer une vue blade layout permettant de fournir une base pour les autres vues "views/layout/app.blade.php" -->
+<!-- TODO-4-4 Utiliser le contenu de la vue "home" pour la vue layout et l'adapter avec les directives blade -->
+<!-- TODO-4-5 Adapter la vue "home" pour utiliser le layout app et créer une section -->
+<!-- TODO-4-6 Créer la vue books pour afficher les books en utilisant le layout app -->
+<!-- TODO-4-7 Améliorer la vue books https://codepen.io/spicypaper/pen/gOReEwE -->
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>

@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Facade;
 
+// TODO-0-0 Si VSCode est utilisé (IDE recommendé) : installer l'extension depuis VSCode nommé "Laravel Extension Pack"
+
 return [
 
     /*
