@@ -66,10 +66,15 @@ cp .env.example .env
 > Notamment les paramètres `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` et/ou d'autres dépendant de votre configuration locale.
 
 Créez une nouvelle base de données manuellement.
-1. Ouvrez le panneau de contrôle XAMPP et démarrez `MySQL` en appuyant sur le bouton `Start`.
+1. Ouvrez le panneau de contrôle XAMPP et démarrez `MySQL` et `Apache` en appuyant sur le bouton `Start` sur chaque ligne.
 2. Toujours sur le panneau de contrôle XAMPP, appuyez sur le bouton `Admin` sur la ligne `MySQL`, cela ouvre PhpMyAdmin sur un navigateur
 2. Cliquez sur "nouvelle base de données"
-3. Nommez-la `workshop-laravel`, assurez-vous également que `utf8mb4_general_ci` soit sélectionné, et appuyez sur "créer". 
+3. Nommez-la `workshop-laravel`, assurez-vous également que `utf8mb4_general_ci` soit sélectionné, et appuyez sur "créer".
+
+> Durant le workshop nous n'utiliserons pas le serveur fourni par Apache, mais ici il est nécessaire de  
+> le démarrer quand même, car nous avons besoin de PhpMyAdmin qui est démarré avec le même bouton.  
+> En pratique ces 2 éléments ne sont pas liés, il est tout à fait possible d'avoir Apache démarré sans  
+> PhpMyAdmin et inversément. XAMPP à décidé de les liés, mais ce n'est qu'un choix.
 
 Installez les dépendances et mettez le projet Laravel en place.
 
