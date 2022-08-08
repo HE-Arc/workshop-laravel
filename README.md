@@ -144,7 +144,7 @@ TODO-4-3
 
 TODO-4-4
 
-```php
+```html
 <div class="container mt-3">
     @yield('content')
 </div>
@@ -152,7 +152,7 @@ TODO-4-4
 
 TODO-4-5
 
-```php
+```html
 @extends('layout.app')
 
 @section('content')
@@ -163,7 +163,7 @@ TODO-4-5
 
 TODO-4-6
 
-```php
+```html
 @extends('layout.app')
 
 @section('content')
@@ -175,4 +175,364 @@ TODO-4-6
 
 TODO-4-7
 
+```html
+<thead>
+    <tr>
+        <th scope="col">Titre</th>
+        <th scope="col">Pages</th>
+        <th scope="col">Quantité</th>
+        <th scope="col">&nbsp;</th>
+    </tr>
+</thead>
+<tbody>
+    @foreach ($books as $book)
+    <tr>
+        <td>{{$book->title}}</td>
+        <td>{{$book->pages}}</td>
+        <td>{{$book->quantity}}</td>
+        <td>
+            <a class="btn btn-info" href="{{ route('books.show',$book->id) }}"><i class="bi bi-arrow-right-circle"></i></a>
+            <a class="btn btn-primary" href="{{ route('books.edit',$book->id) }}"><i class="bi bi-pencil"></i></a>
+            <form action="{{ route('books.destroy',$book->id) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+            </form>
+        </td>
+    </tr>
+    @endforeach
+</tbody>
+```
+
 TODO-5-0
+
+TODO-5-1
+
+Mettre `view('books.index'...` dans le controller
+
+TODO-5-2
+
+Créer les vues manquantes `show.blade.php`, `create.blade.php` et `edit.blade.php` et inscrire quelque chose de temporaire sur chaque vue
+
+TODO-5-3
+
+Relier les méthode `create`, `show` et `edit` du controleur aux vues correspondantes
+```php
+public function create()
+{
+    return view('books.create');
+}
+
+public function show($id)
+{
+    return view('books.show');
+}
+
+public function edit($id)
+{
+    return view('books.edit');
+}
+```
+
+TODO-5-4
+
+```html
+<!--ajouter un livre-->
+<a href="{{ route('books.create') }}" class="btn btn-primary float-right mb-2">Ajouter un livre</a>
+
+<!--actions-->
+<td>
+    <a class="btn btn-info" href="{{ route('books.show',$book->id) }}">Afficher</a>
+    <a class="btn btn-primary" href="{{ route('books.edit',$book->id) }}">Modifier</a>
+    <form action="{{ route('books.destroy',$book->id) }}" method="POST">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-danger">Supprimer</button>
+    </form>
+</td>
+```
+
+TODO-5-5
+
+```php
+public function store(Request $request)
+{
+    Book::create($request->all());
+
+    return redirect()->route('books.index');
+}
+
+public function show($id)
+{
+    $book = Book::findOrFail($id);
+    return view('books.show', ['book' => $book]);
+}
+
+public function edit($id)
+{
+    $book = Book::where('id', $id)->firstOrFail();
+    return view('books.edit', ['book' => $book]);
+}
+
+public function update(Request $request, $id)
+{
+    Book::findOrFail($id)->update($request->all());
+
+    return redirect()->route('books.index');
+}
+
+public function destroy($id)
+{
+    $book = Book::find($id);
+    $book->delete();
+
+    return redirect()->route('books.index');
+}
+```
+
+TODO-5-6
+
+
+```php
+public function store(Request $request)
+{
+    Book::create($request->all());
+
+    return redirect()->route('books.index')
+        ->with('success','Book created successfully.');
+}
+
+public function show($id)
+{
+    $book = Book::findOrFail($id);
+    return view('books.show', ['book' => $book]);
+}
+
+public function edit($id)
+{
+    $book = Book::where('id', $id)->firstOrFail();
+    return view('books.edit', ['book' => $book]);
+}
+
+public function update(Request $request, $id)
+{
+    Book::findOrFail($id)->update($request->all());
+
+    return redirect()->route('books.index')
+        ->with('success','Book updated successfully');
+}
+
+public function destroy($id)
+{
+    $book = Book::find($id);
+    $book->delete();
+
+    return redirect()->route('books.index')
+                    ->with('success','Book deleted successfully');
+}
+```
+
+> Il est également possible de mettre le type de l'élément attendu dans les paramètres afin que Laravel fasse de lui même la conversion
+> ```php
+> public function show(Book $book)
+> {
+>     return view('books.show', compact('book'));
+> }
+> ```
+
+TODO-5-7
+
+```html
+<div class="container mt-3">
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
+
+    @yield('content')
+</div>
+```
+
+TODO-5-8
+
+```html
+@extends('layout.app')
+
+@section('content')
+
+{{ route('books.index') }}
+
+{{ route('books.store') }}
+@csrf
+
+@endsection
+```
+
+Résoudre le problème du "mass assignement"
+
+> Le fait d'utiliser `$request->all()` pose problème, un user malvaillant pourrait modifier des champs sensibles, car pas de control précis parce qu'on modifie tous les champs en même temps sans regarder quoi. Il y a 2 solutions, les voici :
+
+1. Remplacer `Book::create($request->all());` dans `BookControler.store` par
+```php
+$book = new Book();
+$book->title = $request->title;
+$book->pages = $request->pages;
+$book->quantity = $request->quantity;
+$book->save();
+```
+
+2. Remettre le `Book::create()` et ajouter `$fillable` dans le modèle Book ce qui suit
+```php
+protected $fillable = [
+    'title', 'pages', 'quantity'
+];
+```
+
+> Il existe aussi une autre méthode que fillable, qui fait l'inverse (permet d'indiquer les champs qui ne peuvent pas être mass assignable), mais non recommandée. Le mieux c'est de mettre les champs fillable dans le modèle et en fonction des besoins faire un request->all() ou de préciser les champs du modèle à modifier.
+
+TODO-5-9
+
+```html
+@extends('layout.app')
+
+@section('content')
+
+{{ route('books.index') }}
+
+{{ route('books.update', $book->id) }}
+
+@csrf
+@method('PUT')
+
+{{ $book->title }}
+{{ $book->pages }}
+{{ $book->quantity }}
+
+@endsection
+```
+
+TODO-5-10
+
+```html
+@extends('layout.app')
+
+@section('content')
+{{ route('books.index') }}
+
+{{ $book->title }}
+{{ $book->pages }}
+{{ $book->quantity }}
+
+@endsection
+```
+
+TODO-6-0
+
+```php
+$request->validate([
+   'title' => 'required|min:5|max:25',
+   'pages' => 'required|integer|gt:0|lt:1000',
+   'quantity' => 'required|integer|gte:0|lt:100',
+]);
+```
+> Le validateur va automatiquement créer et retourner un tableau d'erreurs
+
+TODO-6-1
+
+```html
+{{ $errors }}
+```
+
+TODO-6-2
+
+```html
+@if ($errors->any())
+    <div class="alert alert-danger mt-3 col-12">
+        <strong>Whoops!</strong> Il y a un problème avec vos entrées.<br><br>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+```
+
+TODO-6-3
+
+```php
+$books = Book::latest()->paginate(5);
+return view('books.index', compact('books'))
+    ->with('i', (request()->input('page', 1) - 1) * 5);
+```
+
+TODO-6-4
+
+Placer après `</table>`
+
+```html
+{!! $books->links() !!}
+```
+
+TODO-6-5
+
+Le CSS généré pour les liens de paginations est généré pour fonctionner avec Tailwind CSS. Nous utilisons Bootstrap et Laravel à pensé à nous. Il suffit de rajouter ce qui suit dans `App\Providers\AppServiceProvider`
+```php
+use Illuminate\Pagination\Paginator;
+
+public function boot()
+{
+    Paginator::useBootstrap();
+}
+```
+
+TODO-7-0
+
+```html
+@extends('layout.app')
+
+@section('content')
+{{ route('books.index') }}
+
+@endsection
+```
+
+TODO-7-1
+
+> Attention : Il faut mettre la route get avant la ressource, sinon le routeur ne la trouvera pas !
+
+```php
+Route::get('books/order', [BookController::class, 'order'])->name('books.order');
+```
+
+TODO-7-2
+
+```php
+public function order()
+{
+    $books = Book::latest()->where('quantity', '<=', 0)->paginate(5);
+
+    return view('books.order', compact('books'))
+        ->with('i', (request()->input('page', 1) - 1) * 5);
+}
+```
+
+TODO-7-3
+
+```html
+<li class="nav-item">
+    <a class="nav-link" href="{{ route('books.order') }}">To Order</a>
+</li>
+```
+
+TODO-7-4
+
+```html
+@if ($books->count() > 0)
+@else
+<h3 class="text-success">Aucun livre n'a besoin d'être commandés pour l'instant!</h3>
+@endif
+```
+
+https://hackmd.io/sNwLjBX1Qx6KQA20YLn0uw?both#Relation

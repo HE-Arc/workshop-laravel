@@ -6,7 +6,56 @@
 <!-- TODO-4-4 Utiliser le contenu de la vue "home" pour la vue layout et l'adapter avec les directives blade -->
 <!-- TODO-4-5 Adapter la vue "home" pour utiliser le layout app et créer une section -->
 <!-- TODO-4-6 Créer la vue books pour afficher les books en utilisant le layout app -->
-<!-- TODO-4-7 Améliorer la vue books https://codepen.io/spicypaper/pen/gOReEwE -->
+<!-- TODO-4-7 Améliorer la vue books pour afficher les livres dans un tableau https://codepen.io/spicypaper/pen/gOReEwE -->
+
+<!-- TODO-5-0 Créer un dossier "book" dans le "views" afin de regrouper les vues -->
+<!-- TODO-5-1 Renommer la vue "book" en "index" (attention à adapter le contrôleur) -->
+<!-- TODO-5-2 Créer les vues manquantes afin de compléter le CRUD de "books" et y inscrire quelque chose de temporaire -->
+<!-- TODO-5-4 Ajouter des boutons d'actions dans la vue "index"
+    Ajouter un livre:
+    <a href="route Laravel" class="btn btn-primary float-right mb-2">Ajouter un livre</a>
+    Afficher:
+    <a class="btn btn-info" href="route Laravel">Afficher</a>
+    Modifier:
+    <a class="btn btn-primary" href="route Laravel">Modifier</a>
+    Supprimer:
+    <form action="route Laravel" method="POST">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-danger">Supprimer</button>
+    </form>
+-->
+<!-- TODO-5-7 Réceptionner et afficher les message de confirmations et tester le bouton "delete"
+    1. Modifier "app.blade.php"
+    2. Accéder aux message via Session::get("...") et l'afficher dans le div "container" au dessus du "yield content"
+    3. Utiliser les alert bootstrap pour faire quelque de plus esthétique
+-->
+<!-- TODO-5-8 Créer le formulaire de création
+    - Récupérer le template fourni et compléter les TODOs https://codepen.io/spicypaper/pen/LYLrWMK
+    - Tester l'ajout d'un livre (ne fonctionne pas ? c'est normal.)
+    - Résoudre le problème du "mass assignement" empêchant de créer un livre
+-->
+<!-- TODO-5-9 Créer le formulaire d'édition
+    - Récupérer le template fourni et compléter les TODOs https://codepen.io/spicypaper/pen/zYzajBp
+    - Tester l'édition d'un livre
+-->
+<!-- TODO-5-10 Compléter la vue permettant d'afficher les détails d'un livre
+    - Récupérer le template fourni et compléter les TODOs https://codepen.io/spicypaper/pen/VwWdxdJ
+    - Tester l'affichage d'un livre
+-->
+
+<!-- TODO-6-1 Tester d'afficher les erreurs sur la vue de création en utilisant "$errors" -->
+<!-- TODO-6-2 Améliorer l'affichage des erreurs à l'aide d'une liste HTML et des classes alert
+    de Bootstrap à placer en dessous du bouton
+-->
+<!-- TODO-6-4 Afficher les boutons et liens de paginations sur la vue "index" -->
+
+<!-- TODO-7-0 Créer une vue "order.blade.php" permettant de lister les livres à commandés
+    - Repartir de la vue "index" (garder la pagination)
+    - Afficher tous les livres reçu sur cette page (la logique de filtre sera faites dans le contrôleur)
+-->
+<!-- TODO-7-3 Ajouter le lien à la vue order dans "layout.app" -->
+<!-- TODO-7-4 Afficher un message spécial si aucun livre ne doit être commandé -->
 
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
