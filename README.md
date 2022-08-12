@@ -536,3 +536,22 @@ TODO-7-4
 ```
 
 https://hackmd.io/sNwLjBX1Qx6KQA20YLn0uw?both#Relation
+
+TODO-8-0
+
+- `php artisan make:model Author --migration`
+> `--migration` peut être remplacé par `-m`
+
+TODO-8-1
+
+```php
+Schema::create('authors', function (Blueprint $table) {
+    $table->id();
+    $table->string('name');
+    $table->timestamps();
+});
+```
+
+TODO-8-2
+
+`php artisan make:migration add_author_fk_to_books --table=books`
