@@ -555,3 +555,138 @@ Schema::create('authors', function (Blueprint $table) {
 TODO-8-2
 
 `php artisan make:migration add_author_fk_to_books --table=books`
+
+```php
+public function up()
+{
+    Schema::table('books', function (Blueprint $table) {
+        $table->foreignId('author_id')->nullable()->constrained()->onDelete('cascade');
+    });
+}
+```
+
+> NOTE : foreignId crée une colonne de type UNSIGNED BIGINT dans la BDD, contrained permet  
+> d'utiliser les conventions Laravel afin de derminer les tables et les colonnes à relier.
+
+TODO-8-3
+
+```php
+public function down()
+{
+    Schema::table('books', function (Blueprint $table) {
+        $table->dropForeign(['author_id']);
+        $table->dropColumn('author_id');
+    });
+}
+```
+
+
+TODO-8-4
+
+`php artisan migrate:rollback`
+
+`php artisan migrate`
+
+TODO-8-5
+
+Dans "Author"
+```php
+public function books()
+{
+    return $this->hasMany(Book::class);
+}
+```
+
+Dans "Book"
+```php
+function author() {
+    return $this->belongsTo(Author::class);
+}
+```
+
+TODO-8-6
+
+```php
+protected $fillable = [
+    'title', 'pages', 'quantity', 'author_id'
+];
+```
+
+TODO-8-7
+
+```html
+<td>{{$book->author_id ?? "Auteur inconnu..."}}</td>
+```
+
+> ```php=
+> $foo = $bar ?? 'something';
+> $foo = isset($bar) ? $bar : 'something';
+> ```
+> Source : https://stackoverflow.com/questions/53610622/what-does-double-question-mark-operator-mean-in-php
+
+TODO-8-8
+
+TODO-8-9
+
+```php
+$books = Book::with('author')->latest()->paginate(5);
+```
+
+TODO-8-10
+
+```php
+public function create()
+{
+    $authors = Author::all();
+    return view('books.create', compact('authors'));
+}
+```
+
+TODO-8-11
+
+```html
+<div class="form-group col-12">
+    <label for="exampleFormControlSelect1">Auteur</label>
+    <select class="form-control" name="author_id" id="exampleFormControlSelect1">
+        <option>Auteur inconnu...</option>
+        @foreach ($authors as $author)
+        <option>{{$author->name}}</option>
+        @endforeach
+    </select>
+</div>
+```
+
+TODO-8-12
+
+```html
+<div class="form-group col-12">
+    <label for="exampleFormControlSelect1">Auteur</label>
+    <select class="form-control" name="author_id" id="exampleFormControlSelect1">
+        <option value="">Auteur inconnu...</option>
+        @foreach ($authors as $author)
+        <option value="{{$author->id}}" {{ (old("author_id") == $author->id ? "selected":"") }}>{{$author->name}}</option>
+        @endforeach
+    </select>
+</div>
+```
+
+TODO-8-13
+
+```php
+'author_id' => 'nullable|integer|exists:authors,id'
+```
+
+TODO-9-0
+
+https://blog.getbootstrap.com/2021/01/07/bootstrap-icons-1-3-0/
+
+```html
+<!-- Option 1: Include in HTML -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+```
+
+Une fois importé il est possible de les utiliser comme suit:
+
+```html
+<i class="bi bi-arrow-right-circle"></i>
+```
