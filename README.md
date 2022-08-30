@@ -16,7 +16,7 @@ Branches générales
 -   p2-start : la branche contenant le code de départ du workshop VueJS
 -   p2-end : la branche contenant le code solution du workshop VueJS
 
-Branches par années
+Branches par année
 
 -   xxxx-main : la branche contenant la version du README le plus à jour, réalisé pour les étudiants de l'année xxxx
 -   xxxx-p1-start : la branche contenant le code de départ du workshop Laravel, réalisé avec les étudiants de l'année xxxx
@@ -42,18 +42,18 @@ Si vous souhaitez utiliser d'autres outils, voici ce qu'il vous faut au minimum 
 -   PHP version >= 8.0.2
 -   Composer version compatible avec la version de PHP installée
 -   Un IDE : VS Code (recommandé) ou autre
--   Git : Une version assez récente devrait suffir
+-   Git : Une version assez récente devrait suffire
 -   Suivez les prochains chapitres afin de vous assurer de pouvoir suivre le workshop
 
 Si Docker vous intéresse, vous pouvez utiliser Laradock. C'est un très bon outil vous fournissant des conteneurs Docker de base pour travailler avec Laravel et Docker.
-> En pratique il y a de forte chance pour que vous soyez amené à utiliser Docker à l'avenir. Mais le workshop se concentre sur Laravel, nous allons donc peu ou pas aborder Docker.
+> En pratique il y a de fortes chances pour que vous soyez amené à utiliser Docker à l'avenir. Mais le workshop se concentre sur Laravel, nous allons donc peu ou pas aborder Docker.
 
 # Récupérer le projet
 
-Récupérez le projet en SSH (recommendé) ou en HTTPS.
+Récupérez le projet en SSH (recommandé) ou en HTTPS.
 
-> Si vous récupérez le projet via SSH, il faudra configurer une clée SSH sur votre machine si cela n'est pas déjà fait.
-> Et configurer la clée publique sur GitHub.
+> Si vous récupérez le projet via SSH, il faudra configurer une clé SSH sur votre machine si cela n'est pas déjà fait.
+> Et configurer la clé publique sur GitHub.
 > Pour générer une clé SSH : https://docs.oracle.com/en/cloud/cloud-at-customer/occ-get-started/generate-ssh-key-pair.html
 
 ```bash
@@ -71,7 +71,7 @@ cp .env.example .env
 
 > Le contenu de ce fichier n'est pas à modifier, car il est déjà adapté à la configuration du projet.  
 > Si vous aviez déjà une base de données installée, il faudra peut être adapté ce fichier quand même.  
-> Notamment les paramètres `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` et/ou d'autres dépendant de votre configuration locale.
+> Notamment les paramètres `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` et/ou d'autres dépendants de votre configuration locale.
 
 Créez une nouvelle base de données manuellement.
 1. Ouvrez le panneau de contrôle XAMPP et démarrez `MySQL` et `Apache` en appuyant sur le bouton `Start` sur chaque ligne.
@@ -82,7 +82,7 @@ Créez une nouvelle base de données manuellement.
 > Durant le workshop nous n'utiliserons pas le serveur fourni par Apache, mais ici il est nécessaire de  
 > le démarrer quand même, car nous avons besoin de PhpMyAdmin qui est démarré avec le même bouton.  
 > En pratique ces 2 éléments ne sont pas liés, il est tout à fait possible d'avoir Apache démarré sans  
-> PhpMyAdmin et inversément. XAMPP à décidé de les liés, mais ce n'est qu'un choix.
+> PhpMyAdmin et inversement. XAMPP a décidé de les lier, mais ce n'est qu'un choix.
 
 Installez les dépendances et mettez le projet Laravel en place.
 
@@ -108,16 +108,17 @@ php artisan serve
 > Si vous souhaitez utiliser Apache fourni par XAMPP à la place du serveur fourni par PHP vous pouvez suivre ce tutoriel :  
 > Seules certaines étapes seront nécessaires, car nous avons déjà fait la plupart des choses.
 > https://wecode101.com/xampp-development-environment-for-laravel-8
+> Mais cette étape n'est pas obligatoire, le serveur de développement fonctionne et suffi.
 
 # Tester que tout fonctionne
 
-Essayez d'accéder à l'url : http://localhost:8000
+Essayez d'accéder à l'URL : http://localhost:8000
 
-Vous devriez avoir une page avec marqué "You are READY for the workshop ;)", sinon regardez dans les logs pour comprendre ce qui n'a pas fonctionné.
+Vous devriez avoir une page avec marquée "You are READY for the workshop ;)", sinon regardez dans les logs pour comprendre ce qui n'a pas fonctionné.
 
 Si vous avez le résultat demandé, c'est que vous êtes normalement prêt à suivre le workshop :)
 
-Sinon, c'est terrible ! Commencez par faire 3 tours sur vous même ou même un peu plus.  
+Sinon, c'est terrible ! Commencez par faire 3 tours sur vous-même ou même un peu plus.  
 Ensuite, assurez-vous de n'avoir oublié aucune des étapes et regardez également avec vos camarades qui pourraient également vous aider.
 
 ---
@@ -145,7 +146,7 @@ Voici les étapes :
 0. Que souhaitez-vous faire ?
 - Initialiser le projet pour la première fois : une seule personne dans le projet doit suivre les étapes suivantes au complet.
 - Récupérer le projet : les co-équipiers doivent sauter les étapes avec la mention **(INIT-ONLY)**.
-  - Avant de réaliser les prochaines étapes il faudra récupérer Laradock (voir le chapitre de ce README nommé "Récupérer le projet")
+  - Avant de réaliser les prochaines étapes, il faudra récupérer Laradock (voir le chapitre de ce README nommé "Récupérer le projet")
 1. **(INIT-ONLY)** Créer un projet Github
 2. **(INIT-ONLY)** Cloner le projet
 3. **(INIT-ONLY)** Ouvrir un bash et ajouter le submodule Laradock au projet
@@ -156,13 +157,13 @@ git submodule add https://github.com/Laradock/laradock.git
 
 4. **(INIT-ONLY)** Push les 2 fichiers créés : .gitmodules et laradock (le contenu de laradock ne doit PAS être poussé, seul un fichier nommé laradock doit être poussé)
 5. Créer une copie du fichier `.env.example` situé dans le dossier laradock et le renommer `.env`
-6. Ouvrir le fichier `.env` fraichement créé et modifier les éléments suivants (**attention certaines valeurs sont à remplacées**, lisez les commentaires suivants pour comprendre) :
+6. Ouvrir le fichier `.env` fraîchement créé et modifier les éléments suivants (**attention certaines valeurs sont à remplacées**, lisez les commentaires suivants pour comprendre) :
 
 > Vous pouvez mettre ce que vous voulez pour les valeurs "COMPOSE_PROJECT_NAME" et "MYSQL_DATABASE", mais ne mettez surtout PAS les mêmes valeurs que pour celle déjà durant le workshop. Essayez de rester cohérent dans une même équipe.
 
 > Un .env ne doit JAMAIS être poussée sur git.
 
-> Je vous conseille de rester avec PHP 7.4 (C'est se que vous aurez sur le serveur de déploiement)
+> Je vous conseille de rester avec PHP 7.4 (C'est ce que vous aurez sur le serveur de déploiement)
 
 > Le user et le password de MYSQL dépendent de votre config perso, mais en principe vous devrez mettre "homestead" et "secret" comme votre MySQL a été créé avec ce workshop. Sinon à vous de voir.
 
@@ -179,7 +180,7 @@ MYSQL_PASSWORD=secret
 NGINX_HOST_HTTP_PORT=8000
 ```
 
-7. Démarrer les services dont vous avez besoins, dans la plupart des cas les services suivants sont suffisants pour commencer en tout cas. Vous pourrez toujours ajouter des services par la suite.
+7. Démarrer les services dont vous avez besoin, dans la plupart des cas les services suivants sont suffisants pour commencer en tout cas. Vous pourrez toujours ajouter des services par la suite.
 
 > Cela peut prendre quelques minutes la première fois, c'est normal
 
@@ -210,7 +211,7 @@ composer create-project laravel/laravel my-project-name
 > Vérifiez que votre `.gitignore` est à jour afin de push uniquement les fichiers utiles à votre projet.
 > Le `.gitignore` fournit par Laravel au moment de créer le projet devrait suffire, mais vous pouvez également générer votre propre `.gitignore` à l'aide, par exemple, du site https://www.toptal.com/developers/gitignore (perso je recommande ce site).
 
-14. Modifier le `.env` pour correspondre à votre configuration, si toutes les étapes ont étés suivies voici ce qu'il faudra modifier.
+14. Modifier le `.env` pour correspondre à votre configuration, si toutes les étapes ont étés suivis voici ce qu'il faudra modifier.
 
 ```sh
 DB_HOST=mysql
@@ -246,14 +247,14 @@ php artisan migrate
 
 Une fois le projet initialisé avec les étapes indiquées ci-dessus, il est possible d'ajouter VueJS avec laravel/breeze et Inertia.
 
-**ATTENTION** laravel/breeze doit être ajouté au début du projet pour éviter tout soucis, c'est pour cela que je vous recommande de faire ces étapes juste après avoir terminé les précédentes étapes.
+**ATTENTION** laravel/breeze doit être ajouté au début du projet pour éviter tout souci, c'est pour cela que je vous recommande de faire ces étapes juste après avoir terminé les précédentes étapes.
 
 > Ce n'est pas une obligation absolue, comme nous avons pu le voir lors du workshop, mais il faut vraiment savoir et comprendre ce que l'on fait.
 
 0. Que souhaitez-vous faire ?
 - Initialiser le projet pour la première fois : une seule personne dans le projet doit suivre les étapes suivantes au complet.
 - Récupérer le projet : les co-équipiers doivent sauter les étapes avec la mention **(INIT-ONLY)**.
-  - Avant de réaliser les prochaines étapes il faudra déjà avoir suivi le chapitre précédent (voir le chapitre de ce README nommé "Comment initialiser un nouveau projet avec Laravel et Laradock")
+  - Avant de réaliser les prochaines étapes, il faudra déjà avoir suivi le chapitre précédent (voir le chapitre de ce README nommé "Comment initialiser un nouveau projet avec Laravel et Laradock")
 
 1. **(INIT-ONLY)** La première chose que nous allons faire c'est d'ajouter laravel/breeze (scaffolder/starter-kit officiel pour Laravel) à notre projet à l'aide de composer.
 
@@ -261,7 +262,7 @@ Une fois le projet initialisé avec les étapes indiquées ci-dessus, il est pos
 composer require laravel/breeze --dev
 ```
 
-2. **(INIT-ONLY)** Une fois laravel/breeze ajouté au projet, nous allons pouvoir l'utiliser. Dans notre cas nous souhaitons utiliser la version avec VueJS.
+2. **(INIT-ONLY)** Une fois laravel/breeze ajoutée au projet, nous allons pouvoir l'utiliser. Dans notre cas nous souhaitons utiliser la version avec VueJS.
 
 > La solution de laravel/breeze avec VueJS vient également avec Inertia.
 
@@ -310,7 +311,7 @@ Vous devriez avoir un message qui ressemble à cela :
 Laravel Mix v6.0.39  
 ✔ Compiled Successfully in 10186ms
 
-> **ATTENTION** Il est possible qu'il faille exécuter cette commande une 2ème fois. Si vous n'avez pas le message indiqué au dessus, une page blanche ou le mauvais contenu sur votre page, essayez d'exécuter la commande une 2ème fois et de faire `ctrl + f5` pour rafraîchir le cache du navigateur.
+> **ATTENTION** Il est possible qu'il faille exécuter cette commande une 2ème fois. Si vous n'avez pas le message indiqué au-dessus, une page blanche ou le mauvais contenu sur votre page, essayez d'exécuter la commande une 2ème fois et de faire `ctrl + f5` pour rafraîchir le cache du navigateur.
 
 9. **(INIT-ONLY)** Push les nouveaux fichiers
 
@@ -330,7 +331,7 @@ Source du package : https://github.com/nascent-africa/jetstrap
 
 Documentation Inertia : https://inertiajs.com/
 
-# Problèmes et solutions connues
+# Problèmes et solutions connus
 
 ## npm run dev
 
@@ -357,7 +358,7 @@ Voici, l'un des messages d'erreur qui est affichée dans les logs du conteneur.
 
 "Different lower_case_table_names settings for server ('0') and data dictionary ('2')"
 
-La source du problème exact n'est pas connu, mais il est possible que cela survienne lorsqu'il y a déjà une ou plusieurs base de données créées par d'autres projets qui utilisent Laradock (comme le workshop par exemple). Cela pourrait aussi survenir lors d'un changement de WSL2 à Hyper-V.
+La source du problème exact n'est pas connue, mais il est possible que cela survienne lorsqu'il y a déjà une ou plusieurs bases de données créées par d'autres projets qui utilisent Laradock (comme le workshop par exemple). Cela pourrait aussi survenir lors d'un changement de WSL2 à Hyper-V.
 
 ### Solution
 
@@ -378,4 +379,5 @@ Ensuite, se rendre dans le dossier où sont contenues les sauvegardes des bases 
 Dans ce dossier, vous pouvez supprimer le dossier **mysql**.
 > Il est possible que la suppression ne puisse pas se faire. Dans ce cas-là, contrôlé que bien tous les conteneurs sont arrêtés.
 
-Vous pouvez reprendre depuis l'étape 7 du chapitre "Comment initialiser un nouveau projet avec Laravel et Laradock" et voir si cela à résolu votre problème.
+Vous pouvez reprendre depuis l'étape 7 du chapitre "Comment initialiser un nouveau projet avec Laravel et Laradock" et voir si cela a résolu votre problème.
+
