@@ -38,7 +38,7 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 TODO-1-3
 
 - Créer la vue blade `home.blade.php`
-- Ecrire le text sur la vue
+- Écrire le texte sur la vue
 
 TODO-1-4
 
@@ -98,7 +98,7 @@ TODO-3-4
 TODO-3-5
 
 ```php
-Book::truncate();
+\App\Models\Book::truncate();
 
 $books = [
     ['title' => 'Hunter x Hunter n°1', 'pages' => 110, 'quantity' => 1],
@@ -108,7 +108,7 @@ $books = [
 ];
 
 foreach ($books as $book){
-    Book::create(array(
+    \App\Models\Book::create(array(
         'title' => $book["title"],
         'pages' => $book["pages"],
         'quantity' => $book["quantity"]
@@ -147,13 +147,15 @@ TODO-4-3
 
 TODO-4-4
 
+TODO-4-5
+
 ```html
 <div class="container mt-3">
     @yield('content')
 </div>
 ```
 
-TODO-4-5
+TODO-4-6
 
 ```html
 @extends('layout.app')
@@ -164,47 +166,36 @@ TODO-4-5
 @endsection
 ```
 
-TODO-4-6
-
-```html
-@extends('layout.app')
-
-@section('content')
-    @foreach ($books as $book)
-    {{$book}}
-    @endforeach
-@endsection
-```
-
 TODO-4-7
 
 ```html
-<thead>
-    <tr>
-        <th scope="col">Titre</th>
-        <th scope="col">Pages</th>
-        <th scope="col">Quantité</th>
-        <th scope="col">&nbsp;</th>
-    </tr>
-</thead>
-<tbody>
+@extends("layout.app")
+
+@section("content")
+
     @foreach ($books as $book)
-    <tr>
-        <td>{{$book->title}}</td>
-        <td>{{$book->pages}}</td>
-        <td>{{$book->quantity}}</td>
-        <td>
-            <a class="btn btn-info" href="{{ route('books.show',$book->id) }}"><i class="bi bi-arrow-right-circle"></i></a>
-            <a class="btn btn-primary" href="{{ route('books.edit',$book->id) }}"><i class="bi bi-pencil"></i></a>
-            <form action="{{ route('books.destroy',$book->id) }}" method="POST">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i></button>
-            </form>
-        </td>
-    </tr>
+    {{$book}}
     @endforeach
-</tbody>
+
+@endsection
+```
+
+TODO-4-8
+
+```html
+@foreach ($books as $book)
+
+{{$book->title}}
+{{$book->pages}}
+{{$book->quantity}}
+
+@endforeach
+```
+
+TODO-4-9
+
+```html
+{{ route('books.index') }}
 ```
 
 TODO-5-0
@@ -260,33 +251,33 @@ TODO-5-5
 ```php
 public function store(Request $request)
 {
-    Book::create($request->all());
+    \App\Models\Book::create($request->all());
 
     return redirect()->route('books.index');
 }
 
 public function show($id)
 {
-    $book = Book::findOrFail($id);
+    $book = \App\Models\Book::findOrFail($id);
     return view('books.show', ['book' => $book]);
 }
 
 public function edit($id)
 {
-    $book = Book::where('id', $id)->firstOrFail();
+    $book = \App\Models\Book::where('id', $id)->firstOrFail();
     return view('books.edit', ['book' => $book]);
 }
 
 public function update(Request $request, $id)
 {
-    Book::findOrFail($id)->update($request->all());
+    \App\Models\Book::findOrFail($id)->update($request->all());
 
     return redirect()->route('books.index');
 }
 
 public function destroy($id)
 {
-    $book = Book::find($id);
+    $book = \App\Models\Book::find($id);
     $book->delete();
 
     return redirect()->route('books.index');
@@ -299,27 +290,15 @@ TODO-5-6
 ```php
 public function store(Request $request)
 {
-    Book::create($request->all());
+    \App\Models\Book::create($request->all());
 
     return redirect()->route('books.index')
         ->with('success','Book created successfully.');
 }
 
-public function show($id)
-{
-    $book = Book::findOrFail($id);
-    return view('books.show', ['book' => $book]);
-}
-
-public function edit($id)
-{
-    $book = Book::where('id', $id)->firstOrFail();
-    return view('books.edit', ['book' => $book]);
-}
-
 public function update(Request $request, $id)
 {
-    Book::findOrFail($id)->update($request->all());
+    \App\Models\Book::findOrFail($id)->update($request->all());
 
     return redirect()->route('books.index')
         ->with('success','Book updated successfully');
@@ -327,7 +306,7 @@ public function update(Request $request, $id)
 
 public function destroy($id)
 {
-    $book = Book::find($id);
+    $book = \App\Models\Book::find($id);
     $book->delete();
 
     return redirect()->route('books.index')
@@ -378,7 +357,7 @@ Résoudre le problème du "mass assignement"
 
 1. Remplacer `Book::create($request->all());` dans `BookControler.store` par
 ```php
-$book = new Book();
+$book = new \App\Models\Book();
 $book->title = $request->title;
 $book->pages = $request->pages;
 $book->quantity = $request->quantity;
@@ -465,7 +444,7 @@ TODO-6-2
 TODO-6-3
 
 ```php
-$books = Book::latest()->paginate(5);
+$books = \App\Models\Book::latest()->paginate(5);
 return view('books.index', compact('books'))
     ->with('i', (request()->input('page', 1) - 1) * 5);
 ```
@@ -481,6 +460,7 @@ Placer après `</table>`
 TODO-6-5
 
 Le CSS généré pour les liens de paginations est généré pour fonctionner avec Tailwind CSS. Nous utilisons Bootstrap et Laravel à pensé à nous. Il suffit de rajouter ce qui suit dans `App\Providers\AppServiceProvider`
+
 ```php
 use Illuminate\Pagination\Paginator;
 
@@ -491,6 +471,10 @@ public function boot()
 ```
 
 TODO-7-0
+
+- Modifier le titre en "Livre à commander"
+- Modifier le bouton "Ajouter" en un bouton "Retour aux livres" (copier bouton sur une autre page avec un bouton "retour")
+- Supprimer les boutons actions
 
 ```html
 @extends('layout.app')
@@ -514,7 +498,7 @@ TODO-7-2
 ```php
 public function order()
 {
-    $books = Book::latest()->where('quantity', '<=', 0)->paginate(5);
+    $books = \App\Models\Book::latest()->where('quantity', '<=', 0)->paginate(5);
 
     return view('books.order', compact('books'))
         ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -524,9 +508,7 @@ public function order()
 TODO-7-3
 
 ```html
-<li class="nav-item">
-    <a class="nav-link" href="{{ route('books.order') }}">To Order</a>
-</li>
+{{ route('books.order') }}
 ```
 
 TODO-7-4
@@ -537,8 +519,6 @@ TODO-7-4
 <h3 class="text-success">Aucun livre n'a besoin d'être commandés pour l'instant!</h3>
 @endif
 ```
-
-https://hackmd.io/sNwLjBX1Qx6KQA20YLn0uw?both#Relation
 
 TODO-8-0
 
@@ -632,7 +612,11 @@ TODO-8-8
 TODO-8-9
 
 ```php
-$books = Book::with('author')->latest()->paginate(5);
+$books = \App\Models\Book::with('author')->latest()->paginate(5);
+```
+
+```html
+<td>{{$book->author->name ?? "Auteur inconnu..."}}</td>
 ```
 
 TODO-8-10
@@ -640,7 +624,7 @@ TODO-8-10
 ```php
 public function create()
 {
-    $authors = Author::all();
+    $authors = \App\Models\Author::all();
     return view('books.create', compact('authors'));
 }
 ```
@@ -651,9 +635,9 @@ TODO-8-11
 <div class="form-group col-12">
     <label for="exampleFormControlSelect1">Auteur</label>
     <select class="form-control" name="author_id" id="exampleFormControlSelect1">
-        <option>Auteur inconnu...</option>
+        <option value="">Auteur inconnu...</option>
         @foreach ($authors as $author)
-        <option>{{$author->name}}</option>
+        <option value="{{$author->id}}">{{$author->name}}</option>
         @endforeach
     </select>
 </div>
@@ -662,6 +646,12 @@ TODO-8-11
 TODO-8-12
 
 ```html
+<input type="text" name="title" value="{{old('title')}}" class="form-control" id="inputTitle">
+...value="{{old('pages')}}"...
+...value="{{old('quantity')}}"...
+
+
+
 <div class="form-group col-12">
     <label for="exampleFormControlSelect1">Auteur</label>
     <select class="form-control" name="author_id" id="exampleFormControlSelect1">
@@ -693,3 +683,5 @@ Une fois importé il est possible de les utiliser comme suit:
 ```html
 <i class="bi bi-arrow-right-circle"></i>
 ```
+
+TODO-9-1

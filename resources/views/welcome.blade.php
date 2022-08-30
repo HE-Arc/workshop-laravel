@@ -1,7 +1,8 @@
 <!-- TODO-1-3 Créer une vue blade "home.blade.php" dans "resources/views" avec "Hello World - view!" affiché -->
 <!-- TODO-1-4 Renvoyer la vue dans le contrôleur et tester d'accéder à "/" -->
 
-<!-- TODO-2-0 Ajouter le contenu de la nouvelle vue "home" https://codepen.io/spicypaper/pen/wvemNKj -->
+<!-- TODO-2-0 Ajouter le contenu de la nouvelle vue "home" https://codepen.io/spicypaper/pen/wvemNKj et
+    ajouter le lien vers la vue "home" dans la navbar -->
 
 <!-- TODO-4-3 Créer une vue blade layout permettant de fournir une base pour les autres vues "views/layout/app.blade.php" -->
 <!-- TODO-4-4 Utiliser le contenu de la vue "home" pour la vue layout -->
@@ -10,19 +11,21 @@
     créer une section @section("content") + @endsection -->
 <!-- TODO-4-7 Créer la vue "books.blade.php" pour afficher les books en utilisant le layout app et @foreach-->
 <!-- TODO-4-8 Améliorer la vue books pour afficher les livres dans un tableau https://codepen.io/spicypaper/pen/gOReEwE -->
+<!-- TODO-4-9 Ajouter le lien à la vue books dans "layout.app" -->
 
-<!-- TODO-5-0 Créer un dossier "book" dans le "views" afin de regrouper les vues -->
+<!-- TODO-5-0 Créer un dossier "books" dans "views" afin de regrouper les vues -->
 <!-- TODO-5-1 Renommer la vue "book" en "index" (attention à adapter le contrôleur) -->
-<!-- TODO-5-2 Créer les vues manquantes afin de compléter le CRUD de "books" et y inscrire quelque chose de temporaire -->
+<!-- TODO-5-2 Créer les vues manquantes afin de compléter le CRUD de "books" (create, edit, index, show) et
+    y inscrire quelque chose de temporaire -->
 <!-- TODO-5-4 Ajouter des boutons d'actions dans la vue "index"
     Ajouter un livre:
-    <a href="route Laravel" class="btn btn-primary float-right mb-2">Ajouter un livre</a>
+    <a href="TODO route Laravel" class="btn btn-primary float-right mb-2">Ajouter un livre</a>
     Afficher:
-    <a class="btn btn-info" href="route Laravel">Afficher</a>
+    <a class="btn btn-info" href="TODO route Laravel">Afficher</a>
     Modifier:
-    <a class="btn btn-primary" href="route Laravel">Modifier</a>
+    <a class="btn btn-primary" href="TODO route Laravel">Modifier</a>
     Supprimer:
-    <form action="route Laravel" method="POST">
+    <form action="TODO route Laravel" method="POST">
         @csrf
         @method('DELETE')
         <button type="submit" class="btn btn-danger">Supprimer</button>
@@ -61,12 +64,13 @@
 <!-- TODO-7-4 Afficher un message spécial si aucun livre ne doit être commandé -->
 
 <!-- TODO-8-7 Afficher l'ID des auteurs sur la page index de "Book" (si pas d'auteur, afficher un message pour l'indiquer) -->
-<!-- TODO-8-8 Générer 3 auteurs depuis phpmyadmin et tester pour voir si tout fonctionne -->
+<!-- TODO-8-8 Générer 3 auteurs depuis phpmyadmin (onglet insérer), les attribuer aux livres et tester pour voir si tout fonctionne -->
 <!-- TODO-8-9 Afficher le nom des auteurs et pas seulement leur ID en modifiant la méthode "index" de "BookController" -->
-<!-- TODO-8-11 Ajout un champs de type "select" et afficher les auteurs (attention name de select doit contenir author_id) -->
-<!-- TODO-8-12 Améliorer le "select" pour conserver l'auteur en cas d'erreur du formulaire -->
+<!-- TODO-8-11 Ajout un champs de type "select" sur la page de création
+    et afficher les auteurs (attention name de select doit contenir author_id) -->
+<!-- TODO-8-12 Améliorer le formulaire pour conserver les saisies utilisateur en cas d'erreur du formulaire -->
 
-<!-- TODO-9-0 Importer les icones bootstrap via un CDN : https://icons.getbootstrap.com/#install -->
+<!-- TODO-9-0 Importer les icones bootstrap via un CDN dans "layout.app" : https://icons.getbootstrap.com/#install -->
 <!-- TODO-9-1 Ajouter des icones aux endroits pertinent sur l'app : https://icons.getbootstrap.com/ -->
 
 <!DOCTYPE html>
