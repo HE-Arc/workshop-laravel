@@ -38,8 +38,11 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 TODO-1-3
 
 - Créer la vue blade `home.blade.php`
-- Ecrire "Hello world!" sur la vue
-- Modifier le controleur pour renvoyer la vue
+- Ecrire le text sur la vue
+
+TODO-1-4
+
+Modifier le controleur pour renvoyer la vue
 
 ```php
 public function index() {

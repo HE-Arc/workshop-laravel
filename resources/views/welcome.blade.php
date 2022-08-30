@@ -1,4 +1,5 @@
-<!-- TODO-1-3 Créer une vue blade "home.blade.php", la renvoyer dans le contrôleur et tester d'accéder à "/" -->
+<!-- TODO-1-3 Créer une vue blade "home.blade.php" dans "resources/views" avec "Hello World - view!" affiché -->
+<!-- TODO-1-4 Renvoyer la vue dans le contrôleur et tester d'accéder à "/" -->
 
 <!-- TODO-2-0 Ajouter le contenu de la nouvelle vue "home" https://codepen.io/spicypaper/pen/wvemNKj -->
 
