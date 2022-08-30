@@ -20,14 +20,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Schema::disableForeignKeyConstraints();
-        Author::truncate();
-        Book::truncate();
-        Schema::enableForeignKeyConstraints();
-
         \App\Models\User::factory(10)->create();
-        $this->call(AuthorSeeder::class);
         // TODO-3-6 Ajouter le seeder "BookSeeder" ici
-        $this->call(BookSeeder::class);
     }
 }
