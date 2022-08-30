@@ -31,6 +31,7 @@ Commencez par télécharger et installer les éléments suivants en fonction de 
 1. XAMPP compatible avec PHP >= 8.0.2 (recommandé version 8.1.x) : https://www.apachefriends.org/download.html
 2. Composer (recommandé dernière version disponible) : https://getcomposer.org/download/
 3. VS Code : https://code.visualstudio.com/Download
+4. Git : https://git-scm.com/
 
 Vous pouvez choisir d'**utiliser d'autres outils** que ceux indiqués en dessous, mais **le support ne vous sera pas garanti si vous rencontrez des problèmes**.  
 Garder en tête que le workshop a été conçu en utilisant les prérequis recommandés en dessous.  
@@ -41,10 +42,11 @@ Si vous souhaitez utiliser d'autres outils, voici ce qu'il vous faut au minimum 
 -   PHP version >= 8.0.2
 -   Composer version compatible avec la version de PHP installée
 -   Un IDE : VS Code (recommandé) ou autre
+-   Git : Une version assez récente devrait suffir
 -   Suivez les prochains chapitres afin de vous assurer de pouvoir suivre le workshop
 
 Si Docker vous intéresse, vous pouvez utiliser Laradock. C'est un très bon outil vous fournissant des conteneurs Docker de base pour travailler avec Laravel et Docker.
-> En pratique il y a de forte chance pour que vous soyez amené à utiliser Docker à l'avenir. Mais le workshop se concentre sur Laravel, nous n'allons donc pas aborder Docker.
+> En pratique il y a de forte chance pour que vous soyez amené à utiliser Docker à l'avenir. Mais le workshop se concentre sur Laravel, nous allons donc peu ou pas aborder Docker.
 
 # Récupérer le projet
 
