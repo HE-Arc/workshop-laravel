@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        \App\Models\User::truncate();
+
         \App\Models\User::factory(10)->create();
         // TODO-3-6 Ajouter le seeder "BookSeeder" ici
     }
