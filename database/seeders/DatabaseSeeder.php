@@ -2,8 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Author;
-use App\Models\Book;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
 
@@ -23,6 +21,6 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::truncate();
 
         \App\Models\User::factory(10)->create();
-        // TODO-3-6 Ajouter le seeder "BookSeeder" ici
+        // TODO-3-6 Ajouter le seeder "BookSeeder" ici en utilisant "$this->class(...)"
     }
 }
