@@ -4,7 +4,7 @@
 
 <h1>Livres</h1>
 
-<a href="{{route('books.create')}}" class="btn btn-primary float-right mb-2">Ajouter un livre</a>
+<a href="{{route('books.create')}}" class="btn btn-primary float-right mb-2"><i class="bi bi-plus-square-fill"></i> Ajouter un livre</a>
 
 <table class="table">
     <thead>
@@ -24,12 +24,12 @@
             <td>{{$book->quantity}}</td>
             <td>{{$book->author->name ?? "Auteur inconnu..."}}</td>
             <td>
-                <a class="btn btn-info" href="{{route('books.show', $book->id)}}">Afficher</a>
-                <a class="btn btn-primary" href="{{route('books.edit', $book->id)}}">Modifier</a>
+                <a class="btn btn-info" href="{{route('books.show', $book->id)}}"><i class="bi bi-eye-fill"></i></a>
+                <a class="btn btn-primary" href="{{route('books.edit', $book->id)}}"><i class="bi bi-pencil-fill"></i></a>
                 <form action="{{route('books.destroy', $book->id)}}" method="POST">
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Supprimer</button>
+                    <button type="submit" class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
                 </form>
             </td>
         </tr>
