@@ -32,7 +32,7 @@ public function index() {
 TODO-1-2
 
 ```php
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 ```
 
 TODO-1-3
