@@ -6,10 +6,10 @@
 
 <!-- TODO-4-3 Créer une vue blade layout permettant de fournir une base pour les autres vues "views/layout/app.blade.php" -->
 <!-- TODO-4-4 Utiliser le contenu de la vue "home" pour la vue layout -->
-<!-- TODO-4-5 Adapter légèrement la vue layout en utilisant la directive blade @yield("content") -->
-<!-- TODO-4-6 Adapter la vue "home" pour utiliser le layout app @extends("layout.app") et
-    créer une section @section("content") + @endsection -->
-<!-- TODO-4-7 Créer la vue "books.blade.php" pour afficher les books en utilisant le layout app et @foreach-->
+<!-- TODO-4-5 Adapter légèrement la vue layout en utilisant la directive blade @ yield("content") -->
+<!-- TODO-4-6 Adapter la vue "home" pour utiliser le layout app @ extends("layout.app") et
+    créer une section @ section("content") + @ endsection -->
+<!-- TODO-4-7 Créer la vue "books.blade.php" pour afficher les books en utilisant le layout app et @ foreach-->
 <!-- TODO-4-8 Améliorer la vue books pour afficher les livres dans un tableau https://codepen.io/spicypaper/pen/gOReEwE -->
 <!-- TODO-4-9 Ajouter le lien à la vue books dans "layout.app" -->
 
@@ -26,8 +26,8 @@
     <a class="btn btn-primary" href="TODO route Laravel">Modifier</a>
     Supprimer:
     <form action="TODO route Laravel" method="POST">
-        @csrf
-        @method('DELETE')
+        @ csrf
+        @ method('DELETE')
         <button type="submit" class="btn btn-danger">Supprimer</button>
     </form>
 -->
