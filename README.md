@@ -77,7 +77,7 @@ Déplacez-vous sur la branche `xxxx-p1-start` en remplaçant `xxxx` par l'année
 git checkout [nom de la branche]
 ```
 
-Copiez le fichier `.env.example` à la racine du projet et renommez-le `.env`.
+Faites une copie du fichier `.env.example` à la racine du projet et renommez-le `.env`.
 
 ```bash
 # Execute in project root
