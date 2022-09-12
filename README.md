@@ -8,21 +8,27 @@ Les prochaines étapes permettent de mettre en place l'environnement de dévelop
 
 # Explication des branches
 
-Branches générales
+## Branches générales
 
 -   main : la branche contenant la version du README le plus à jour
 -   p1-start : la branche contenant le code de départ du workshop Laravel
 -   p1-end : la branche contenant le code solution du workshop Laravel
--   (Obsolète depuis 2022 y.c.) p2-start : la branche contenant le code de départ du workshop VueJS
--   (Obsolète depuis 2022 y.c.) p2-end : la branche contenant le code solution du workshop VueJS
 
-Branches par année
+**Obsolète depuis l'année 2022 :**
+
+-   p2-start : la branche contenant le code de départ du workshop VueJS
+-   p2-end : la branche contenant le code solution du workshop VueJS
+
+## Branches par année
 
 -   xxxx-main : la branche contenant la version du README le plus à jour, réalisé pour les étudiants de l'année xxxx
 -   xxxx-p1-start : la branche contenant le code de départ du workshop Laravel, réalisé avec les étudiants de l'année xxxx
 -   xxxx-p1-end : la branche contenant le code solution du workshop Laravel, réalisé avec les étudiants de l'année xxxx
--   (Obsolète depuis 2022 y.c.) xxxx-p2-start : la branche contenant le code de départ du workshop VueJS, réalisé avec les étudiants de l'année xxxx
--   (Obsolète depuis 2022 y.c.) xxxx-p2-end : la branche contenant le code solution du workshop VueJS, réalisé avec les étudiants de l'année xxxx
+
+**Obsolète depuis l'année 2022 :**
+
+-   xxxx-p2-start : la branche contenant le code de départ du workshop VueJS, réalisé avec les étudiants de l'année xxxx
+-   xxxx-p2-end : la branche contenant le code solution du workshop VueJS, réalisé avec les étudiants de l'année xxxx
 
 # Prérequis
 
