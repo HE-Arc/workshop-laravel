@@ -45,7 +45,7 @@ Si vous souhaitez utiliser d'autres outils, voici ce qu'il vous faut au minimum 
 -   Git : Une version assez récente devrait suffire
 -   Suivez les prochains chapitres afin de vous assurer de pouvoir suivre le workshop
 
-Si Docker vous intéresse, vous pouvez utiliser Laradock. C'est un très bon outil vous fournissant des conteneurs Docker de base pour travailler avec Laravel et Docker.
+> Si Docker vous intéresse, vous pouvez utiliser Laradock. C'est un très bon outil vous fournissant des conteneurs Docker de base pour travailler avec Laravel et Docker.  
 > En pratique il y a de fortes chances pour que vous soyez amené à utiliser Docker à l'avenir. Mais le workshop se concentre sur Laravel, nous allons donc peu ou pas aborder Docker.
 
 # Récupérer le projet
