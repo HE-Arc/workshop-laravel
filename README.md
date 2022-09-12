@@ -50,14 +50,15 @@ Si Docker vous intéresse, vous pouvez utiliser Laradock. C'est un très bon out
 
 # Récupérer le projet
 
-Récupérez le projet en SSH (recommandé) ou en HTTPS.
+Récupérez le projet en SSH (recommandé) ou en HTTPS. Sur GitHub appuyez sur le bouton vert `Code` en haut à droite et sélectionnez SSH ou HTTPS.
 
-> Si vous récupérez le projet via SSH, il faudra configurer une clé SSH sur votre machine si cela n'est pas déjà fait.
-> Et configurer la clé publique sur GitHub.
-> Pour générer une clé SSH : https://docs.oracle.com/en/cloud/cloud-at-customer/occ-get-started/generate-ssh-key-pair.html
+![image](https://user-images.githubusercontent.com/39899628/189638725-1f41f029-20ed-433a-b853-2be9ff92f0c2.png)
+
+> **Important** : Si vous récupérez le projet via SSH, il faudra générer une clé SSH sur votre machine si cela n'est pas déjà fait : https://docs.oracle.com/en/cloud/cloud-at-customer/occ-get-started/generate-ssh-key-pair.html  
+> Et configurer la clé publique sur GitHub : https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
 
 ```bash
-git clone [URL to Git repo]
+git clone [HTTPS or SSH URL]
 ```
 
 # Configurer le projet
