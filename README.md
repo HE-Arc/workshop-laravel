@@ -69,6 +69,14 @@ git clone [HTTPS or SSH URL]
 
 # Configurer le projet
 
+Déplacez-vous sur la branche `xxxx-p1-start` en remplaçant `xxxx` par l'année actuelle.
+
+> Si nous sommes en 2022, la bonne branche sera `2022-p1-start`
+
+```bash
+git checkout [nom de la branche]
+```
+
 Copiez le fichier `.env.example` à la racine du projet et renommez-le `.env`.
 
 ```bash
