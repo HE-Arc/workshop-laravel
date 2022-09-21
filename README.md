@@ -1,3 +1,4 @@
+Titus Abele
 # Configuration du workshop
 
 La documentation de configuration du workshop se trouve dans le README sur la branche `main`.
