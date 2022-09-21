@@ -25,3 +25,4 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 // TODO-7-1 Créer une route pour "order" en s'inspirant de la route "home"
 
 // TODO-4-2 Ajouter la ressource BookController aux routes
+Route::resource('books', BookController::class);
