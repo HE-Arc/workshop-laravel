@@ -36,7 +36,11 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        Book::create($request->all());
+        $book = new Book();
+        $book->title = $request->title;
+        $book->pages = $request->pages;
+        $book->quantity = $request->quantity;
+        $book->save();
         return redirect()->route("books.index")->with("success", "Book created successfully");
     }
 
@@ -60,7 +64,8 @@ class BookController extends Controller
      */
     public function edit($id)
     {
-        return view("books.edit");
+        $book = Book::findOrFail($id);
+        return view("books.edit", ["book" => $book]);
     }
 
     /**
