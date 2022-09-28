@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Book;
+use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
@@ -25,7 +25,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        return view("books.create");
     }
 
     /**
@@ -36,7 +36,8 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Book::create($request->all());
+        return redirect()->route("books.index")->with("success", "Book created successfully");
     }
 
     /**
@@ -47,7 +48,8 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        //
+        $book = Book::findOrFail($id);
+        return view("books.show", ["book" => $book]);
     }
 
     /**
@@ -58,7 +60,7 @@ class BookController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view("books.edit");
     }
 
     /**
@@ -70,7 +72,8 @@ class BookController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Book::findOrFail($id)->update($request->all());
+        return redirect()->route("books.index")->with("success", "Book updated successfully");
     }
 
     /**
@@ -81,6 +84,7 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Book::findOrFail($id)->delete();
+        return redirect()->route("books.index")->with("success", "Book deleted successfully");
     }
 }

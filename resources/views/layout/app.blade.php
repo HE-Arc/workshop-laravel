@@ -31,6 +31,11 @@
 
     <!-- Begin page content -->
     <div class="container mt-3">
+        @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+        @endif
         @yield("content")
     </div>
 

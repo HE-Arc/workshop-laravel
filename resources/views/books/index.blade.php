@@ -4,7 +4,8 @@
 
 <h1>Livres</h1>
 
-<a href="#" class="btn btn-primary mb-2">Ajouter un livre</a>
+<a href="{{route("books.create")}}" class="btn btn-primary mb-2">Ajouter un livre</a>
+
 
 <table class="table">
     <thead>
@@ -17,13 +18,18 @@
     </thead>
     <tbody>
         @foreach ($books as $book)
-
             <tr>
                 <td>{{$book->title}}</td>
                 <td>{{$book->pages}}</td>
                 <td>{{$book->quantity}}</td>
                 <td>
-                    --actions--
+                    <a class="btn btn-info" href="{{route("books.show", $book->id)}}">Afficher</a>
+                    <a class="btn btn-primary" href="{{route("books.edit", $book->id)}}">Modifier</a>
+                    <form action="{{route("books.destroy", $book->id)}}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Supprimer</button>
+                    </form>
                 </td>
             </tr>
         @endforeach
