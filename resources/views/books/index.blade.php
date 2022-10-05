@@ -13,7 +13,7 @@
             <th scope="col">Titre</th>
             <th scope="col">Pages</th>
             <th scope="col">Quantité</th>
-            <th scope="col">&nbsp;</th>
+            <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
@@ -35,5 +35,7 @@
         @endforeach
     </tbody>
 </table>
+
+{!! $books->links() !!}
 
 @endsection
