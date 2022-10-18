@@ -14,10 +14,10 @@ Les prochaines étapes permettent de mettre en place l'environnement de dévelop
 -   p1-start : la branche contenant le code de départ du workshop Laravel
 -   p1-end : la branche contenant le code solution du workshop Laravel
 
-**Obsolète depuis l'année 2022 :**
+*Obsolète depuis l'année 2022 :*
 
--   p2-start : la branche contenant le code de départ du workshop VueJS
--   p2-end : la branche contenant le code solution du workshop VueJS
+-   *p2-start : la branche contenant le code de départ du workshop VueJS*
+-   *p2-end : la branche contenant le code solution du workshop VueJS*
 
 ## Branches par année
 
@@ -25,10 +25,10 @@ Les prochaines étapes permettent de mettre en place l'environnement de dévelop
 -   xxxx-p1-start : la branche contenant le code de départ du workshop Laravel, réalisé avec les étudiants de l'année xxxx
 -   xxxx-p1-end : la branche contenant le code solution du workshop Laravel, réalisé avec les étudiants de l'année xxxx
 
-**Obsolète depuis l'année 2022 :**
+*Obsolète depuis l'année 2022 :*
 
--   xxxx-p2-start : la branche contenant le code de départ du workshop VueJS, réalisé avec les étudiants de l'année xxxx
--   xxxx-p2-end : la branche contenant le code solution du workshop VueJS, réalisé avec les étudiants de l'année xxxx
+-   *xxxx-p2-start : la branche contenant le code de départ du workshop VueJS, réalisé avec les étudiants de l'année xxxx*
+-   *xxxx-p2-end : la branche contenant le code solution du workshop VueJS, réalisé avec les étudiants de l'année xxxx*
 
 # Prérequis
 
