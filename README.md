@@ -40,7 +40,7 @@ Commencez par télécharger et installer les éléments suivants en fonction de 
 4. Git : https://git-scm.com/
 
 Vous pouvez choisir d'**utiliser d'autres outils** que ceux indiqués en dessous, mais **le support ne vous sera pas garanti si vous rencontrez des problèmes**.  
-Garder en tête que le workshop a été conçu en utilisant les prérequis recommandés en dessous.  
+Gardez en tête que le workshop a été conçu en utilisant les prérequis recommandés en dessus.  
 Si vous souhaitez utiliser d'autres outils, voici ce qu'il vous faut au minimum :
 
 -   Un serveur web : PHP built-in server, Apache, Nginx, ...
