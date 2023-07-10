@@ -11,24 +11,14 @@ Les prochaines étapes permettent de mettre en place l'environnement de dévelop
 ## Branches générales
 
 -   main : la branche contenant la version du README le plus à jour
--   p1-start : la branche contenant le code de départ du workshop Laravel
--   p1-end : la branche contenant le code solution du workshop Laravel
-
-*Obsolète depuis l'année 2022 :*
-
--   *p2-start : la branche contenant le code de départ du workshop VueJS*
--   *p2-end : la branche contenant le code solution du workshop VueJS*
+-   start : la branche contenant le code de départ du workshop Laravel
+-   end : la branche contenant le code solution du workshop Laravel
 
 ## Branches par année
 
 -   xxxx-main : la branche contenant la version du README le plus à jour, réalisé pour les étudiants de l'année xxxx
--   xxxx-p1-start : la branche contenant le code de départ du workshop Laravel, réalisé avec les étudiants de l'année xxxx
--   xxxx-p1-end : la branche contenant le code solution du workshop Laravel, réalisé avec les étudiants de l'année xxxx
-
-*Obsolète depuis l'année 2022 :*
-
--   *xxxx-p2-start : la branche contenant le code de départ du workshop VueJS, réalisé avec les étudiants de l'année xxxx*
--   *xxxx-p2-end : la branche contenant le code solution du workshop VueJS, réalisé avec les étudiants de l'année xxxx*
+-   xxxx-start : la branche contenant le code de départ du workshop Laravel, réalisé avec les étudiants de l'année xxxx
+-   xxxx-end : la branche contenant le code solution du workshop Laravel, réalisé avec les étudiants de l'année xxxx
 
 # Prérequis
 
@@ -69,9 +59,9 @@ git clone [HTTPS or SSH URL]
 
 # Configurer le projet
 
-Déplacez-vous sur la branche `xxxx-p1-start` en remplaçant `xxxx` par l'année actuelle.
+Déplacez-vous sur la branche `xxxx-end` en remplaçant `xxxx` par l'année actuelle.
 
-> Si nous sommes en 2022, la bonne branche sera `2022-p1-start`
+> Si nous sommes en 2022, la bonne branche sera `2022-end`
 
 ```bash
 git checkout [nom de la branche]
