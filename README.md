@@ -326,6 +326,17 @@ TODO-5-7
 
 ```html
 <div class="container mt-3">
+    @if (session('success'))
+        {{ session('success') }}
+    @endif
+    @yield('content')
+</div>
+```
+
+Ou en utilisant la classe Session directement
+
+```html
+<div class="container mt-3">
     @if ($message = Session::get('success'))
         <div class="alert alert-success">
             <p>{{ $message }}</p>
@@ -520,6 +531,20 @@ TODO-7-4
 @endif
 ```
 
+Ou en utilisant la méthode `@forelse`
+
+```html
+@forelse ($books as $book)
+    <tr>
+        <td>{{ $book->title }}</td>
+        <td>{{ $book->pages }}</td>
+        <td>{{ $book->quantity }}</td>
+    </tr>
+@empty
+    <p>Aucun livre n'a besoin d'être commandés pour l'instant!</p>
+@endforelse
+```
+
 TODO-8-0
 
 - `php artisan make:model Author --migration`
@@ -539,10 +564,16 @@ TODO-8-2
 
 `php artisan make:migration add_author_fk_to_books --table=books`
 
+> INFO : Si les conventions Laravel sont respectées pour le nommage des migrations, l'option `--table=books` n'est pas nécessaire
+
 ```php
 public function up()
 {
     Schema::table('books', function (Blueprint $table) {
+        $table->foreignId('author_id')->nullable()->constrained()->cascadeOnDelete();
+
+        // Ou alors aussi. Les deux syntaxes fonctionnent de la même manière
+
         $table->foreignId('author_id')->nullable()->constrained()->onDelete('cascade');
     });
 }
