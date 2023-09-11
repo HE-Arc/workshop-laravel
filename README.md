@@ -24,7 +24,7 @@ Les prochaines étapes permettent de mettre en place l'environnement de dévelop
 
 Commencez par télécharger et installer les éléments suivants en fonction de votre système.
 
-1. XAMPP compatible avec PHP >= 8.0.2 (recommandé version 8.1.x) : https://www.apachefriends.org/download.html
+1. XAMPP compatible avec PHP >= 8.1.x : https://www.apachefriends.org/download.html
 2. Composer (recommandé dernière version disponible) : https://getcomposer.org/download/
 3. VS Code : https://code.visualstudio.com/Download
 4. Git : https://git-scm.com/
@@ -35,33 +35,37 @@ Si vous souhaitez utiliser d'autres outils, voici ce qu'il vous faut au minimum 
 
 -   Un serveur web : PHP built-in server, Apache, Nginx, ...
 -   Un système de base de données : MySQL, PostgreSQL, ...
--   PHP version >= 8.0.2
+-   PHP version >= 8.1.x
 -   Composer version compatible avec la version de PHP installée
--   Un IDE : VS Code (recommandé) ou autre
+-   Un IDE : VS Code (recommandé), PhpStorm ou autre
 -   Git : Une version assez récente devrait suffire
 -   Suivez les prochains chapitres afin de vous assurer de pouvoir suivre le workshop
 
-> Si Docker vous intéresse, vous pouvez utiliser Laradock. C'est un très bon outil vous fournissant des conteneurs Docker de base pour travailler avec Laravel et Docker.  
+> Si Docker vous intéresse, vous pouvez utiliser Laradock. C'est un très bon outil vous fournissant des conteneurs Docker de base pour travailler avec Laravel et Docker.
+
+> Pour information également, Laravel met à disposition un environnement de développement docker qui s'appel Sail (https://laravel.com/docs/10.x/sail#main-content)
+
 > En pratique il y a de fortes chances pour que vous soyez amené à utiliser Docker à l'avenir. Mais le workshop se concentre sur Laravel, nous allons donc peu ou pas aborder Docker.
 
 # Récupérer le projet
 
-Récupérez le projet en SSH (recommandé) ou en HTTPS. Sur GitHub appuyez sur le bouton vert `Code` en haut à droite et sélectionnez SSH ou HTTPS.
+Récupérez le projet en SSH. Sur GitHub appuyez sur le bouton vert `Code` en haut à droite et sélectionnez SSH.
 
 ![image](https://user-images.githubusercontent.com/39899628/189638725-1f41f029-20ed-433a-b853-2be9ff92f0c2.png)
 
-> **Important** : Si vous récupérez le projet via SSH, il faudra générer une clé SSH sur votre machine si cela n'est pas déjà fait : https://docs.oracle.com/en/cloud/cloud-at-customer/occ-get-started/generate-ssh-key-pair.html  
-> Et configurer la clé publique sur GitHub : https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
+> **Important** : Si vous récupérez le projet via SSH, il faudra générer une clé SSH sur votre machine si cela n'est pas déjà fait : [Generating a new SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent#generating-a-new-ssh-key )
+
+> Et configurer la clé publique sur GitHub : [About addition of SSH keys to your account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
 
 ```bash
-git clone [HTTPS or SSH URL]
+git clone [SSH URL]
 ```
 
 # Configurer le projet
 
 Déplacez-vous sur la branche `xxxx-end` en remplaçant `xxxx` par l'année actuelle.
 
-> Si nous sommes en 2022, la bonne branche sera `2022-end`
+> Si nous sommes en 2023, la bonne branche sera `2023-end`
 
 ```bash
 git checkout [nom de la branche]
@@ -74,8 +78,8 @@ Faites une copie du fichier `.env.example` à la racine du projet et renommez-le
 cp .env.example .env
 ```
 
-> Le contenu de ce fichier n'est pas à modifier, car il est déjà adapté à la configuration du projet.  
-> Si vous aviez déjà une base de données installée, il faudra peut être adapté ce fichier quand même.  
+> Le contenu de ce fichier n'est pas à modifier, car il est déjà adapté à la configuration du projet.
+> Si vous aviez déjà une base de données installée, il faudra peut être adapté ce fichier quand même.
 > Notamment les paramètres `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` et/ou d'autres dépendants de votre configuration locale.
 
 Créez une nouvelle base de données manuellement.
@@ -110,11 +114,6 @@ Démarrez le serveur de développement fourni par PHP.
 php artisan serve
 ```
 
-> Si vous souhaitez utiliser Apache fourni par XAMPP à la place du serveur fourni par PHP vous pouvez suivre ce tutoriel :  
-> Seules certaines étapes seront nécessaires, car nous avons déjà fait la plupart des choses.
-> https://wecode101.com/xampp-development-environment-for-laravel-8
-> Mais cette étape n'est pas obligatoire, le serveur de développement fonctionne et suffi.
-
 # Tester que tout fonctionne
 
 Essayez d'accéder à l'URL : http://localhost:8000
@@ -140,4 +139,4 @@ Ils ne sont pas utiles pour la préparation au workshop !
 
 La documentation de Laravel est très complète et permet de démarrer un nouveau projet en un rien de temps.
 
-https://laravel.com/docs/9.x/installation#your-first-laravel-project
+https://laravel.com/docs/10.x/installation#your-first-laravel-project
