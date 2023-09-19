@@ -63,9 +63,9 @@ git clone [SSH URL]
 
 # Configurer le projet
 
-Déplacez-vous sur la branche `xxxx-end` en remplaçant `xxxx` par l'année actuelle.
+Déplacez-vous sur la branche `xxxx-start` en remplaçant `xxxx` par l'année actuelle.
 
-> Si nous sommes en 2023, la bonne branche sera `2023-end`
+> Si nous sommes en 2023, la bonne branche sera `2023-start`
 
 ```bash
 git checkout [nom de la branche]
