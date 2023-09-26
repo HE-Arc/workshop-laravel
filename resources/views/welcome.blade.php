@@ -9,7 +9,7 @@
 <!-- TODO-4-5 Adapter légèrement la vue layout en utilisant la directive blade @ yield("content") -->
 <!-- TODO-4-6 Adapter la vue "home" pour utiliser le layout app @ extends("layout.app") et
     créer une section @ section("content") + @ endsection -->
-<!-- TODO-4-7 Créer la vue "books.blade.php" pour afficher les books en utilisant le layout app et @ foreach-->
+<!-- TODO-4-7 Créer la vue "index.blade.php" pour afficher les books en utilisant le layout app et @ foreach-->
 <!-- TODO-4-8 Améliorer la vue books pour afficher les livres dans un tableau https://codepen.io/spicypaper/pen/gOReEwE -->
 <!-- TODO-4-9 Ajouter le lien à la vue books dans "layout.app" -->
 
