@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Author;
 use App\Models\Book;
 use Illuminate\Http\Request;
 
@@ -12,8 +13,8 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::all();
-        return view('books.index', ['books' => $books]);
+        $books = Book::latest()->paginate(5);
+        return view('books.index', ['books' => $books])->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -21,7 +22,8 @@ class BookController extends Controller
      */
     public function create()
     {
-        return view('books.create');
+        $authors = Author::all();
+        return view('books.create', compact('authors'));
     }
 
     /**
@@ -35,7 +37,8 @@ class BookController extends Controller
         $request->validate([
             'title' => 'required|min:5|max:25',
             'pages' => 'required|integer|gt:0|lt:1000',
-            'quantity' => 'required|integer|gte:0|lt:100'
+            'quantity' => 'required|integer|gte:0|lt:100',
+            'author_id' => 'nullable|integer|exists:authors,id'
         ]);
 
         Book::create($request->all());
@@ -76,5 +79,10 @@ class BookController extends Controller
     {
         Book::findOrFail($id)->delete();
         return redirect()->route('books.index')->with('success', 'book destroyed successfully');
+    }
+
+    public function order(){
+        $books = Book::where('quantity', '<=', 0)->paginate(5);
+        return view('books.order', ['books' => $books])->with('i', (request()->input('page', 1) - 1) * 5);
     }
 }
