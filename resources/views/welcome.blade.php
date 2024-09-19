@@ -1,7 +1,7 @@
 <!-- TODO-1-3 DONE Créer une vue blade "home.blade.php" dans "resources/views" avec "Hello World - view!" affiché -->
 <!-- TODO-1-4 DONE Renvoyer la vue dans le contrôleur et tester d'accéder à "/" -->
 
-<!-- TODO-2-0 Ajouter le contenu de la nouvelle vue "home" https://codepen.io/spicypaper/pen/wvemNKj et
+<!-- TODO-2-0 DONE Ajouter le contenu de la nouvelle vue "home" https://codepen.io/spicypaper/pen/wvemNKj et
     ajouter le lien vers la vue "home" dans la navbar -->
 
 <!-- TODO-4-3 Créer une vue blade layout permettant de fournir une base pour les autres vues "views/layout/app.blade.php" -->
