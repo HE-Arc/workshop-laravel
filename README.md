@@ -43,7 +43,7 @@ Si vous souhaitez utiliser d'autres outils, voici ce qu'il vous faut au minimum 
 
 > Si Docker vous intéresse, vous pouvez utiliser Laradock. C'est un très bon outil vous fournissant des conteneurs Docker de base pour travailler avec Laravel et Docker.
 
-> Pour information également, Laravel met à disposition un environnement de développement docker qui s'appel Sail (https://laravel.com/docs/10.x/sail#main-content)
+> Pour information également, Laravel met à disposition un environnement de développement docker qui s'appel Sail (https://laravel.com/docs/12.x/sail)
 
 > En pratique il y a de fortes chances pour que vous soyez amené à utiliser Docker à l'avenir. Mais le workshop se concentre sur Laravel, nous allons donc peu ou pas aborder Docker.
 
