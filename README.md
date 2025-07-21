@@ -24,7 +24,7 @@ Les prochaines étapes permettent de mettre en place l'environnement de dévelop
 
 Commencez par télécharger et installer les éléments suivants en fonction de votre système.
 
-1. XAMPP compatible avec PHP >= 8.1.x : https://www.apachefriends.org/download.html
+1. XAMPP compatible avec PHP >= 8.2.x : https://www.apachefriends.org/download.html
 2. Composer (recommandé dernière version disponible) : https://getcomposer.org/download/
 3. VS Code : https://code.visualstudio.com/Download
 4. Git : https://git-scm.com/
