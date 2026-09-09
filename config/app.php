@@ -1,5 +1,11 @@
 <?php
 
+// TODO-0-0 Si VSCode est utilisé (IDE recommandé), installer les extensions suivantes
+// (depuis l'onglet extensions de VSCode) :
+// - Laravel (extension officielle)
+// - PHP Intelephense
+
+
 return [
 
     /*

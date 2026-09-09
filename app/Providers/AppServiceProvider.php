@@ -19,6 +19,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // TODO-6-5 Adapter les liens de pagination pour fonctionner avec Bootstrap
     }
 }
