@@ -129,8 +129,8 @@ Vous devriez avoir une page avec marquée "You are READY for the workshop ;)", s
 
 Si vous avez le résultat demandé, c'est que vous êtes normalement prêt à suivre le workshop :)
 
-Sinon, c'est terrible ! Commencez par faire 3 tours sur vous-même ou même un peu plus.  
-Ensuite, assurez-vous de n'avoir oublié aucune des étapes et regardez également avec vos camarades qui pourraient également vous aider.
+Sinon, assurez-vous de n'avoir oublié aucune des étapes et regardez également avec vos camarades qui pourraient également vous aider. Si toujours pas, on regardera ensemble lors du premier cours après la partie théorique.
+
 
 ---
 
