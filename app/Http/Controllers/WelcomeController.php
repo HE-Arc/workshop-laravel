@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 // TODO-5-3 Relier les nouvelles vues aux méthodes de "BookController" et essayer d'accéder à chaque vues :
 //      /books, /books/1, /books/1/edit, /books/create
 // TODO-5-5 Compléter les méthodes du contrôleur "BookController"
-// TODO-5-6 Ajouter un message de confirmation pour les méthodes store, update et destory du "BookController"
+// TODO-5-6 Ajouter un message de confirmation pour les méthodes store, update et destroy du "BookController"
 //      avec "->with(...)" et essayer le bouton "delete"
 
 // TODO-6-0 Ajouter des validations dans "BookController.store"

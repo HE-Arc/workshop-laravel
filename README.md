@@ -13,6 +13,10 @@ Si vous ouvrez et suivez les instructions de ce fichier dans votre IDE, vous pou
 **AVERTISSEMENT**  
 Lire les réponses uniquement en cas de besoins, essayez d'abords par vous-même, vous apprendrez mieux ;)
 
+> Dans les énoncés, les directives Blade sont écrites avec une espace — `@ yield`,
+> `@ extends`, `@ csrf` — pour éviter que Blade ne les interprète dans les
+> commentaires. **Retirez cette espace** quand vous les écrivez : `@yield`.
+
 TODO-0-0
 
 TODO-1-0
@@ -134,7 +138,7 @@ TODO-4-0
 TODO-4-1
 
 ```php
-$books = Book::all();
+$books = \App\Models\Book::all();
 return view('books', ['books' => $books]);
 ```
 
@@ -615,20 +619,20 @@ php artisan tinker
 
 ```php
 // Créer les auteurs
-App\Models\Author::create(['name' => 'Robin Hobb']);
-App\Models\Author::create(['name' => 'J.R.R. Tolkien']);
-App\Models\Author::create(['name' => 'George Orwell']);
+$hobb    = App\Models\Author::create(['name' => 'Robin Hobb']);
+$tolkien = App\Models\Author::create(['name' => 'J.R.R. Tolkien']);
+$orwell  = App\Models\Author::create(['name' => 'George Orwell']);
 
-// Attribuer (vérifiez vos ID avec App\Models\Book::all())
-App\Models\Book::find(1)->update(['author_id' => 1]); // Assassins Apprentice
-App\Models\Book::find(2)->update(['author_id' => 1]); // Assassins Apprentice 2
-App\Models\Book::find(3)->update(['author_id' => 2]); // The Hobbit
-App\Models\Book::find(4)->update(['author_id' => 3]); // Nineteen Eighty-Four
-// The Black Prism (5) reste volontairement sans auteur
+// Attribuer aux 4 premiers livres, quels que soient leurs ID
+$books = App\Models\Book::orderBy('id')->get();
+$books[0]->update(['author_id' => $hobb->id]);
+$books[1]->update(['author_id' => $hobb->id]);
+$books[2]->update(['author_id' => $tolkien->id]);
+$books[3]->update(['author_id' => $orwell->id]);
 
 // Vérifier
 App\Models\Book::with('author')->get();
-App\Models\Author::find(1)->books;   // les 2 tomes de Robin Hobb
+$hobb->books;   // les 2 tomes de Robin Hobb
 ```
 
 Sortir de tinker avec `exit` ou Ctrl+D.
@@ -670,7 +674,7 @@ TODO-8-11
 TODO-8-12
 
 ```html
-<input type="text" name="title" value="{{old('title')}}" class="form-control" id="inputTitle">
+...value="{{old('title')}}"...
 ...value="{{old('pages')}}"...
 ...value="{{old('quantity')}}"...
 
