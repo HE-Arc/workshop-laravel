@@ -484,11 +484,6 @@ TODO-5-10
 | `TODO` (après « Quantité : ») | `{{ $book->quantity }}` |
 | `TODO` (dernière ligne) | `@endsection` |
 
-```html
-@extends('layout.app') @section('content') {{ route('books.index') }} {{
-$book->title }} {{ $book->pages }} {{ $book->quantity }} @endsection
-```
-
 TODO-6-0
 
 ```php
@@ -554,6 +549,7 @@ public function boot(): void
 ```
 
 Laravel fournit aussi useBootstrapFour() et useBootstrapThree() selon la version utilisée. useBootstrap() existe encore mais correspond à Bootstrap 4.
+
 TODO-7-0
 
 - Modifier le titre en "Livre à commander"
