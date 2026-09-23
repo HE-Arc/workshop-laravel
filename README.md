@@ -109,7 +109,14 @@ $books = [
     ['title' => 'Assassins Apprentice 2', 'pages' => 110, 'quantity' => 1],
     ['title' => 'The Hobbit', 'pages' => 245, 'quantity' => 10],
     ['title' => 'Nineteen Eighty-Four', 'pages' => 123, 'quantity' => 11],
-    ['title' => 'The Black Prism', 'pages' => 345, 'quantity' => 0]
+    ['title' => 'The Black Prism', 'pages' => 345, 'quantity' => 0],
+    ['title' => 'Dune', 'pages' => 412, 'quantity' => 7],
+    ['title' => 'Foundation', 'pages' => 296, 'quantity' => 4],
+    ['title' => 'Brave New World', 'pages' => 268, 'quantity' => 3],
+    ['title' => 'The Name of the Wind', 'pages' => 662, 'quantity' => 5],
+    ['title' => 'Mistborn', 'pages' => 541, 'quantity' => 8],
+    ['title' => 'The Left Hand of Darkness', 'pages' => 304, 'quantity' => 2],
+    ['title' => 'Hyperion', 'pages' => 482, 'quantity' => 6],
 ];
 
 foreach ($books as $book){
