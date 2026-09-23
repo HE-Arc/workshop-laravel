@@ -175,32 +175,79 @@ TODO-4-6
 TODO-4-7
 
 ```html
-@extends("layout.app") @section("content") @foreach ($books as $book) {{$book}}
-@endforeach @endsection
+@extends('layout.app')
+
+@section('content')
+    @foreach ($books as $book)
+        {{ $book }}
+    @endforeach
+@endsection
 ```
 
 TODO-4-8
 
 ```html
-@foreach ($books as $book) {{$book->title}} {{$book->pages}} {{$book->quantity}}
-@endforeach
+@extends('layout.app')
+
+@section('content')
+    <h1>Livres</h1>
+
+    <a href="#" class="btn btn-primary mb-2">Ajouter un livre</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Titre</th>
+                <th scope="col">Pages</th>
+                <th scope="col">Quantité</th>
+                <th scope="col">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($books as $book)
+                <tr>
+                    <td>{{ $book->title }}</td>
+                    <td>{{ $book->pages }}</td>
+                    <td>{{ $book->quantity }}</td>
+                    <td>--actions--</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+@endsection
 ```
 
 TODO-4-9
 
 ```html
-{{ route('books.index') }}
+<a class="nav-link" href="{{ route('books.index') }}">Books</a>
 ```
 
 TODO-5-0
 
+Créer le dossier `resources/views/books/` et y déplacer `books.blade.php`.
+
 TODO-5-1
 
-Mettre `view('books.index'...` dans le controller
+```php
+public function index()
+{
+    $books = \App\Models\Book::all();
+    return view('books.index', ['books' => $books]);
+}
+```
 
 TODO-5-2
 
-Créer les vues manquantes `show.blade.php`, `create.blade.php` et `edit.blade.php` et inscrire quelque chose de temporaire sur chaque vue
+Dans chacune, du contenu provisoire pour vérifier:
+
+```html
+@extends('layout.app')
+
+@section('content')
+    <h1>Création d'un livre</h1>
+@endsection
+```
 
 TODO-5-3
 
@@ -341,17 +388,42 @@ Ou en utilisant la classe Session directement
     @endif @yield('content')
 </div>
 ```
+> `$message = Session::get('success')` fait deux choses d'un coup : l'affectation renvoie la valeur.
+
+En le plaçant dans le layout, le message s'affiche sur n'importe quelle page sans rien dupliquer
 
 TODO-5-8
 
+ Marqueur dans le template | À remplacer par |
+| --- | --- |
+| `TODO: extends app layout` (ligne 1) | `@extends('layout.app')` |
+| `TODO: section content` (ligne 1) | `@section('content')` |
+| `href="TODO: route Laravel"` (bouton Retour) | `href="{{ route('books.index') }}"` |
+| `action="TODO: route Laravel"` (`<form>`) | `action="{{ route('books.store') }}"` |
+| `TODO: CSRF` (dans le `<form>`) | `@csrf` |
+| `TODO: end section content` (dernière ligne) | `@endsection` |
+
+Result:
+
 ```html
-@extends('layout.app') @section('content') {{ route('books.index') }} {{
-route('books.store') }} @csrf @endsection
+@extends('layout.app')
+
+@section('content')
+    <div class="row mb-3">
+        <div class="col-12">
+            <a class="btn btn-primary" href="{{ route('books.index') }}">Retour</a>
+        </div>
+    </div>
+
+    <form action="{{ route('books.store') }}" method="POST">
+        @csrf
+    </form>
+@endsection
 ```
 
 Résoudre le problème du "mass assignement"
 
-> Le fait d'utiliser `$request->all()` pose problème, un user malvaillant pourrait modifier des champs sensibles, car pas de control précis parce qu'on modifie tous les champs en même temps sans regarder quoi. Il y a 2 solutions, les voici :
+> Le fait d'utiliser `$request->all()` pose problème, un user malvaillant pourrait modifier des champs sensibles, car pas de control précis parce qu'on modifie tous les champs en même temps sans regarder quoi. Il y a 2 solutions (nous allons utiliser la 2), les voici :
 
 1. Remplacer `Book::create($request->all());` dans `BookControler.store` par
 
@@ -363,25 +435,54 @@ $book->quantity = $request->quantity;
 $book->save();
 ```
 
-2. Remettre le `Book::create()` et ajouter `$fillable` dans le modèle Book ce qui suit
+2. Remettre le `Book::create()` et ajouter `$fillable` dans `app/Models/Book.php` ce qui suit
 
 ```php
 protected $fillable = [
     'title', 'pages', 'quantity'
 ];
 ```
-
+> La solution 2 est la plus courante.
 > Il existe aussi une autre méthode que fillable, qui fait l'inverse (permet d'indiquer les champs qui ne peuvent pas être mass assignable), mais non recommandée. Le mieux c'est de mettre les champs fillable dans le modèle et en fonction des besoins faire un request->all() ou de préciser les champs du modèle à modifier.
 
 TODO-5-9
 
+| Marqueur dans le template | À remplacer par |
+| --- | --- |
+| `TODO TODO` (ligne 1) | `@extends('layout.app')` puis `@section('content')` |
+| `href="TODO"` (bouton Retour) | `href="{{ route('books.index') }}"` |
+| `action="TODO: send the current book id"` | `action="{{ route('books.update', $book->id) }}"` |
+| `TODO TODO` (dans le `<form>`) | `@csrf` puis `@method('PUT')` |
+| `value="TODO"` (champ titre) | `value="{{ $book->title }}"` |
+| `value="TODO"` (champ pages) | `value="{{ $book->pages }}"` |
+| `value="TODO"` (champ quantité) | `value="{{ $book->quantity }}"` |
+| `TODO` (dernière ligne) | `@endsection` |
+
 ```html
-@extends('layout.app') @section('content') {{ route('books.index') }} {{
-route('books.update', $book->id) }} @csrf @method('PUT') {{ $book->title }} {{
-$book->pages }} {{ $book->quantity }} @endsection
+@extends('layout.app')
+
+@section('content')
+    <div class="row mb-3">
+        <div class="col-12">
+            <a class="btn btn-primary" href="{{ route('books.index') }}">Retour</a>
+        </div>
+    </div>
+    <form action="{{ route('books.update', $book->id) }}" method="POST">
+        @csrf
+        @method('PUT')
+    </form>
+@endsection
 ```
 
 TODO-5-10
+| Marqueur dans le template | À remplacer par |
+| --- | --- |
+| `TODO TODO` (ligne 1) | `@extends('layout.app')` puis `@section('content')` |
+| `href="TODO"` (bouton Retour) | `href="{{ route('books.index') }}"` |
+| `TODO` (après « Titre : ») | `{{ $book->title }}` |
+| `TODO` (après « Nombre de pages : ») | `{{ $book->pages }}` |
+| `TODO` (après « Quantité : ») | `{{ $book->quantity }}` |
+| `TODO` (dernière ligne) | `@endsection` |
 
 ```html
 @extends('layout.app') @section('content') {{ route('books.index') }} {{
@@ -405,6 +506,7 @@ TODO-6-1
 ```html
 {{ $errors }}
 ```
+> `$errors` existe dans **toutes** les vues, même quand il n'y a aucune erreur
 
 TODO-6-2
 
@@ -428,6 +530,7 @@ $books = \App\Models\Book::latest()->paginate(5);
 return view('books.index', compact('books'))
     ->with('i', (request()->input('page', 1) - 1) * 5);
 ```
+> `paginate(5)` remplace `all()` : Laravel ne récupère plus que 5 livre
 
 TODO-6-4
 
@@ -458,7 +561,14 @@ TODO-7-0
 - Supprimer les boutons actions
 
 ```html
-@extends('layout.app') @section('content') {{ route('books.index') }}
+@extends('layout.app')
+
+@section('content')
+    <h1>Livres à commander</h1>
+
+    <a href="{{ route('books.index') }}" class="btn btn-primary mb-2">Retour aux livres</a>
+
+    {!! $books->links() !!}
 @endsection
 ```
 
@@ -485,7 +595,7 @@ public function order()
 TODO-7-3
 
 ```html
-{{ route('books.order') }}
+<a class="nav-link" href="{{ route('books.order') }}">Order</a>
 ```
 
 TODO-7-4
@@ -514,8 +624,10 @@ Ou en utilisant la méthode `@forelse`
 
 TODO-8-0
 
-- `php artisan make:model Author --migration`
-    > `--migration` peut être remplacé par `-m`
+```bash
+php artisan make:model Author --migration
+```
+> `--migration` peut être remplacé par `-m`
 
 TODO-8-1
 
@@ -526,10 +638,17 @@ Schema::create('authors', function (Blueprint $table) {
     $table->timestamps();
 });
 ```
+Puis :
+
+```bash
+php artisan migrate
+```
 
 TODO-8-2
 
-`php artisan make:migration add_author_fk_to_books --table=books`
+```bash
+php artisan make:migration add_author_fk_to_books --table=books
+```
 
 > INFO : Si les conventions Laravel sont respectées pour le nommage des migrations, l'option `--table=books` n'est pas nécessaire
 
@@ -539,7 +658,7 @@ public function up()
     Schema::table('books', function (Blueprint $table) {
         $table->foreignId('author_id')->nullable()->constrained()->cascadeOnDelete();
 
-        // Ou alors aussi. Les deux syntaxes fonctionnent de la même manière
+        // Ou alors aussi. Les deux syntaxes fonctionnent de la même manière, ne pas mettre les deux,
 
         $table->foreignId('author_id')->nullable()->constrained()->onDelete('cascade');
     });
@@ -563,9 +682,10 @@ public function down()
 
 TODO-8-4
 
-`php artisan migrate:rollback`
-
-`php artisan migrate`
+```bash
+php artisan migrate:rollback
+php artisan migrate
+```
 
 TODO-8-5
 
@@ -581,10 +701,12 @@ public function books()
 Dans "Book"
 
 ```php
-function author() {
+public function author()
+{
     return $this->belongsTo(Author::class);
 }
 ```
+> Ces méthodes s'utilisent ensuite comme des propriétés : `$book->author->name`, `$author->books`.
 
 TODO-8-6
 
@@ -661,6 +783,7 @@ public function create()
     return view('books.create', compact('authors'));
 }
 ```
+> `compact('authors')` est un raccourci pour `['authors' => $authors]`.
 
 TODO-8-11
 
@@ -679,12 +802,14 @@ TODO-8-11
 TODO-8-12
 
 ```html
-...value="{{old('title')}}"...
-...value="{{old('pages')}}"...
-...value="{{old('quantity')}}"...
+<input type="text" name="title"    value="{{ old('title') }}"    class="form-control" id="inputTitle" />
+<input type="text" name="pages"    value="{{ old('pages') }}"    class="form-control" id="inputPages" />
+<input type="text" name="quantity" value="{{ old('quantity') }}" class="form-control" id="inputQuantity" />
+```
 
+Sur le `select` il faut sélectionner la bonne option:
 
-
+```html
 <div class="col-12 mb-3">
     <label for="authorSelect" class="form-label">Auteur</label>
     <select class="form-select" name="author_id" id="authorSelect">
@@ -718,3 +843,9 @@ Une fois importé il est possible de les utiliser comme suit:
 ```
 
 TODO-9-1
+Par example:
+
+```html
+<a class="btn btn-primary" href="..."><i class="bi bi-pencil-fill"></i></a>
+<button type="submit" class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
+```
