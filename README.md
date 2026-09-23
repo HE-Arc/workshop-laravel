@@ -150,9 +150,14 @@ Route::resource('books', BookController::class);
 
 TODO-4-3
 
+créer le dossier layout/ et le fichier resources/views/layout/app.blade.php
+
 TODO-4-4
 
+Utiliser le contenu de la vue home pour la vue layout 
+
 TODO-4-5
+Dans le layout, remplacer le contenu propre à la page d'accueil par un emplacement nommé content, que chaque vue enfant viendra remplir :
 
 ```html
 <div class="container mt-3">@yield('content')</div>
