@@ -6,10 +6,8 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-// TODO-3-4 Créer le seeder "BookSeeder" --> php artisan...
-// TODO-3-5 Rajouter quelques livres
-// TODO-3-7 Exécuter le seeder --> php artisan...
-
+// TODO-3-4, TODO-3-5 : voir database/seeders/BookSeeder.php
+// TODO-3-7 : php artisan db:seed
 
 class DatabaseSeeder extends Seeder
 {
@@ -26,5 +24,6 @@ class DatabaseSeeder extends Seeder
 
         User::factory(10)->create();
         // TODO-3-6 Ajouter le seeder "BookSeeder" ici en utilisant "$this->call(...)"
+        $this->call(BookSeeder::class);
     }
 }

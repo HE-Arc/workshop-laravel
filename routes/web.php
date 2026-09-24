@@ -2,15 +2,14 @@
 
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\WelcomeController;
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
+// TODO-1-2
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
+// TODO-7-1 : doit etre declaree AVANT la ressource, sinon /books/order
+// est capture par books/{book} et renvoie 404
+Route::get('books/order', [BookController::class, 'order'])->name('books.order');
 
-// TODO-1-2 Remplacer la route "welcome" par la route "home" affichant le hello world
-
-// TODO-7-1 Créer une route pour "order" en s'inspirant de la route "home"
-
-// TODO-4-2 Ajouter la ressource BookController aux routes
+// TODO-4-2
+Route::resource('books', BookController::class);

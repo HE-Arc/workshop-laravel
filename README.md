@@ -167,39 +167,128 @@ TODO-4-6
 @endsection
 ```
 
-TODO-4-7
+### TODO-4-7 — Afficher les livres dans une vue
 
-```html
-@extends("layout.app") @section("content") @foreach ($books as $book) {{$book}}
-@endforeach @endsection
+**Fichier :** `resources/views/books.blade.php` (à créer)
+
+Le contrôleur envoie la variable `$books` (TODO-4-1), la vue la parcour avec `@foreach` :
+
+```blade
+@extends('layout.app')
+
+@section('content')
+    @foreach ($books as $book)
+        {{ $book }}
+    @endforeach
+@endsection
 ```
 
-TODO-4-8
+> À ce stade `{{ $book }}` affiche l'objet complet en JSON : c'est volontairement moche,
+> on l'améliore au TODO suivant. Le but ici est juste de vérifier que les données arrivent
+> bien du contrôleur jusqu'à la vue.
 
-```html
-@foreach ($books as $book) {{$book->title}} {{$book->pages}} {{$book->quantity}}
-@endforeach
+---
+
+### TODO-4-8 — Mettre les livres dans un tableau
+
+**Fichier :** `resources/views/books.blade.php`  
+**Où :** remplacer le contenu de la section par le template `examples/4-8-books-index.html`, puis rendre le `<tr>` dynamique.
+
+Le `@foreach` entoure **le `<tr>`, pas le `<table>`** — sinon tu obtiens un tableau complet par livre :
+
+```blade
+@extends('layout.app')
+
+@section('content')
+    <h1>Livres</h1>
+
+    <a href="#" class="btn btn-primary mb-2">Ajouter un livre</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Titre</th>
+                <th scope="col">Pages</th>
+                <th scope="col">Quantité</th>
+                <th scope="col">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($books as $book)
+                <tr>
+                    <td>{{ $book->title }}</td>
+                    <td>{{ $book->pages }}</td>
+                    <td>{{ $book->quantity }}</td>
+                    <td>--actions--</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+@endsection
 ```
 
-TODO-4-9
+---
 
-```html
-{{ route('books.index') }}
+### TODO-4-9 — Lien « Books » dans la navbar
+
+**Fichier :** `resources/views/layout/app.blade.php`  
+**Où :** dans le `<li class="nav-item">` de la navbar, remplacer le `href` provisoire.
+
+```blade
+<a class="nav-link" href="{{ route('books.index') }}">Books</a>
 ```
 
-TODO-5-0
+> **Pourquoi `route()` et pas `/books` ?** Si le nom de la ressource change un jour, toutes les
+> URL de l'app suivent automatiquement. Avec des URL écrites en dur, il faudrait corriger chaque lien.
 
-TODO-5-1
+---
 
-Mettre `view('books.index'...` dans le controller
+### TODO-5-0 — Regrouper les vues dans un dossier
 
-TODO-5-2
+**Action :** créer le dossier `resources/views/books/` et y déplacer `books.blade.php`.
 
-Créer les vues manquantes `show.blade.php`, `create.blade.php` et `edit.blade.php` et inscrire quelque chose de temporaire sur chaque vue
+Rien à écrire, c'est uniquement de l'organisation de fichiers. Le point dans `view('books.index')`
+correspond au `/` du chemin : `books/index.blade.php` → `books.index`.
 
-TODO-5-3
+---
 
-Relier les méthode `create`, `show` et `edit` du controleur aux vues correspondantes
+### TODO-5-1 — Renommer la vue en `index`
+
+**Fichiers :** `resources/views/books/index.blade.php` (renommage) et `app/Http/Controllers/BookController.php`
+
+Après le renommage, la vue s'appelle `books.index`. Adapter la méthode `index` :
+
+```php
+public function index()
+{
+    $books = \App\Models\Book::all();
+    return view('books.index', ['books' => $books]);
+}
+```
+
+> Si tu oublies le contrôleur : `View [books] not found`.
+
+---
+
+### TODO-5-2 — Créer les vues manquantes du CRUD
+
+**Fichiers à créer dans `resources/views/books/` :** `create.blade.php`, `edit.blade.php`, `show.blade.php`
+
+Dans chacune, du contenu provisoire pour vérifier le routage :
+
+```blade
+@extends('layout.app')
+
+@section('content')
+    <h1>Création d'un livre</h1>   {{-- puis "Édition", "Détails" dans les deux autres --}}
+@endsection
+```
+
+---
+
+### TODO-5-3 — Relier les vues aux méthodes du contrôleur
+
+**Fichier :** `app/Http/Controllers/BookController.php`
 
 ```php
 public function create()
@@ -218,30 +307,48 @@ public function edit(string $id)
 }
 ```
 
-TODO-5-4
+Tester ensuite chaque URL à la main : `/books/create`, `/books/1`, `/books/1/edit`.
 
-```html
-<!--ajouter un livre-->
-<a href="{{ route('books.create') }}" class="btn btn-primary float-end mb-2"
-    >Ajouter un livre</a
->
+---
 
-<!--actions-->
+### TODO-5-4 — Boutons d'action dans la liste
+
+**Fichier :** `resources/views/books/index.blade.php`
+
+Bouton « Ajouter », au-dessus du tableau :
+
+```blade
+<a href="{{ route('books.create') }}" class="btn btn-primary float-end mb-2">Ajouter un livre</a>
+```
+
+Colonne actions, **à l'intérieur du `@foreach`** (c'est `$book->id` qui change à chaque ligne) :
+
+```blade
 <td>
-    <a class="btn btn-info" href="{{ route('books.show',$book->id) }}"
-        >Afficher</a
-    >
-    <a class="btn btn-primary" href="{{ route('books.edit',$book->id) }}"
-        >Modifier</a
-    >
-    <form action="{{ route('books.destroy',$book->id) }}" method="POST">
-        @csrf @method('DELETE')
+    <a class="btn btn-info" href="{{ route('books.show', $book->id) }}">Afficher</a>
+    <a class="btn btn-primary" href="{{ route('books.edit', $book->id) }}">Modifier</a>
+
+    <form action="{{ route('books.destroy', $book->id) }}" method="POST">
+        @csrf
+        @method('DELETE')
         <button type="submit" class="btn btn-danger">Supprimer</button>
     </form>
 </td>
 ```
 
-TODO-5-5
+> **Pourquoi un `<form>` pour supprimer et un `<a>` pour le reste ?** Un lien envoie toujours un GET.
+> La suppression exige un DELETE, impossible avec un `<a>`.
+>
+> **`@csrf`** insère un jeton caché : sans lui, Laravel refuse le POST avec une erreur 419.
+>
+> **`@method('DELETE')`** insère un champ caché `_method=DELETE`. Le navigateur envoie un POST,
+> Laravel lit ce champ et route vers `destroy()`. C'est le _method spoofing_.
+
+---
+
+### TODO-5-5 — Compléter les méthodes du contrôleur
+
+**Fichier :** `app/Http/Controllers/BookController.php`
 
 ```php
 public function store(Request $request)
@@ -279,36 +386,14 @@ public function destroy(string $id)
 }
 ```
 
-TODO-5-6
-
-```php
-public function store(Request $request)
-{
-    \App\Models\Book::create($request->all());
-
-    return redirect()->route('books.index')
-        ->with('success','Book created successfully.');
-}
-
-public function update(Request $request, string $id)
-{
-    \App\Models\Book::findOrFail($id)->update($request->all());
-
-    return redirect()->route('books.index')
-        ->with('success','Book updated successfully');
-}
-
-public function destroy(string $id)
-{
-    $book = \App\Models\Book::find($id);
-    $book->delete();
-
-    return redirect()->route('books.index')
-                    ->with('success','Book deleted successfully');
-}
-```
-
-> Il est également possible de mettre le type de l'élément attendu dans les paramètres afin que Laravel fasse de lui même la conversion
+> **Pourquoi `redirect()` et pas `view()` après un POST ?** Si on renvoyait une vue directement,
+> un F5 du navigateur renverrait le formulaire et créerait un doublon. La redirection repart
+> sur un GET propre.
+>
+> **`findOrFail` vs `find`** : `findOrFail` renvoie une 404 si l'ID n'existe pas, `find` renvoie
+> `null` et plante ensuite sur `->delete()`.
+>
+> Laravel peut aussi faire la conversion ID → objet tout seul (_route model binding_) :
 >
 > ```php
 > public function show(Book $book)
@@ -317,127 +402,299 @@ public function destroy(string $id)
 > }
 > ```
 
-TODO-5-7
+---
 
-```html
+### TODO-5-6 — Messages de confirmation (envoi)
+
+**Fichier :** `app/Http/Controllers/BookController.php`  
+**Où :** enchaîner `->with(...)` sur les trois redirections de `store`, `update` et `destroy`.
+
+```php
+// store()
+return redirect()->route('books.index')
+    ->with('success', 'Book created successfully.');
+
+// update()
+return redirect()->route('books.index')
+    ->with('success', 'Book updated successfully.');
+
+// destroy()
+return redirect()->route('books.index')
+    ->with('success', 'Book deleted successfully.');
+```
+
+> `with()` stocke le message en session **pour la requête suivante uniquement** (_flash data_) :
+> il s'affiche une fois puis disparaît tout seul.
+
+---
+
+### TODO-5-7 — Messages de confirmation (affichage)
+
+**Fichier :** `resources/views/layout/app.blade.php`  
+**Où :** dans le `<div class="container">`, **au-dessus** du `@yield('content')`.
+
+En le plaçant dans le layout, le message s'affiche sur n'importe quelle page sans rien dupliquer.
+
+Version minimale :
+
+```blade
 <div class="container mt-3">
-    @if (session('success')) {{ session('success') }} @endif @yield('content')
+    @if (session('success'))
+        {{ session('success') }}
+    @endif
+
+    @yield('content')
 </div>
 ```
 
-Ou en utilisant la classe Session directement
+Version avec une alerte Bootstrap :
 
-```html
+```blade
 <div class="container mt-3">
     @if ($message = Session::get('success'))
-    <div class="alert alert-success">
-        <p>{{ $message }}</p>
-    </div>
-    @endif @yield('content')
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
+
+    @yield('content')
 </div>
 ```
 
-TODO-5-8
+> `$message = Session::get('success')` fait deux choses d'un coup : l'affectation renvoie la valeur,
+> que le `@if` teste ensuite. `@if (session('success'))` est plus lisible si cette syntaxe te gêne.
 
-```html
-@extends('layout.app') @section('content') {{ route('books.index') }} {{
-route('books.store') }} @csrf @endsection
+---
+
+### TODO-5-8 — Formulaire de création
+
+**Fichier :** `resources/views/books/create.blade.php`  
+**Template de départ :** `examples/5-8-books-create.html`
+
+Chaque marqueur `TODO` du template correspond à une ligne précise :
+
+| Marqueur dans le template                    | À remplacer par                       |
+| -------------------------------------------- | ------------------------------------- |
+| `TODO: extends app layout` (ligne 1)         | `@extends('layout.app')`              |
+| `TODO: section content` (ligne 1)            | `@section('content')`                 |
+| `href="TODO: route Laravel"` (bouton Retour) | `href="{{ route('books.index') }}"`   |
+| `action="TODO: route Laravel"` (`<form>`)    | `action="{{ route('books.store') }}"` |
+| `TODO: CSRF` (dans le `<form>`)              | `@csrf`                               |
+| `TODO: end section content` (dernière ligne) | `@endsection`                         |
+
+Soit, une fois complété (le corps du formulaire est inchangé) :
+
+```blade
+@extends('layout.app')
+
+@section('content')
+    <div class="row mb-3">
+        <div class="col-12">
+            <a class="btn btn-primary" href="{{ route('books.index') }}">Retour</a>
+        </div>
+    </div>
+
+    <form action="{{ route('books.store') }}" method="POST">
+        @csrf
+
+        {{-- ... les champs title / pages / quantity du template ... --}}
+    </form>
+@endsection
 ```
 
-Résoudre le problème du "mass assignement"
+#### Le problème du _mass assignment_
 
-> Le fait d'utiliser `$request->all()` pose problème, un user malvaillant pourrait modifier des champs sensibles, car pas de control précis parce qu'on modifie tous les champs en même temps sans regarder quoi. Il y a 2 solutions, les voici :
+Le formulaire est correct, mais l'ajout échoue quand même. C'est normal, et c'est une **sécurité**
+de Laravel : `Book::create($request->all())` écrirait dans la base _tous_ les champs envoyés par le
+navigateur. Un utilisateur malveillant pourrait ajouter un champ à la main (`is_admin`, `price`, ...)
+et modifier des colonnes qu'on n'avait jamais prévu d'exposer. Laravel bloque donc tout par défaut.
 
-1. Remplacer `Book::create($request->all());` dans `BookControler.store` par
+Deux solutions :
+
+**1. Lister les champs à la main** dans `BookController::store` :
 
 ```php
 $book = new \App\Models\Book();
-$book->title = $request->title;
-$book->pages = $request->pages;
+$book->title    = $request->title;
+$book->pages    = $request->pages;
 $book->quantity = $request->quantity;
 $book->save();
 ```
 
-2. Remettre le `Book::create()` et ajouter `$fillable` dans le modèle Book ce qui suit
+**2. Déclarer les champs autorisés** dans `app/Models/Book.php`, et garder `Book::create()` :
 
 ```php
 protected $fillable = [
-    'title', 'pages', 'quantity'
+    'title', 'pages', 'quantity',
 ];
 ```
 
-> Il existe aussi une autre méthode que fillable, qui fait l'inverse (permet d'indiquer les champs qui ne peuvent pas être mass assignable), mais non recommandée. Le mieux c'est de mettre les champs fillable dans le modèle et en fonction des besoins faire un request->all() ou de préciser les champs du modèle à modifier.
+> La solution 2 est la plus courante. Il existe aussi `$guarded`, qui fait l'inverse (lister
+> les champs interdits) — déconseillé, car tout nouveau champ devient exposé par défaut.
 
-TODO-5-9
+---
 
-```html
-@extends('layout.app') @section('content') {{ route('books.index') }} {{
-route('books.update', $book->id) }} @csrf @method('PUT') {{ $book->title }} {{
-$book->pages }} {{ $book->quantity }} @endsection
+### TODO-5-9 — Formulaire d'édition
+
+**Fichier :** `resources/views/books/edit.blade.php`  
+**Template de départ :** `examples/5-9-books-edit.html`
+
+| Marqueur dans le template                 | À remplacer par                                     |
+| ----------------------------------------- | --------------------------------------------------- |
+| `TODO TODO` (ligne 1)                     | `@extends('layout.app')` puis `@section('content')` |
+| `href="TODO"` (bouton Retour)             | `href="{{ route('books.index') }}"`                 |
+| `action="TODO: send the current book id"` | `action="{{ route('books.update', $book->id) }}"`   |
+| `TODO TODO` (dans le `<form>`)            | `@csrf` puis `@method('PUT')`                       |
+| `value="TODO"` (champ titre)              | `value="{{ $book->title }}"`                        |
+| `value="TODO"` (champ pages)              | `value="{{ $book->pages }}"`                        |
+| `value="TODO"` (champ quantité)           | `value="{{ $book->quantity }}"`                     |
+| `TODO` (dernière ligne)                   | `@endsection`                                       |
+
+```blade
+@extends('layout.app')
+
+@section('content')
+    <div class="row mb-3">
+        <div class="col-12">
+            <a class="btn btn-primary" href="{{ route('books.index') }}">Retour</a>
+        </div>
+    </div>
+
+    <form action="{{ route('books.update', $book->id) }}" method="POST">
+        @csrf
+        @method('PUT')
+
+        {{-- les champs, pré-remplis avec value="{{ $book->... }}" --}}
+    </form>
+@endsection
 ```
 
-TODO-5-10
+> **Deux différences avec le formulaire de création**, et ce sont les deux pièges habituels :
+>
+> 1. `route('books.update', $book->id)` prend un **second argument** : sans lui, Laravel ne sait
+>    pas quel livre modifier (`Missing required parameter`).
+> 2. `@method('PUT')` est obligatoire. Sans lui, le POST part sur `store()` et **crée** un
+>    nouveau livre au lieu de modifier l'existant.
+>
+> Le `value="{{ ... }}"` est ce qui pré-remplit les champs : c'est l'objet `$book` envoyé
+> par la méthode `edit()` du contrôleur (TODO-5-5).
 
-```html
-@extends('layout.app') @section('content') {{ route('books.index') }} {{
-$book->title }} {{ $book->pages }} {{ $book->quantity }} @endsection
-```
+---
 
-TODO-6-0
+### TODO-5-10 — Vue de détail
+
+**Fichier :** `resources/views/books/show.blade.php`  
+**Template de départ :** `examples/5-10-books-show.html`
+
+| Marqueur dans le template            | À remplacer par                                     |
+| ------------------------------------ | --------------------------------------------------- |
+| `TODO TODO` (ligne 1)                | `@extends('layout.app')` puis `@section('content')` |
+| `href="TODO"` (bouton Retour)        | `href="{{ route('books.index') }}"`                 |
+| `TODO` (après « Titre : »)           | `{{ $book->title }}`                                |
+| `TODO` (après « Nombre de pages : ») | `{{ $book->pages }}`                                |
+| `TODO` (après « Quantité : »)        | `{{ $book->quantity }}`                             |
+| `TODO` (dernière ligne)              | `@endsection`                                       |
+
+Pas de formulaire ici : la page ne fait qu'afficher, donc ni `@csrf` ni `@method`.
+
+---
+
+### TODO-6-0 — Valider les données
+
+**Fichier :** `app/Http/Controllers/BookController.php`  
+**Où :** au tout début de `store()`, **avant** la création du livre.
 
 ```php
 $request->validate([
-   'title' => 'required|min:6|max:25',
-   'pages' => 'required|integer|gt:0|lt:1000',
-   'quantity' => 'required|integer|gte:0|lt:100',
+    'title'    => 'required|min:6|max:25',
+    'pages'    => 'required|integer|gt:0|lt:1000',
+    'quantity' => 'required|integer|gte:0|lt:100',
 ]);
 ```
 
-> Le validateur va automatiquement créer et retourner un tableau d'erreurs
+> Si une règle échoue, Laravel **interrompt la méthode**, renvoie l'utilisateur sur le formulaire
+> et place les messages dans une variable `$errors` disponible dans toutes les vues.
+> Rien à attraper avec un `try/catch` : tout est automatique.
 
-TODO-6-1
+---
 
-```html
+### TODO-6-1 — Voir les erreurs
+
+**Fichier :** `resources/views/books/create.blade.php`
+
+Pour commencer, afficher la variable brute afin de vérifier qu'elle se remplit :
+
+```blade
 {{ $errors }}
 ```
 
-TODO-6-2
+> `$errors` existe dans **toutes** les vues, même quand il n'y a aucune erreur (c'est alors
+> un sac vide). Pas besoin de l'envoyer depuis le contrôleur.
 
-```html
+---
+
+### TODO-6-2 — Afficher les erreurs proprement
+
+**Fichier :** `resources/views/books/create.blade.php`  
+**Où :** sous le bouton d'envoi.
+
+```blade
 @if ($errors->any())
-<div class="alert alert-danger mt-3 col-12">
-    <strong>Whoops!</strong> Il y a un problème avec vos entrées.<br /><br />
-    <ul>
-        @foreach ($errors->all() as $error)
-        <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-</div>
+    <div class="alert alert-danger mt-3 col-12">
+        <strong>Whoops!</strong> Il y a un problème avec vos entrées.<br /><br />
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
 @endif
 ```
 
-TODO-6-3
+---
+
+### TODO-6-3 — Paginer la liste
+
+**Fichier :** `app/Http/Controllers/BookController.php`  
+**Où :** méthode `index()`.
 
 ```php
 $books = \App\Models\Book::latest()->paginate(5);
+
 return view('books.index', compact('books'))
     ->with('i', (request()->input('page', 1) - 1) * 5);
 ```
 
-TODO-6-4
+> `paginate(5)` remplace `all()` : Laravel ne récupère plus que 5 livres et lit le numéro de page
+> dans l'URL (`/books?page=2`). La variable `i` sert uniquement à numéroter les lignes en continu
+> d'une page à l'autre.
 
-Placer après `</table>`
+---
 
-```html
+### TODO-6-4 — Liens de pagination
+
+**Fichier :** `resources/views/books/index.blade.php`  
+**Où :** juste après `</table>`.
+
+```blade
 {!! $books->links() !!}
 ```
 
-TODO-6-5
+> **`{!! !!}` et non `{{ }}`** : `{{ }}` échappe le HTML et afficherait le code des boutons
+> en texte brut. `{!! !!}` l'insère tel quel. À n'utiliser que sur du HTML de confiance —
+> jamais sur une saisie utilisateur.
 
-Le CSS généré pour les liens de paginations est généré pour fonctionner avec Tailwind CSS. Nous utilisons Bootstrap et Laravel à pensé à nous. Il suffit de rajouter ce qui suit dans `App\Providers\AppServiceProvider`
+---
+
+### TODO-6-5 — Adapter la pagination à Bootstrap
+
+**Fichier :** `app/Providers/AppServiceProvider.php`
+
+Par défaut, les liens générés par Laravel sont stylés pour Tailwind CSS. Le workshop utilise
+Bootstrap, d'où des boutons qui s'affichent tout cassés. Laravel fournit le correctif :
 
 ```php
-use Illuminate\Pagination\Paginator;   // à ajouter en haut du fichier
+use Illuminate\Pagination\Paginator;   // en haut du fichier
 
 public function boot(): void
 {
@@ -445,27 +702,57 @@ public function boot(): void
 }
 ```
 
-Laravel fournit aussi useBootstrapFour() et useBootstrapThree() selon la version utilisée. useBootstrap() existe encore mais correspond à Bootstrap 4.
-TODO-7-0
+> `useBootstrapFour()` et `useBootstrapThree()` existent aussi. `useBootstrap()` correspond
+> à Bootstrap 4, pas à la version 5.
 
-- Modifier le titre en "Livre à commander"
-- Modifier le bouton "Ajouter" en un bouton "Retour aux livres" (copier bouton sur une autre page avec un bouton "retour")
-- Supprimer les boutons actions
+---
 
-```html
-@extends('layout.app') @section('content') {{ route('books.index') }}
+### TODO-7-0 — Vue des livres à commander
+
+**Fichier :** `resources/views/books/order.blade.php` (à créer)
+
+Partir d'une copie de `index.blade.php`, puis :
+
+- modifier le titre en « Livres à commander » ;
+- remplacer le bouton « Ajouter un livre » par un bouton « Retour aux livres » ;
+- supprimer la colonne des boutons d'action (on ne modifie rien depuis cette page) ;
+- garder le `{!! $books->links() !!}`.
+
+```blade
+@extends('layout.app')
+
+@section('content')
+    <h1>Livres à commander</h1>
+
+    <a href="{{ route('books.index') }}" class="btn btn-primary mb-2">Retour aux livres</a>
+
+    {{-- le tableau, sans la colonne Actions --}}
+
+    {!! $books->links() !!}
 @endsection
 ```
 
-TODO-7-1
+---
 
-> Attention : Il faut mettre la route get avant la ressource, sinon le routeur ne la trouvera pas !
+### TODO-7-1 — Route `order`
+
+**Fichier :** `routes/web.php`
 
 ```php
 Route::get('books/order', [BookController::class, 'order'])->name('books.order');
 ```
 
-TODO-7-2
+> **⚠️ Cette ligne doit être placée AVANT `Route::resource('books', ...)`.**
+>
+> Laravel teste les routes dans l'ordre du fichier et s'arrête à la première qui correspond.
+> Si la ressource vient en premier, `/books/order` est capturé par `books/{book}` : Laravel
+> cherche alors le livre dont l'ID est « order », ne le trouve pas, et renvoie une 404.
+
+---
+
+### TODO-7-2 — Méthode `order`
+
+**Fichier :** `app/Http/Controllers/BookController.php`
 
 ```php
 public function order()
@@ -477,42 +764,69 @@ public function order()
 }
 ```
 
-TODO-7-3
+> C'est `index()` avec un `where()` en plus. Le filtre est dans le contrôleur, pas dans la vue :
+> la vue affiche ce qu'on lui donne, elle ne décide pas ce qui mérite d'être commandé.
 
-```html
-{{ route('books.order') }}
+---
+
+### TODO-7-3 — Lien « Order » dans la navbar
+
+**Fichier :** `resources/views/layout/app.blade.php`
+
+```blade
+<a class="nav-link" href="{{ route('books.order') }}">Order</a>
 ```
 
-TODO-7-4
+---
 
-```html
-@if ($books->count() > 0) @else
-<h3 class="text-success">
-    Aucun livre n'a besoin d'être commandés pour l'instant!
-</h3>
+### TODO-7-4 — Message quand la liste est vide
+
+**Fichier :** `resources/views/books/order.blade.php`
+
+Avec un `@if` autour de la boucle :
+
+```blade
+@if ($books->count() > 0)
+    {{-- le tableau --}}
+@else
+    <h3 class="text-success">
+        Aucun livre n'a besoin d'être commandé pour l'instant !
+    </h3>
 @endif
 ```
 
-Ou en utilisant la méthode `@forelse`
+Ou, plus court, avec `@forelse` — un `@foreach` doté d'un cas « collection vide » :
 
-```html
+```blade
 @forelse ($books as $book)
-<tr>
-    <td>{{ $book->title }}</td>
-    <td>{{ $book->pages }}</td>
-    <td>{{ $book->quantity }}</td>
-</tr>
+    <tr>
+        <td>{{ $book->title }}</td>
+        <td>{{ $book->pages }}</td>
+        <td>{{ $book->quantity }}</td>
+    </tr>
 @empty
-<p>Aucun livre n'a besoin d'être commandés pour l'instant!</p>
+    <tr>
+        <td colspan="3">Aucun livre n'a besoin d'être commandé pour l'instant !</td>
+    </tr>
 @endforelse
 ```
 
-TODO-8-0
+---
 
-- `php artisan make:model Author --migration`
-    > `--migration` peut être remplacé par `-m`
+### TODO-8-0 — Modèle `Author` + migration
 
-TODO-8-1
+```bash
+php artisan make:model Author --migration
+```
+
+> `--migration` peut s'écrire `-m`. La commande crée deux fichiers d'un coup :
+> `app/Models/Author.php` et une migration `..._create_authors_table.php`.
+
+---
+
+### TODO-8-1 — Champ `name` dans la table `authors`
+
+**Fichier :** la migration `database/migrations/..._create_authors_table.php`
 
 ```php
 Schema::create('authors', function (Blueprint $table) {
@@ -522,29 +836,56 @@ Schema::create('authors', function (Blueprint $table) {
 });
 ```
 
-TODO-8-2
+Puis :
 
-`php artisan make:migration add_author_fk_to_books --table=books`
+```bash
+php artisan migrate
+```
 
-> INFO : Si les conventions Laravel sont respectées pour le nommage des migrations, l'option `--table=books` n'est pas nécessaire
+---
+
+### TODO-8-2 — Clé étrangère `author_id` dans `books`
+
+Créer une **nouvelle** migration (on ne modifie pas une migration déjà exécutée) :
+
+```bash
+php artisan make:migration add_author_fk_to_books --table=books
+```
+
+> Si le nom de la migration respecte les conventions Laravel (`..._to_books`),
+> l'option `--table=books` est facultative.
+
+**Fichier :** la migration `..._add_author_fk_to_books.php`
 
 ```php
 public function up()
 {
     Schema::table('books', function (Blueprint $table) {
         $table->foreignId('author_id')->nullable()->constrained()->cascadeOnDelete();
-
-        // Ou alors aussi. Les deux syntaxes fonctionnent de la même manière
-
-        $table->foreignId('author_id')->nullable()->constrained()->onDelete('cascade');
     });
 }
 ```
 
-> NOTE : foreignId crée une colonne de type UNSIGNED BIGINT dans la BDD, contrained permet  
-> d'utiliser les conventions Laravel afin de derminer les tables et les colonnes à relier.
+> **Une seule de ces deux écritures**, elles sont équivalentes — ne pas mettre les deux,
+> sinon la colonne est déclarée deux fois :
+>
+> ```php
+> $table->foreignId('author_id')->nullable()->constrained()->cascadeOnDelete();
+> $table->foreignId('author_id')->nullable()->constrained()->onDelete('cascade');
+> ```
+>
+> Détail des méthodes :
+>
+> - `foreignId` crée une colonne `UNSIGNED BIGINT`, du même type que le `id()` de `authors` ;
+> - `constrained` déduit la table cible du nom de la colonne (`author_id` → `authors`) ;
+> - `nullable` autorise les livres sans auteur — indispensable, la table contient déjà des lignes ;
+> - `cascadeOnDelete` supprime les livres d'un auteur supprimé.
 
-TODO-8-3
+---
+
+### TODO-8-3 — Méthode `down`
+
+**Fichier :** la même migration
 
 ```php
 public function down()
@@ -556,15 +897,26 @@ public function down()
 }
 ```
 
-TODO-8-4
+> **L'ordre compte** : on retire d'abord la contrainte, ensuite la colonne. L'inverse échoue,
+> la colonne étant encore référencée. Noter aussi le tableau dans `dropForeign(['author_id'])`.
 
-`php artisan migrate:rollback`
+---
 
-`php artisan migrate`
+### TODO-8-4 — Vérifier l'aller-retour
 
-TODO-8-5
+```bash
+php artisan migrate:rollback
+php artisan migrate
+```
 
-Dans "Author"
+> `rollback` exécute le `down()` du dernier lot de migrations. Si les deux commandes passent
+> sans erreur, la migration est réversible — c'est ce qu'on cherche à valider ici.
+
+---
+
+### TODO-8-5 — Relation entre les modèles
+
+**Fichier :** `app/Models/Author.php`
 
 ```php
 public function books()
@@ -573,45 +925,67 @@ public function books()
 }
 ```
 
-Dans "Book"
+**Fichier :** `app/Models/Book.php`
 
 ```php
-function author() {
+public function author()
+{
     return $this->belongsTo(Author::class);
 }
 ```
 
-TODO-8-6
+> Côté `Book` la méthode est au **singulier** (un livre = un auteur), côté `Author` au **pluriel**
+> (un auteur = plusieurs livres). La clé étrangère vit dans la table `books`, donc c'est `Book`
+> qui porte le `belongsTo`.
+>
+> Ces méthodes s'utilisent ensuite comme des propriétés : `$book->author->name`, `$author->books`.
+
+---
+
+### TODO-8-6 — Autoriser `author_id` au _mass assignment_
+
+**Fichier :** `app/Models/Book.php`
 
 ```php
 protected $fillable = [
-    'title', 'pages', 'quantity', 'author_id'
+    'title', 'pages', 'quantity', 'author_id',
 ];
 ```
 
-TODO-8-7
+> Même mécanisme qu'au TODO-5-8 : un champ absent de `$fillable` est silencieusement ignoré
+> par `create()` et `update()`. Oublier cette ligne est la cause n°1 du « l'auteur ne s'enregistre pas ».
 
-```html
-<td>{{$book->author_id ?? "Auteur inconnu..."}}</td>
+---
+
+### TODO-8-7 — Afficher l'ID de l'auteur
+
+**Fichier :** `resources/views/books/index.blade.php`
+
+```blade
+<td>{{ $book->author_id ?? "Auteur inconnu..." }}</td>
 ```
 
-> ```php=
-> $foo = $bar ?? 'something';
-> $foo = isset($bar) ? $bar : 'something';
-> ```
+> `??` est l'opérateur de coalescence : il renvoie la valeur de gauche si elle existe
+> et n'est pas `null`, sinon celle de droite. Indispensable ici, puisque `author_id`
+> est `nullable`.
 >
-> Source : https://stackoverflow.com/questions/53610622/what-does-double-question-mark-operator-mean-in-php
+> ```php
+> $foo = $bar ?? 'something';
+> $foo = isset($bar) ? $bar : 'something';   // équivalent, en plus long
+> ```
 
-TODO-8-8
+---
 
-Commencer par autoriser le mass assignment sur `Author`, sinon `create()` refusera
-d'écrire (même problème qu'au TODO-5-8). Dans `app/Models/Author.php` :
+### TODO-8-8 — Créer des auteurs avec tinker
+
+Commencer par autoriser le _mass assignment_ sur `Author`, sinon `create()` refusera d'écrire
+(même problème qu'au TODO-5-8). Dans `app/Models/Author.php` :
 
 ```php
 protected $fillable = ['name'];
 ```
 
-Puis lancer tinker :
+Puis lancer tinker — une console PHP interactive branchée sur l'application :
 
 ```bash
 php artisan tinker
@@ -632,22 +1006,41 @@ $books[3]->update(['author_id' => $orwell->id]);
 
 // Vérifier
 App\Models\Book::with('author')->get();
-$hobb->books;   // les 2 tomes de Robin Hobb
+$hobb->books;   // les 2 livres de Robin Hobb
 ```
 
 Sortir de tinker avec `exit` ou Ctrl+D.
 
-TODO-8-9
+> Laisser au moins un livre sans auteur : c'est ce qui permet de tester le « Auteur inconnu... ».
+
+---
+
+### TODO-8-9 — Afficher le nom plutôt que l'ID
+
+**Fichier :** `app/Http/Controllers/BookController.php`, méthode `index()`
 
 ```php
 $books = \App\Models\Book::with('author')->latest()->paginate(5);
 ```
 
-```html
-<td>{{$book->author->name ?? "Auteur inconnu..."}}</td>
+**Fichier :** `resources/views/books/index.blade.php`
+
+```blade
+<td>{{ $book->author->name ?? "Auteur inconnu..." }}</td>
 ```
 
-TODO-8-10
+> **Pourquoi `with('author')` ?** Sans lui, la page fonctionne quand même, mais Laravel exécute
+> une requête SQL **par livre** pour aller chercher l'auteur (6 requêtes pour 5 livres) : c'est
+> le problème **N+1**. `with('author')` charge tous les auteurs en une seule requête supplémentaire.
+>
+> Noter que le `??` protège maintenant deux choses : `author` peut être `null`, et on ne peut pas
+> lire `->name` sur `null`.
+
+---
+
+### TODO-8-10 — Envoyer les auteurs au formulaire
+
+**Fichier :** `app/Http/Controllers/BookController.php`
 
 ```php
 public function create()
@@ -657,47 +1050,85 @@ public function create()
 }
 ```
 
-TODO-8-11
+> `compact('authors')` est un raccourci pour `['authors' => $authors]`.
 
-```html
+---
+
+### TODO-8-11 — Champ `select` dans le formulaire de création
+
+**Fichier :** `resources/views/books/create.blade.php`
+
+```blade
 <div class="col-12 mb-3">
     <label for="authorSelect" class="form-label">Auteur</label>
     <select class="form-select" name="author_id" id="authorSelect">
         <option value="">Auteur inconnu...</option>
         @foreach ($authors as $author)
-        <option value="{{$author->id}}">{{$author->name}}</option>
+            <option value="{{ $author->id }}">{{ $author->name }}</option>
         @endforeach
     </select>
 </div>
 ```
 
-TODO-8-12
+> **L'attribut `name` doit valoir exactement `author_id`** : c'est lui, et pas le `id` HTML,
+> qui donne son nom au champ envoyé au contrôleur. Un `name` différent et la valeur n'arrive
+> jamais dans `$request`.
+>
+> La première `<option>` avec `value=""` permet de ne pas choisir d'auteur (la colonne est `nullable`).
 
-```html
-...value="{{old('title')}}"...
-...value="{{old('pages')}}"...
-...value="{{old('quantity')}}"...
+---
 
+### TODO-8-12 — Conserver les saisies en cas d'erreur
 
+**Fichier :** `resources/views/books/create.blade.php`
 
+Sur chaque champ texte :
+
+```blade
+<input type="text" name="title"    value="{{ old('title') }}"    class="form-control" id="inputTitle" />
+<input type="text" name="pages"    value="{{ old('pages') }}"    class="form-control" id="inputPages" />
+<input type="text" name="quantity" value="{{ old('quantity') }}" class="form-control" id="inputQuantity" />
+```
+
+Sur le `select`, il faut re-sélectionner la bonne option :
+
+```blade
 <div class="col-12 mb-3">
     <label for="authorSelect" class="form-label">Auteur</label>
     <select class="form-select" name="author_id" id="authorSelect">
         <option value="">Auteur inconnu...</option>
         @foreach ($authors as $author)
-        <option value="{{$author->id}}" {{ (old("author_id") == $author->id ? "selected":"") }}>{{$author->name}}</option>
+            <option value="{{ $author->id }}" {{ old('author_id') == $author->id ? 'selected' : '' }}>
+                {{ $author->name }}
+            </option>
         @endforeach
     </select>
 </div>
 ```
 
-TODO-8-13
+> `old('title')` relit la valeur envoyée à la **requête précédente**. Elle est disponible parce que
+> la validation qui a échoué (TODO-6-0) renvoie automatiquement les saisies en session.
+> Sans ces `old()`, l'utilisateur doit tout retaper à la moindre faute de frappe.
+
+---
+
+### TODO-8-13 — Valider le champ auteur
+
+**Fichier :** `app/Http/Controllers/BookController.php`, dans le `validate()` de `store()`
 
 ```php
-'author_id' => 'nullable|integer|exists:authors,id'
+'author_id' => 'nullable|integer|exists:authors,id',
 ```
 
-TODO-9-0
+> `nullable` : le champ peut rester vide. `exists:authors,id` : si une valeur est fournie,
+> elle doit correspondre à un auteur réel — sinon un utilisateur pourrait envoyer un ID au hasard.
+
+---
+
+### TODO-9-0 — Importer les icônes Bootstrap
+
+**Fichier :** `resources/views/layout/app.blade.php`  
+**Où :** dans le `<head>`, à côté du CSS Bootstrap.
 
 ```html
 <link
@@ -706,10 +1137,29 @@ TODO-9-0
 />
 ```
 
-Une fois importé il est possible de les utiliser comme suit:
+Une fois importé, une icône s'utilise comme ceci :
 
 ```html
 <i class="bi bi-arrow-right-circle"></i>
 ```
 
-TODO-9-1
+> Catalogue complet : https://icons.getbootstrap.com/
+
+---
+
+### TODO-9-1 — Ajouter des icônes dans l'app
+
+Libre à toi. Quelques emplacements classiques :
+
+```blade
+{{-- boutons d'action de la liste --}}
+<a class="btn btn-info"    href="..."><i class="bi bi-eye-fill"></i></a>
+<a class="btn btn-primary" href="..."><i class="bi bi-pencil-fill"></i></a>
+<button type="submit" class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
+
+{{-- bouton retour --}}
+<a class="btn btn-outline-secondary" href="..."><i class="bi bi-arrow-left"></i> Retour</a>
+```
+
+> Si un bouton ne contient **qu'**une icône, ajouter un `title="Modifier"` ou un
+> `aria-label="Modifier"` : sans texte, un lecteur d'écran n'annonce rien d'utile.
